@@ -8,8 +8,8 @@ C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\bin\Deb
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\bin\Debug\Tao.OpenGl.xml
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\bin\Debug\Tao.Platform.Windows.xml
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\Debug\GeomMod.csprojResolveAssemblyReference.cache
-C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\Debug\GeomMod.Form1.resources
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\Debug\GeomMod.Properties.Resources.resources
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\Debug\GeomMod.csproj.GenerateResource.Cache
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\Debug\GeomMod.exe
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\Debug\GeomMod.pdb
+C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\Debug\GeomMod.MainForm.resources
