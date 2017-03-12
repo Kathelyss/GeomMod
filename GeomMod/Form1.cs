@@ -143,8 +143,8 @@ namespace GeomMod
             // и масштабирование объекта 
             Gl.glScaled(zoom, zoom, zoom);
             
-            //установка цвета
-            float[] color = new float[4] { 0, 1, 0, 1 }; // собственно, цвет
+            //установка цвета объекта
+            float[] color = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 }; // собственно, цвет
             float[] shininess = new float[1] { 30 };
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
