@@ -142,6 +142,14 @@ namespace GeomMod
             Gl.glRotated(d, os_x, os_y, os_z);
             // и масштабирование объекта 
             Gl.glScaled(zoom, zoom, zoom);
+            
+            //установка цвета
+            float[] color = new float[4] { 0, 1, 0, 1 }; // собственно, цвет
+            float[] shininess = new float[1] { 30 };
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
+
 
             // в зависимости от установленного типа объекта 
             switch (comboBox_Object.SelectedIndex)
@@ -191,7 +199,7 @@ namespace GeomMod
 
             // возвращаем состояние матрицы 
             Gl.glPopMatrix();
- 
+
             // завершаем рисование 
             Gl.glFlush();
 
@@ -201,7 +209,7 @@ namespace GeomMod
 
         // обработка отклика таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
-        {             
+        {
             Draw(); // вызов функции отрисовки сцены
         }
     }

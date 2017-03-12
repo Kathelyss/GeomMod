@@ -12,3 +12,4 @@ C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\x86
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\x86\Debug\GeomMod.csproj.GenerateResource.Cache
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\x86\Debug\GeomMod.exe
 C:\Users\Kathelyss\Documents\Visual Studio 2017\Projects\GeomMod\GeomMod\obj\x86\Debug\GeomMod.pdb
+C:\Users\Kathelyss\documents\visual studio 2017\Projects\GeomMod\GeomMod\obj\x86\Debug\GeomMod.csprojResolveAssemblyReference.cache
