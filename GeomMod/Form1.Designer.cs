@@ -68,7 +68,7 @@
             // labelAxis
             // 
             this.labelAxis.AutoSize = true;
-            this.labelAxis.Location = new System.Drawing.Point(1030, 12);
+            this.labelAxis.Location = new System.Drawing.Point(1041, 22);
             this.labelAxis.Name = "labelAxis";
             this.labelAxis.Size = new System.Drawing.Size(137, 20);
             this.labelAxis.TabIndex = 0;
@@ -84,7 +84,7 @@
             this.simpleOpenGlControl.BackColor = System.Drawing.Color.Black;
             this.simpleOpenGlControl.ColorBits = ((byte)(32));
             this.simpleOpenGlControl.DepthBits = ((byte)(16));
-            this.simpleOpenGlControl.Location = new System.Drawing.Point(426, 12);
+            this.simpleOpenGlControl.Location = new System.Drawing.Point(437, 22);
             this.simpleOpenGlControl.Name = "simpleOpenGlControl";
             this.simpleOpenGlControl.Size = new System.Drawing.Size(590, 590);
             this.simpleOpenGlControl.StencilBits = ((byte)(0));
@@ -106,7 +106,7 @@
             "вокруг оси Х",
             "вокруг оси Y",
             "вокруг оси Z"});
-            this.comboBoxAxis.Location = new System.Drawing.Point(1034, 35);
+            this.comboBoxAxis.Location = new System.Drawing.Point(1045, 45);
             this.comboBoxAxis.Name = "comboBoxAxis";
             this.comboBoxAxis.Size = new System.Drawing.Size(133, 28);
             this.comboBoxAxis.TabIndex = 3;
@@ -129,7 +129,7 @@
             // labelX
             // 
             this.labelX.AutoSize = true;
-            this.labelX.Location = new System.Drawing.Point(996, 606);
+            this.labelX.Location = new System.Drawing.Point(1007, 616);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(20, 20);
             this.labelX.TabIndex = 5;
@@ -138,7 +138,7 @@
             // labelY
             // 
             this.labelY.AutoSize = true;
-            this.labelY.Location = new System.Drawing.Point(325, 13);
+            this.labelY.Location = new System.Drawing.Point(336, 23);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(20, 20);
             this.labelY.TabIndex = 6;
@@ -147,7 +147,7 @@
             // labelZ
             // 
             this.labelZ.AutoSize = true;
-            this.labelZ.Location = new System.Drawing.Point(1035, 75);
+            this.labelZ.Location = new System.Drawing.Point(1046, 85);
             this.labelZ.Name = "labelZ";
             this.labelZ.Size = new System.Drawing.Size(74, 20);
             this.labelZ.TabIndex = 7;
@@ -155,7 +155,7 @@
             // 
             // trackBarX
             // 
-            this.trackBarX.Location = new System.Drawing.Point(426, 629);
+            this.trackBarX.Location = new System.Drawing.Point(437, 639);
             this.trackBarX.Maximum = 50000;
             this.trackBarX.Minimum = -50000;
             this.trackBarX.Name = "trackBarX";
@@ -165,7 +165,7 @@
             // 
             // trackBarY
             // 
-            this.trackBarY.Location = new System.Drawing.Point(351, 13);
+            this.trackBarY.Location = new System.Drawing.Point(362, 23);
             this.trackBarY.Maximum = 50000;
             this.trackBarY.Minimum = -50000;
             this.trackBarY.Name = "trackBarY";
@@ -176,7 +176,7 @@
             // 
             // trackBarZ
             // 
-            this.trackBarZ.Location = new System.Drawing.Point(1042, 98);
+            this.trackBarZ.Location = new System.Drawing.Point(1053, 108);
             this.trackBarZ.Maximum = 50000;
             this.trackBarZ.Minimum = -50000;
             this.trackBarZ.Name = "trackBarZ";
@@ -187,7 +187,7 @@
             // 
             // trackBarAngle
             // 
-            this.trackBarAngle.Location = new System.Drawing.Point(1118, 98);
+            this.trackBarAngle.Location = new System.Drawing.Point(1129, 108);
             this.trackBarAngle.Maximum = 360;
             this.trackBarAngle.Minimum = -360;
             this.trackBarAngle.Name = "trackBarAngle";
@@ -199,7 +199,7 @@
             // labelAngle
             // 
             this.labelAngle.AutoSize = true;
-            this.labelAngle.Location = new System.Drawing.Point(1115, 75);
+            this.labelAngle.Location = new System.Drawing.Point(1126, 85);
             this.labelAngle.Name = "labelAngle";
             this.labelAngle.Size = new System.Drawing.Size(50, 20);
             this.labelAngle.TabIndex = 11;
@@ -214,7 +214,7 @@
             // labelInfoX
             // 
             this.labelInfoX.AutoSize = true;
-            this.labelInfoX.Location = new System.Drawing.Point(710, 669);
+            this.labelInfoX.Location = new System.Drawing.Point(721, 679);
             this.labelInfoX.Name = "labelInfoX";
             this.labelInfoX.Size = new System.Drawing.Size(18, 20);
             this.labelInfoX.TabIndex = 15;
@@ -223,7 +223,7 @@
             // labelInfoY
             // 
             this.labelInfoY.AutoSize = true;
-            this.labelInfoY.Location = new System.Drawing.Point(357, 606);
+            this.labelInfoY.Location = new System.Drawing.Point(368, 616);
             this.labelInfoY.Name = "labelInfoY";
             this.labelInfoY.Size = new System.Drawing.Size(18, 20);
             this.labelInfoY.TabIndex = 16;
@@ -232,7 +232,7 @@
             // labelInfoZ
             // 
             this.labelInfoZ.AutoSize = true;
-            this.labelInfoZ.Location = new System.Drawing.Point(1048, 591);
+            this.labelInfoZ.Location = new System.Drawing.Point(1059, 601);
             this.labelInfoZ.Name = "labelInfoZ";
             this.labelInfoZ.Size = new System.Drawing.Size(18, 20);
             this.labelInfoZ.TabIndex = 17;
@@ -241,7 +241,7 @@
             // labelInfoAngle
             // 
             this.labelInfoAngle.AutoSize = true;
-            this.labelInfoAngle.Location = new System.Drawing.Point(1125, 591);
+            this.labelInfoAngle.Location = new System.Drawing.Point(1136, 601);
             this.labelInfoAngle.Name = "labelInfoAngle";
             this.labelInfoAngle.Size = new System.Drawing.Size(18, 20);
             this.labelInfoAngle.TabIndex = 18;
@@ -261,7 +261,7 @@
             this.groupBoxParametrs.Controls.Add(this.labelFigure2);
             this.groupBoxParametrs.Controls.Add(this.comboBoxFigure1);
             this.groupBoxParametrs.Controls.Add(this.labelFigure1);
-            this.groupBoxParametrs.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxParametrs.Location = new System.Drawing.Point(23, 22);
             this.groupBoxParametrs.Name = "groupBoxParametrs";
             this.groupBoxParametrs.Size = new System.Drawing.Size(275, 676);
             this.groupBoxParametrs.TabIndex = 19;
@@ -368,7 +368,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1230, 708);
+            this.ClientSize = new System.Drawing.Size(1211, 728);
             this.Controls.Add(this.groupBoxParametrs);
             this.Controls.Add(this.labelInfoAngle);
             this.Controls.Add(this.labelY);
