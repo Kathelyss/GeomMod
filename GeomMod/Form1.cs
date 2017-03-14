@@ -13,7 +13,7 @@ namespace GeomMod
         double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
         int os_x = 1, os_y = 0, os_z = 0;
         // режим сеточной визуализации 
-        bool Wire = false;
+        bool wireMode = false;
 
         public MainForm()
         {
@@ -51,8 +51,8 @@ namespace GeomMod
             Gl.glEnable(Gl.GL_LIGHT0);
 
             // установка первых элементов в списках combobox 
-            comboBox_Axis.SelectedIndex = 0;
-            comboBox_Object.SelectedIndex = 0;
+            comboBoxAxis.SelectedIndex = 0;
+            comboBoxObject.SelectedIndex = 0;
 
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
@@ -64,40 +64,40 @@ namespace GeomMod
          *      затем подписываем это значение в label элементе под данным ползунком
         */
 
-        private void trackBar_X_Scroll(object sender, EventArgs e)
+        private void trackBarX_Scroll(object sender, EventArgs e)
         {
-            a = (double)trackBar_X.Value / 1000.0;
-            label_InfoX.Text = a.ToString();
+            a = (double)trackBarX.Value / 1000.0;
+            labelInfoX.Text = a.ToString();
         }
 
-        private void trackBar_Y_Scroll(object sender, EventArgs e)
+        private void trackBarY_Scroll(object sender, EventArgs e)
         {
-            b = (double)trackBar_Y.Value / 1000.0;
-            label_InfoY.Text = b.ToString();
+            b = (double)trackBarY.Value / 1000.0;
+            labelInfoY.Text = b.ToString();
         }
 
-        private void trackBar_Z_Scroll(object sender, EventArgs e)
+        private void trackBarZ_Scroll(object sender, EventArgs e)
         {
-            c = (double)trackBar_Z.Value / 1000.0;
-            label_InfoZ.Text = c.ToString();
+            c = (double)trackBarZ.Value / 1000.0;
+            labelInfoZ.Text = c.ToString();
         }
 
-        private void trackBar_Angle_Scroll(object sender, EventArgs e)
+        private void trackBarAngle_Scroll(object sender, EventArgs e)
         {
-            d = (double)trackBar_Angle.Value;
-            label_InfoAngle.Text = d.ToString();
+            d = (double)trackBarAngle.Value;
+            labelInfoAngle.Text = d.ToString();
         }
 
-        private void trackBar_Zoom_Scroll(object sender, EventArgs e)
+        private void trackBarZoom_Scroll(object sender, EventArgs e)
         {
-            zoom = (double)trackBar_Zoom.Value / 1000.0;
-            label_InfoZoom.Text = zoom.ToString();
+            zoom = (double)trackBarZoom.Value / 1000.0;
+            labelInfoZoom.Text = zoom.ToString();
         }
 
-        private void comboBox_Axis_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxAxis_SelectedIndexChanged(object sender, EventArgs e)
         {
             // в зависимости от выбранного режима 
-            switch (comboBox_Axis.SelectedIndex)
+            switch (comboBoxAxis.SelectedIndex)
             {
                 // устанавливаем необходимую ось (будет использована в функции glRotate**) 
                 case 0:
@@ -152,12 +152,12 @@ namespace GeomMod
 
 
             // в зависимости от установленного типа объекта 
-            switch (comboBox_Object.SelectedIndex)
+            switch (comboBoxObject.SelectedIndex)
             {
                 // рисуем нужный объект, используя функции библиотеки GLUT 
                 case 0:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (wireMode) // если установлен сеточный режим визуализации 
                             Glut.glutWireSphere(2, 16, 16); // сеточная сфера 
                         else
                             Glut.glutSolidSphere(2, 16, 16); // полигональная сфера 
@@ -165,7 +165,7 @@ namespace GeomMod
                     }
                 case 1:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (wireMode) // если установлен сеточный режим визуализации 
                             Glut.glutWireCylinder(1, 2, 32, 32); // цилиндр 
                         else
                             Glut.glutSolidCylinder(1, 2, 32, 32);
@@ -173,7 +173,7 @@ namespace GeomMod
                     }
                 case 2:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (wireMode) // если установлен сеточный режим визуализации 
                             Glut.glutWireCube(2); // куб 
                         else
                             Glut.glutSolidCube(2);
@@ -181,7 +181,7 @@ namespace GeomMod
                     }
                 case 3:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (wireMode) // если установлен сеточный режим визуализации 
                             Glut.glutWireCone(2, 3, 32, 32); // конус 
                         else
                             Glut.glutSolidCone(2, 3, 32, 32);
@@ -189,7 +189,7 @@ namespace GeomMod
                     }
                 case 4:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (wireMode) // если установлен сеточный режим визуализации 
                             Glut.glutWireTorus(0.2, 2.2, 32, 32); // тор 
                         else
                             Glut.glutSolidTorus(0.2, 2.2, 32, 32);

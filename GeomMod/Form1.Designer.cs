@@ -29,42 +29,42 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label_Axis = new System.Windows.Forms.Label();
+            this.labelAxis = new System.Windows.Forms.Label();
             this.simpleOpenGlControl = new Tao.Platform.Windows.SimpleOpenGlControl();
-            this.label_Object = new System.Windows.Forms.Label();
-            this.comboBox_Axis = new System.Windows.Forms.ComboBox();
-            this.comboBox_Object = new System.Windows.Forms.ComboBox();
-            this.label_X = new System.Windows.Forms.Label();
-            this.label_Y = new System.Windows.Forms.Label();
-            this.label_Z = new System.Windows.Forms.Label();
-            this.trackBar_X = new System.Windows.Forms.TrackBar();
-            this.trackBar_Y = new System.Windows.Forms.TrackBar();
-            this.trackBar_Z = new System.Windows.Forms.TrackBar();
-            this.trackBar_Zoom = new System.Windows.Forms.TrackBar();
-            this.trackBar_Angle = new System.Windows.Forms.TrackBar();
-            this.label_Zoom = new System.Windows.Forms.Label();
-            this.label_Angle = new System.Windows.Forms.Label();
+            this.labelObject = new System.Windows.Forms.Label();
+            this.comboBoxAxis = new System.Windows.Forms.ComboBox();
+            this.comboBoxObject = new System.Windows.Forms.ComboBox();
+            this.labelX = new System.Windows.Forms.Label();
+            this.labelY = new System.Windows.Forms.Label();
+            this.labelZ = new System.Windows.Forms.Label();
+            this.trackBarX = new System.Windows.Forms.TrackBar();
+            this.trackBarY = new System.Windows.Forms.TrackBar();
+            this.trackBarZ = new System.Windows.Forms.TrackBar();
+            this.trackBarZoom = new System.Windows.Forms.TrackBar();
+            this.trackBarAngle = new System.Windows.Forms.TrackBar();
+            this.labelZoom = new System.Windows.Forms.Label();
+            this.labelAngle = new System.Windows.Forms.Label();
             this.RenderTimer = new System.Windows.Forms.Timer(this.components);
-            this.label_InfoX = new System.Windows.Forms.Label();
-            this.label_InfoY = new System.Windows.Forms.Label();
-            this.label_InfoZ = new System.Windows.Forms.Label();
-            this.label_InfoAngle = new System.Windows.Forms.Label();
-            this.label_InfoZoom = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_X)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Y)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Z)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Zoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Angle)).BeginInit();
+            this.labelInfoX = new System.Windows.Forms.Label();
+            this.labelInfoY = new System.Windows.Forms.Label();
+            this.labelInfoZ = new System.Windows.Forms.Label();
+            this.labelInfoAngle = new System.Windows.Forms.Label();
+            this.labelInfoZoom = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).BeginInit();
             this.SuspendLayout();
             // 
-            // label_Axis
+            // labelAxis
             // 
-            this.label_Axis.AutoSize = true;
-            this.label_Axis.Location = new System.Drawing.Point(633, 27);
-            this.label_Axis.Name = "label_Axis";
-            this.label_Axis.Size = new System.Drawing.Size(87, 20);
-            this.label_Axis.TabIndex = 0;
-            this.label_Axis.Text = "Вращение";
+            this.labelAxis.AutoSize = true;
+            this.labelAxis.Location = new System.Drawing.Point(633, 27);
+            this.labelAxis.Name = "labelAxis";
+            this.labelAxis.Size = new System.Drawing.Size(87, 20);
+            this.labelAxis.TabIndex = 0;
+            this.labelAxis.Text = "Вращение";
             // 
             // simpleOpenGlControl
             // 
@@ -82,141 +82,141 @@
             this.simpleOpenGlControl.StencilBits = ((byte)(0));
             this.simpleOpenGlControl.TabIndex = 1;
             // 
-            // label_Object
+            // labelObject
             // 
-            this.label_Object.AutoSize = true;
-            this.label_Object.Location = new System.Drawing.Point(633, 81);
-            this.label_Object.Name = "label_Object";
-            this.label_Object.Size = new System.Drawing.Size(210, 20);
-            this.label_Object.TabIndex = 2;
-            this.label_Object.Text = "Объект для визуализации";
+            this.labelObject.AutoSize = true;
+            this.labelObject.Location = new System.Drawing.Point(633, 81);
+            this.labelObject.Name = "labelObject";
+            this.labelObject.Size = new System.Drawing.Size(210, 20);
+            this.labelObject.TabIndex = 2;
+            this.labelObject.Text = "Объект для визуализации";
             // 
-            // comboBox_Axis
+            // comboBoxAxis
             // 
-            this.comboBox_Axis.FormattingEnabled = true;
-            this.comboBox_Axis.Items.AddRange(new object[] {
+            this.comboBoxAxis.FormattingEnabled = true;
+            this.comboBoxAxis.Items.AddRange(new object[] {
             "вдоль оси Х",
             "вдоль оси Y",
             "вдоль оси Z"});
-            this.comboBox_Axis.Location = new System.Drawing.Point(637, 50);
-            this.comboBox_Axis.Name = "comboBox_Axis";
-            this.comboBox_Axis.Size = new System.Drawing.Size(213, 28);
-            this.comboBox_Axis.TabIndex = 3;
-            this.comboBox_Axis.SelectedIndexChanged += new System.EventHandler(this.comboBox_Axis_SelectedIndexChanged);
+            this.comboBoxAxis.Location = new System.Drawing.Point(637, 50);
+            this.comboBoxAxis.Name = "comboBoxAxis";
+            this.comboBoxAxis.Size = new System.Drawing.Size(213, 28);
+            this.comboBoxAxis.TabIndex = 3;
+            this.comboBoxAxis.SelectedIndexChanged += new System.EventHandler(this.comboBoxAxis_SelectedIndexChanged);
             // 
-            // comboBox_Object
+            // comboBoxObject
             // 
-            this.comboBox_Object.FormattingEnabled = true;
-            this.comboBox_Object.Items.AddRange(new object[] {
+            this.comboBoxObject.FormattingEnabled = true;
+            this.comboBoxObject.Items.AddRange(new object[] {
             "сфера",
             "цилиндр",
             "куб",
             "конус",
             "тор"});
-            this.comboBox_Object.Location = new System.Drawing.Point(637, 104);
-            this.comboBox_Object.Name = "comboBox_Object";
-            this.comboBox_Object.Size = new System.Drawing.Size(213, 28);
-            this.comboBox_Object.TabIndex = 4;
+            this.comboBoxObject.Location = new System.Drawing.Point(637, 104);
+            this.comboBoxObject.Name = "comboBoxObject";
+            this.comboBoxObject.Size = new System.Drawing.Size(213, 28);
+            this.comboBoxObject.TabIndex = 4;
             // 
-            // label_X
+            // labelX
             // 
-            this.label_X.AutoSize = true;
-            this.label_X.Location = new System.Drawing.Point(633, 164);
-            this.label_X.Name = "label_X";
-            this.label_X.Size = new System.Drawing.Size(20, 20);
-            this.label_X.TabIndex = 5;
-            this.label_X.Text = "X";
+            this.labelX.AutoSize = true;
+            this.labelX.Location = new System.Drawing.Point(633, 164);
+            this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(20, 20);
+            this.labelX.TabIndex = 5;
+            this.labelX.Text = "X";
             // 
-            // label_Y
+            // labelY
             // 
-            this.label_Y.AutoSize = true;
-            this.label_Y.Location = new System.Drawing.Point(690, 164);
-            this.label_Y.Name = "label_Y";
-            this.label_Y.Size = new System.Drawing.Size(20, 20);
-            this.label_Y.TabIndex = 6;
-            this.label_Y.Text = "Y";
+            this.labelY.AutoSize = true;
+            this.labelY.Location = new System.Drawing.Point(690, 164);
+            this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(20, 20);
+            this.labelY.TabIndex = 6;
+            this.labelY.Text = "Y";
             // 
-            // label_Z
+            // labelZ
             // 
-            this.label_Z.AutoSize = true;
-            this.label_Z.Location = new System.Drawing.Point(752, 164);
-            this.label_Z.Name = "label_Z";
-            this.label_Z.Size = new System.Drawing.Size(19, 20);
-            this.label_Z.TabIndex = 7;
-            this.label_Z.Text = "Z";
+            this.labelZ.AutoSize = true;
+            this.labelZ.Location = new System.Drawing.Point(752, 164);
+            this.labelZ.Name = "labelZ";
+            this.labelZ.Size = new System.Drawing.Size(19, 20);
+            this.labelZ.TabIndex = 7;
+            this.labelZ.Text = "Z";
             // 
-            // trackBar_X
+            // trackBarX
             // 
-            this.trackBar_X.Location = new System.Drawing.Point(637, 209);
-            this.trackBar_X.Maximum = 50000;
-            this.trackBar_X.Minimum = -50000;
-            this.trackBar_X.Name = "trackBar_X";
-            this.trackBar_X.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_X.Size = new System.Drawing.Size(69, 394);
-            this.trackBar_X.TabIndex = 8;
-            this.trackBar_X.Scroll += new System.EventHandler(this.trackBar_X_Scroll);
+            this.trackBarX.Location = new System.Drawing.Point(637, 209);
+            this.trackBarX.Maximum = 50000;
+            this.trackBarX.Minimum = -50000;
+            this.trackBarX.Name = "trackBarX";
+            this.trackBarX.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarX.Size = new System.Drawing.Size(69, 394);
+            this.trackBarX.TabIndex = 8;
+            this.trackBarX.Scroll += new System.EventHandler(this.trackBarX_Scroll);
             // 
-            // trackBar_Y
+            // trackBarY
             // 
-            this.trackBar_Y.Location = new System.Drawing.Point(694, 209);
-            this.trackBar_Y.Maximum = 50000;
-            this.trackBar_Y.Minimum = -50000;
-            this.trackBar_Y.Name = "trackBar_Y";
-            this.trackBar_Y.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_Y.Size = new System.Drawing.Size(69, 394);
-            this.trackBar_Y.TabIndex = 9;
-            this.trackBar_Y.Scroll += new System.EventHandler(this.trackBar_Y_Scroll);
+            this.trackBarY.Location = new System.Drawing.Point(694, 209);
+            this.trackBarY.Maximum = 50000;
+            this.trackBarY.Minimum = -50000;
+            this.trackBarY.Name = "trackBarY";
+            this.trackBarY.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarY.Size = new System.Drawing.Size(69, 394);
+            this.trackBarY.TabIndex = 9;
+            this.trackBarY.Scroll += new System.EventHandler(this.trackBarY_Scroll);
             // 
-            // trackBar_Z
+            // trackBarZ
             // 
-            this.trackBar_Z.Location = new System.Drawing.Point(756, 209);
-            this.trackBar_Z.Maximum = 50000;
-            this.trackBar_Z.Minimum = -50000;
-            this.trackBar_Z.Name = "trackBar_Z";
-            this.trackBar_Z.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_Z.Size = new System.Drawing.Size(69, 394);
-            this.trackBar_Z.TabIndex = 10;
-            this.trackBar_Z.Scroll += new System.EventHandler(this.trackBar_Z_Scroll);
+            this.trackBarZ.Location = new System.Drawing.Point(756, 209);
+            this.trackBarZ.Maximum = 50000;
+            this.trackBarZ.Minimum = -50000;
+            this.trackBarZ.Name = "trackBarZ";
+            this.trackBarZ.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarZ.Size = new System.Drawing.Size(69, 394);
+            this.trackBarZ.TabIndex = 10;
+            this.trackBarZ.Scroll += new System.EventHandler(this.trackBarZ_Scroll);
             // 
-            // trackBar_Zoom
+            // trackBarZoom
             // 
-            this.trackBar_Zoom.Location = new System.Drawing.Point(918, 209);
-            this.trackBar_Zoom.Maximum = 5000;
-            this.trackBar_Zoom.Minimum = -5000;
-            this.trackBar_Zoom.Name = "trackBar_Zoom";
-            this.trackBar_Zoom.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_Zoom.Size = new System.Drawing.Size(69, 394);
-            this.trackBar_Zoom.TabIndex = 14;
-            this.trackBar_Zoom.Scroll += new System.EventHandler(this.trackBar_Zoom_Scroll);
+            this.trackBarZoom.Location = new System.Drawing.Point(918, 209);
+            this.trackBarZoom.Maximum = 5000;
+            this.trackBarZoom.Minimum = -5000;
+            this.trackBarZoom.Name = "trackBarZoom";
+            this.trackBarZoom.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarZoom.Size = new System.Drawing.Size(69, 394);
+            this.trackBarZoom.TabIndex = 14;
+            this.trackBarZoom.Scroll += new System.EventHandler(this.trackBarZoom_Scroll);
             // 
-            // trackBar_Angle
+            // trackBarAngle
             // 
-            this.trackBar_Angle.Location = new System.Drawing.Point(843, 209);
-            this.trackBar_Angle.Maximum = 360;
-            this.trackBar_Angle.Minimum = -360;
-            this.trackBar_Angle.Name = "trackBar_Angle";
-            this.trackBar_Angle.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_Angle.Size = new System.Drawing.Size(69, 394);
-            this.trackBar_Angle.TabIndex = 13;
-            this.trackBar_Angle.Scroll += new System.EventHandler(this.trackBar_Angle_Scroll);
+            this.trackBarAngle.Location = new System.Drawing.Point(843, 209);
+            this.trackBarAngle.Maximum = 360;
+            this.trackBarAngle.Minimum = -360;
+            this.trackBarAngle.Name = "trackBarAngle";
+            this.trackBarAngle.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarAngle.Size = new System.Drawing.Size(69, 394);
+            this.trackBarAngle.TabIndex = 13;
+            this.trackBarAngle.Scroll += new System.EventHandler(this.trackBarAngle_Scroll);
             // 
-            // label_Zoom
+            // labelZoom
             // 
-            this.label_Zoom.AutoSize = true;
-            this.label_Zoom.Location = new System.Drawing.Point(914, 164);
-            this.label_Zoom.Name = "label_Zoom";
-            this.label_Zoom.Size = new System.Drawing.Size(50, 20);
-            this.label_Zoom.TabIndex = 12;
-            this.label_Zoom.Text = "Zoom";
+            this.labelZoom.AutoSize = true;
+            this.labelZoom.Location = new System.Drawing.Point(914, 164);
+            this.labelZoom.Name = "labelZoom";
+            this.labelZoom.Size = new System.Drawing.Size(50, 20);
+            this.labelZoom.TabIndex = 12;
+            this.labelZoom.Text = "Zoom";
             // 
-            // label_Angle
+            // labelAngle
             // 
-            this.label_Angle.AutoSize = true;
-            this.label_Angle.Location = new System.Drawing.Point(839, 164);
-            this.label_Angle.Name = "label_Angle";
-            this.label_Angle.Size = new System.Drawing.Size(50, 20);
-            this.label_Angle.TabIndex = 11;
-            this.label_Angle.Text = "Angle";
+            this.labelAngle.AutoSize = true;
+            this.labelAngle.Location = new System.Drawing.Point(839, 164);
+            this.labelAngle.Name = "labelAngle";
+            this.labelAngle.Size = new System.Drawing.Size(50, 20);
+            this.labelAngle.TabIndex = 11;
+            this.labelAngle.Text = "Angle";
             // 
             // RenderTimer
             // 
@@ -224,84 +224,84 @@
             this.RenderTimer.Interval = 30;
             this.RenderTimer.Tick += new System.EventHandler(this.RenderTimer_Tick);
             // 
-            // label_InfoX
+            // labelInfoX
             // 
-            this.label_InfoX.AutoSize = true;
-            this.label_InfoX.Location = new System.Drawing.Point(633, 606);
-            this.label_InfoX.Name = "label_InfoX";
-            this.label_InfoX.Size = new System.Drawing.Size(18, 20);
-            this.label_InfoX.TabIndex = 15;
-            this.label_InfoX.Text = "0";
+            this.labelInfoX.AutoSize = true;
+            this.labelInfoX.Location = new System.Drawing.Point(633, 606);
+            this.labelInfoX.Name = "labelInfoX";
+            this.labelInfoX.Size = new System.Drawing.Size(18, 20);
+            this.labelInfoX.TabIndex = 15;
+            this.labelInfoX.Text = "0";
             // 
-            // label_InfoY
+            // labelInfoY
             // 
-            this.label_InfoY.AutoSize = true;
-            this.label_InfoY.Location = new System.Drawing.Point(688, 606);
-            this.label_InfoY.Name = "label_InfoY";
-            this.label_InfoY.Size = new System.Drawing.Size(18, 20);
-            this.label_InfoY.TabIndex = 16;
-            this.label_InfoY.Text = "0";
+            this.labelInfoY.AutoSize = true;
+            this.labelInfoY.Location = new System.Drawing.Point(688, 606);
+            this.labelInfoY.Name = "labelInfoY";
+            this.labelInfoY.Size = new System.Drawing.Size(18, 20);
+            this.labelInfoY.TabIndex = 16;
+            this.labelInfoY.Text = "0";
             // 
-            // label_InfoZ
+            // labelInfoZ
             // 
-            this.label_InfoZ.AutoSize = true;
-            this.label_InfoZ.Location = new System.Drawing.Point(745, 606);
-            this.label_InfoZ.Name = "label_InfoZ";
-            this.label_InfoZ.Size = new System.Drawing.Size(18, 20);
-            this.label_InfoZ.TabIndex = 17;
-            this.label_InfoZ.Text = "0";
+            this.labelInfoZ.AutoSize = true;
+            this.labelInfoZ.Location = new System.Drawing.Point(745, 606);
+            this.labelInfoZ.Name = "labelInfoZ";
+            this.labelInfoZ.Size = new System.Drawing.Size(18, 20);
+            this.labelInfoZ.TabIndex = 17;
+            this.labelInfoZ.Text = "0";
             // 
-            // label_InfoAngle
+            // labelInfoAngle
             // 
-            this.label_InfoAngle.AutoSize = true;
-            this.label_InfoAngle.Location = new System.Drawing.Point(839, 606);
-            this.label_InfoAngle.Name = "label_InfoAngle";
-            this.label_InfoAngle.Size = new System.Drawing.Size(18, 20);
-            this.label_InfoAngle.TabIndex = 18;
-            this.label_InfoAngle.Text = "0";
+            this.labelInfoAngle.AutoSize = true;
+            this.labelInfoAngle.Location = new System.Drawing.Point(839, 606);
+            this.labelInfoAngle.Name = "labelInfoAngle";
+            this.labelInfoAngle.Size = new System.Drawing.Size(18, 20);
+            this.labelInfoAngle.TabIndex = 18;
+            this.labelInfoAngle.Text = "0";
             // 
-            // label_InfoZoom
+            // labelInfoZoom
             // 
-            this.label_InfoZoom.AutoSize = true;
-            this.label_InfoZoom.Location = new System.Drawing.Point(914, 606);
-            this.label_InfoZoom.Name = "label_InfoZoom";
-            this.label_InfoZoom.Size = new System.Drawing.Size(18, 20);
-            this.label_InfoZoom.TabIndex = 19;
-            this.label_InfoZoom.Text = "0";
+            this.labelInfoZoom.AutoSize = true;
+            this.labelInfoZoom.Location = new System.Drawing.Point(914, 606);
+            this.labelInfoZoom.Name = "labelInfoZoom";
+            this.labelInfoZoom.Size = new System.Drawing.Size(18, 20);
+            this.labelInfoZoom.TabIndex = 19;
+            this.labelInfoZoom.Text = "0";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 642);
-            this.Controls.Add(this.label_InfoZoom);
-            this.Controls.Add(this.label_InfoAngle);
-            this.Controls.Add(this.label_InfoZ);
-            this.Controls.Add(this.label_InfoY);
-            this.Controls.Add(this.label_InfoX);
-            this.Controls.Add(this.trackBar_Zoom);
-            this.Controls.Add(this.trackBar_Angle);
-            this.Controls.Add(this.label_Zoom);
-            this.Controls.Add(this.label_Angle);
-            this.Controls.Add(this.trackBar_Z);
-            this.Controls.Add(this.trackBar_Y);
-            this.Controls.Add(this.trackBar_X);
-            this.Controls.Add(this.label_Z);
-            this.Controls.Add(this.label_Y);
-            this.Controls.Add(this.label_X);
-            this.Controls.Add(this.comboBox_Object);
-            this.Controls.Add(this.comboBox_Axis);
-            this.Controls.Add(this.label_Object);
+            this.Controls.Add(this.labelInfoZoom);
+            this.Controls.Add(this.labelInfoAngle);
+            this.Controls.Add(this.labelInfoZ);
+            this.Controls.Add(this.labelInfoY);
+            this.Controls.Add(this.labelInfoX);
+            this.Controls.Add(this.trackBarZoom);
+            this.Controls.Add(this.trackBarAngle);
+            this.Controls.Add(this.labelZoom);
+            this.Controls.Add(this.labelAngle);
+            this.Controls.Add(this.trackBarZ);
+            this.Controls.Add(this.trackBarY);
+            this.Controls.Add(this.trackBarX);
+            this.Controls.Add(this.labelZ);
+            this.Controls.Add(this.labelY);
+            this.Controls.Add(this.labelX);
+            this.Controls.Add(this.comboBoxObject);
+            this.Controls.Add(this.comboBoxAxis);
+            this.Controls.Add(this.labelObject);
             this.Controls.Add(this.simpleOpenGlControl);
-            this.Controls.Add(this.label_Axis);
+            this.Controls.Add(this.labelAxis);
             this.Name = "MainForm";
             this.Text = "Геометрическое моделирование";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_X)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Y)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Z)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Zoom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Angle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -309,27 +309,27 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label_Axis;
+        private System.Windows.Forms.Label labelAxis;
         private Tao.Platform.Windows.SimpleOpenGlControl simpleOpenGlControl;
-        private System.Windows.Forms.Label label_Object;
-        private System.Windows.Forms.ComboBox comboBox_Axis;
-        private System.Windows.Forms.ComboBox comboBox_Object;
-        private System.Windows.Forms.Label label_X;
-        private System.Windows.Forms.Label label_Y;
-        private System.Windows.Forms.Label label_Z;
-        private System.Windows.Forms.TrackBar trackBar_X;
-        private System.Windows.Forms.TrackBar trackBar_Y;
-        private System.Windows.Forms.TrackBar trackBar_Z;
-        private System.Windows.Forms.TrackBar trackBar_Zoom;
-        private System.Windows.Forms.TrackBar trackBar_Angle;
-        private System.Windows.Forms.Label label_Zoom;
-        private System.Windows.Forms.Label label_Angle;
+        private System.Windows.Forms.Label labelObject;
+        private System.Windows.Forms.ComboBox comboBoxAxis;
+        private System.Windows.Forms.ComboBox comboBoxObject;
+        private System.Windows.Forms.Label labelX;
+        private System.Windows.Forms.Label labelY;
+        private System.Windows.Forms.Label labelZ;
+        private System.Windows.Forms.TrackBar trackBarX;
+        private System.Windows.Forms.TrackBar trackBarY;
+        private System.Windows.Forms.TrackBar trackBarZ;
+        private System.Windows.Forms.TrackBar trackBarZoom;
+        private System.Windows.Forms.TrackBar trackBarAngle;
+        private System.Windows.Forms.Label labelZoom;
+        private System.Windows.Forms.Label labelAngle;
         private System.Windows.Forms.Timer RenderTimer;
-        private System.Windows.Forms.Label label_InfoX;
-        private System.Windows.Forms.Label label_InfoY;
-        private System.Windows.Forms.Label label_InfoZ;
-        private System.Windows.Forms.Label label_InfoAngle;
-        private System.Windows.Forms.Label label_InfoZoom;
+        private System.Windows.Forms.Label labelInfoX;
+        private System.Windows.Forms.Label labelInfoY;
+        private System.Windows.Forms.Label labelInfoZ;
+        private System.Windows.Forms.Label labelInfoAngle;
+        private System.Windows.Forms.Label labelInfoZoom;
     }
 }
 
