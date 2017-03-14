@@ -70,7 +70,6 @@ namespace GeomMod
             labelInfoX.Text = a.ToString();
         }
 
-
         private void trackBarY_Scroll(object sender, EventArgs e)
         {
             b = (double)trackBarY.Value / 1000.0;
@@ -81,8 +80,6 @@ namespace GeomMod
         {
             c = (double)trackBarZ.Value / 1000.0;
             labelInfoZ.Text = c.ToString();
-
-            //zoom = (double)trackBarZ.Value / 10000.0; //раз уж zoom и ось z - одно и то же
         }
 
         private void trackBarAngle_Scroll(object sender, EventArgs e)
