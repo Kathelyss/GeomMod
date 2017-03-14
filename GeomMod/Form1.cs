@@ -52,7 +52,7 @@ namespace GeomMod
 
             // установка первых элементов в списках combobox 
             comboBoxAxis.SelectedIndex = 0;
-            comboBoxObject.SelectedIndex = 0;
+            comboBoxFigure1.SelectedIndex = 0;
 
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
@@ -146,7 +146,7 @@ namespace GeomMod
 
 
             // в зависимости от установленного типа объекта 
-            switch (comboBoxObject.SelectedIndex)
+            switch (comboBoxFigure1.SelectedIndex)
             {
                 // рисуем нужный объект, используя функции библиотеки GLUT 
                 case 0:
