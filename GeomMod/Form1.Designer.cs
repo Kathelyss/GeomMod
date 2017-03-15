@@ -275,7 +275,7 @@
             // labelFig2Param2
             // 
             this.labelFig2Param2.AutoSize = true;
-            this.labelFig2Param2.Location = new System.Drawing.Point(119, 406);
+            this.labelFig2Param2.Location = new System.Drawing.Point(128, 447);
             this.labelFig2Param2.Name = "labelFig2Param2";
             this.labelFig2Param2.Size = new System.Drawing.Size(51, 20);
             this.labelFig2Param2.TabIndex = 12;
@@ -285,7 +285,7 @@
             // labelFig2Param1
             // 
             this.labelFig2Param1.AutoSize = true;
-            this.labelFig2Param1.Location = new System.Drawing.Point(6, 406);
+            this.labelFig2Param1.Location = new System.Drawing.Point(6, 447);
             this.labelFig2Param1.Name = "labelFig2Param1";
             this.labelFig2Param1.Size = new System.Drawing.Size(51, 20);
             this.labelFig2Param1.TabIndex = 11;
@@ -295,7 +295,7 @@
             // labelFig1Param2
             // 
             this.labelFig1Param2.AutoSize = true;
-            this.labelFig1Param2.Location = new System.Drawing.Point(128, 134);
+            this.labelFig1Param2.Location = new System.Drawing.Point(128, 140);
             this.labelFig1Param2.Name = "labelFig1Param2";
             this.labelFig1Param2.Size = new System.Drawing.Size(51, 20);
             this.labelFig1Param2.TabIndex = 8;
@@ -305,7 +305,7 @@
             // labelFig1Param1
             // 
             this.labelFig1Param1.AutoSize = true;
-            this.labelFig1Param1.Location = new System.Drawing.Point(6, 134);
+            this.labelFig1Param1.Location = new System.Drawing.Point(6, 140);
             this.labelFig1Param1.Name = "labelFig1Param1";
             this.labelFig1Param1.Size = new System.Drawing.Size(51, 20);
             this.labelFig1Param1.TabIndex = 7;
@@ -325,7 +325,6 @@
             this.comboBoxFigure2.Name = "comboBoxFigure2";
             this.comboBoxFigure2.Size = new System.Drawing.Size(213, 28);
             this.comboBoxFigure2.TabIndex = 6;
-            this.comboBoxFigure2.Visible = false;
             // 
             // labelFigure2
             // 
@@ -335,7 +334,6 @@
             this.labelFigure2.Size = new System.Drawing.Size(78, 20);
             this.labelFigure2.TabIndex = 5;
             this.labelFigure2.Text = "Фигура 2";
-            this.labelFigure2.Visible = false;
             // 
             // numericUpDownFig1Param1
             // 
@@ -355,17 +353,17 @@
             // 
             // numericUpDownFig2Param2
             // 
-            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(123, 441);
+            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(164, 441);
             this.numericUpDownFig2Param2.Name = "numericUpDownFig2Param2";
-            this.numericUpDownFig2Param2.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig2Param2.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig2Param2.TabIndex = 18;
             this.numericUpDownFig2Param2.Visible = false;
             // 
             // numericUpDownFig2Param1
             // 
-            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(10, 441);
+            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(49, 441);
             this.numericUpDownFig2Param1.Name = "numericUpDownFig2Param1";
-            this.numericUpDownFig2Param1.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig2Param1.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig2Param1.TabIndex = 17;
             this.numericUpDownFig2Param1.Visible = false;
             // 

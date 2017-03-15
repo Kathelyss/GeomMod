@@ -12,8 +12,12 @@ namespace GeomMod
         // полученные при перетаскивании ползунков пользователем 
         double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
         int os_x = 1, os_y = 0, os_z = 0;
-        // режим сеточной визуализации 
-        bool wireMode = false;
+        // здесь 1 - первая фигура, 2 - вторая фигура
+        int r1, r2; // сторона куба / радиус сферы / радиус основания конуса / радиус основания цилиндра
+        int h1, h2; // высота конуса / высота цилиндра
+        int innerRadius1, outerRadius1, innerRadius2, outerRadius2; // радиусы тора
+
+        bool wireMode = false; // режим сеточной визуализации
 
         public MainForm()
         {
@@ -118,32 +122,13 @@ namespace GeomMod
             }
         }
 
-        // сделать поле параметра фигуры видимым и вставить в label его название
-        // если у фигуры 1 параметр (сфера, куб)
-        private void revealFields(Label label, NumericUpDown field, string text)
+        // обработка отклика таймера 
+        private void RenderTimer_Tick(object sender, EventArgs e)
         {
-            label.Visible = true;
-            field.Visible = true;
-            label.Text = text;
+            Draw(); // вызов функции отрисовки сцены
         }
 
-        // сделать поля параметров фигур видимыми и вставить в label их названия
-        // если у фигуры 2 параметра (цилиндр, конус, тор)
-        private void revealFields(Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
-        {
-            label1.Visible = true;
-            label2.Visible = true;
-            field1.Visible = true;
-            field2.Visible = true;
-            label1.Text = text1;
-            label2.Text = text2;
-        }
-
-        // установка начальных параметров фигур
-        private void setParams()
-        {
-
-        }
+        //////////////////////////////////////////////////////////////////////////////
 
         // функция отрисовки 
         private void Draw()
@@ -163,7 +148,7 @@ namespace GeomMod
             Gl.glRotated(d, os_x, os_y, os_z);
             // и масштабирование объекта 
             Gl.glScaled(zoom, zoom, zoom);
-            
+
             //установка цвета объекта
             float[] color = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 }; // собственно, цвет
             float[] shininess = new float[1] { 30 };
@@ -171,57 +156,8 @@ namespace GeomMod
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
 
-
-            // в зависимости от установленного типа объекта 
-            switch (comboBoxFigure1.SelectedIndex)
-            {
-                // рисуем нужный объект, используя функции библиотеки GLUT 
-                case 0: // сфера
-                    {
-                        revealFields(labelFig1Param1, numericUpDownFig1Param1, "r");
-                        if (wireMode)
-                            Glut.glutWireSphere(2, 16, 16); // сеточная сфера 
-                        else
-                            Glut.glutSolidSphere(2, 16, 16); // полигональная сфера 
-                        break;
-                    }
-                case 1: // цилиндр
-                    {
-                        revealFields(labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
-                        if (wireMode) 
-                            Glut.glutWireCylinder(1, 2, 32, 32); 
-                        else
-                            Glut.glutSolidCylinder(1, 2, 32, 32);
-                        break;
-                    }
-                case 2: // куб
-                    {
-                        revealFields(labelFig1Param1, numericUpDownFig1Param1, "a");
-                        if (wireMode)  
-                            Glut.glutWireCube(2); 
-                        else
-                            Glut.glutSolidCube(2);
-                        break;
-                    }
-                case 3: // конус
-                    {
-                        revealFields(labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
-                        if (wireMode) 
-                            Glut.glutWireCone(2, 3, 32, 32); 
-                        else
-                            Glut.glutSolidCone(2, 3, 32, 32);
-                        break;
-                    }
-                case 4: // тор
-                    {
-                        revealFields(labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
-                        if (wireMode)
-                            Glut.glutWireTorus(0.2, 2.2, 32, 32); 
-                        else
-                            Glut.glutSolidTorus(0.2, 2.2, 32, 32);
-                        break;
-                    }
-            }
+            // отрисовка выбранной фигуры
+            drawFigure(comboBoxFigure2);
 
             // возвращаем состояние матрицы 
             Gl.glPopMatrix();
@@ -233,10 +169,168 @@ namespace GeomMod
             simpleOpenGlControl.Invalidate();
         }
 
-        // обработка отклика таймера 
-        private void RenderTimer_Tick(object sender, EventArgs e)
+        // установка начальных параметров фигур
+        private void setParams(ComboBox box)
         {
-            Draw(); // вызов функции отрисовки сцены
+            switch (box.SelectedIndex)
+            {
+                // рисуем нужный объект, используя функции библиотеки GLUT 
+                case 0: // сфера
+                    {
+                        if (box == comboBoxFigure1)
+                            r1 = 2;
+                        else if (box == comboBoxFigure2)
+                            r2 = 2;
+                        break;
+                    }
+                case 1: // цилиндр
+                    {
+                        if (box == comboBoxFigure1)
+                        {
+                            r1 = 1;
+                            h1 = 2;
+                        }
+                        else if (box == comboBoxFigure2)
+                        {
+                            r2 = 1;
+                            h2 = 2;
+                        }
+                        break;
+                    }
+                case 2: // куб
+                    {
+                        if (box == comboBoxFigure1)
+                            r1 = 2;
+                        else if (box == comboBoxFigure2)
+                            r2 = 2;
+                        break;
+                    }
+                case 3: // конус
+                    {
+                        if (box == comboBoxFigure1)
+                        {
+                            r1 = 2;
+                            h1 = 3;
+                        }
+                        else if (box == comboBoxFigure2)
+                        {
+                            r2 = 2;
+                            h2 = 3;
+                        }
+                        break;
+                    }
+                case 4: // тор
+                    {
+                        if (box == comboBoxFigure1)
+                        {
+                            innerRadius1 = 1;
+                            outerRadius1 = 2;
+                        }
+                        else if (box == comboBoxFigure2)
+                        {
+                            innerRadius2 = 1;
+                            outerRadius2 = 2;
+                        }
+                        break;
+                    }
+            }
         }
+
+        /* Cделать поля параметров фигур видимыми и вставить в label их названия
+         * Если параметр 1, то делаем видимым только 1 label и 1 numericUpDown
+         * иначе - 2 label'a и 2 numericUpDown'a
+         */
+        private void revealFields(int prms, Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
+        {
+            if (prms == 1) // сфера, куб
+            {
+                label1.Visible = true;
+                field1.Visible = true;
+
+                label2.Visible = false;
+                field2.Visible = false;
+            }
+            else if (prms == 2) // конус, цилиндр, тор
+            {
+                label1.Visible = true;
+                field1.Visible = true;
+
+                label2.Visible = true;
+                field2.Visible = true;
+            }
+            label1.Text = text1;
+            label2.Text = text2;
+        }
+
+        // отрисовка фигуры
+        private void drawFigure(ComboBox box)
+        {
+            // в зависимости от выбранного comboBoxFigure1 или же comboBoxFigure2
+            switch (box.SelectedIndex)
+            {
+                // рисуем нужный объект, используя функции библиотеки GLUT 
+                case 0: // сфера
+                    {
+                        if (box == comboBoxFigure1)
+                            revealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "");
+                        else if (box == comboBoxFigure2)
+                            revealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
+                        if (wireMode)
+                            Glut.glutWireSphere(2, 16, 16); // сеточная сфера 
+                        else
+                            Glut.glutSolidSphere(2, 16, 16); // полигональная сфера 
+                        break;
+                    }
+                case 1: // цилиндр
+                    {
+                        if (box == comboBoxFigure1)
+                            revealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                        else if (box == comboBoxFigure2)
+                            revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
+                        if (wireMode)
+                            Glut.glutWireCylinder(1, 2, 32, 32);
+                        else
+                            Glut.glutSolidCylinder(1, 2, 32, 32);
+                        break;
+                    }
+                case 2: // куб
+                    {
+                        if (box == comboBoxFigure1)
+                            revealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "a", "");
+                        else if (box == comboBoxFigure2)
+                            revealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "a", "");
+                        if (wireMode)
+                            Glut.glutWireCube(2);
+                        else
+                            Glut.glutSolidCube(2);
+                        break;
+                    }
+                case 3: // конус
+                    {
+                        if (box == comboBoxFigure1)
+                            revealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                        else if (box == comboBoxFigure2)
+                            revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
+                        if (wireMode)
+                            Glut.glutWireCone(2, 3, 32, 32);
+                        else
+                            Glut.glutSolidCone(2, 3, 32, 32);
+                        break;
+                    }
+                case 4: // тор
+                    {
+                        if (box == comboBoxFigure1)
+                            revealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
+                        else if (box == comboBoxFigure2)
+                            revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
+                        if (wireMode)
+                            Glut.glutWireTorus(0.2, 2.2, 32, 32);
+                        else
+                            Glut.glutSolidTorus(0.2, 2.2, 32, 32);
+                        break;
+                    }
+            }
+        }
+
     }
 }
