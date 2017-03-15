@@ -48,21 +48,25 @@
             this.labelInfoZ = new System.Windows.Forms.Label();
             this.labelInfoAngle = new System.Windows.Forms.Label();
             this.groupBoxParametrs = new System.Windows.Forms.GroupBox();
-            this.comboBoxFigure2 = new System.Windows.Forms.ComboBox();
-            this.labelFigure2 = new System.Windows.Forms.Label();
-            this.labelFig1Param1 = new System.Windows.Forms.Label();
-            this.labelFig1Param2 = new System.Windows.Forms.Label();
-            this.textBoxFig1Param1 = new System.Windows.Forms.TextBox();
-            this.textBoxFig1Param2 = new System.Windows.Forms.TextBox();
-            this.textBoxFig2Param2 = new System.Windows.Forms.TextBox();
-            this.textBoxFig2Param1 = new System.Windows.Forms.TextBox();
             this.labelFig2Param2 = new System.Windows.Forms.Label();
             this.labelFig2Param1 = new System.Windows.Forms.Label();
+            this.labelFig1Param2 = new System.Windows.Forms.Label();
+            this.labelFig1Param1 = new System.Windows.Forms.Label();
+            this.comboBoxFigure2 = new System.Windows.Forms.ComboBox();
+            this.labelFigure2 = new System.Windows.Forms.Label();
+            this.numericUpDownFig1Param1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownFig1Param2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownFig2Param2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownFig2Param1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).BeginInit();
             this.groupBoxParametrs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelAxis
@@ -249,12 +253,12 @@
             // 
             // groupBoxParametrs
             // 
-            this.groupBoxParametrs.Controls.Add(this.textBoxFig2Param2);
-            this.groupBoxParametrs.Controls.Add(this.textBoxFig2Param1);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param2);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param1);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param2);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param1);
             this.groupBoxParametrs.Controls.Add(this.labelFig2Param2);
             this.groupBoxParametrs.Controls.Add(this.labelFig2Param1);
-            this.groupBoxParametrs.Controls.Add(this.textBoxFig1Param2);
-            this.groupBoxParametrs.Controls.Add(this.textBoxFig1Param1);
             this.groupBoxParametrs.Controls.Add(this.labelFig1Param2);
             this.groupBoxParametrs.Controls.Add(this.labelFig1Param1);
             this.groupBoxParametrs.Controls.Add(this.comboBoxFigure2);
@@ -267,6 +271,46 @@
             this.groupBoxParametrs.TabIndex = 19;
             this.groupBoxParametrs.TabStop = false;
             this.groupBoxParametrs.Text = "Параметры фигур";
+            // 
+            // labelFig2Param2
+            // 
+            this.labelFig2Param2.AutoSize = true;
+            this.labelFig2Param2.Location = new System.Drawing.Point(119, 406);
+            this.labelFig2Param2.Name = "labelFig2Param2";
+            this.labelFig2Param2.Size = new System.Drawing.Size(51, 20);
+            this.labelFig2Param2.TabIndex = 12;
+            this.labelFig2Param2.Text = "label3";
+            this.labelFig2Param2.Visible = false;
+            // 
+            // labelFig2Param1
+            // 
+            this.labelFig2Param1.AutoSize = true;
+            this.labelFig2Param1.Location = new System.Drawing.Point(6, 406);
+            this.labelFig2Param1.Name = "labelFig2Param1";
+            this.labelFig2Param1.Size = new System.Drawing.Size(51, 20);
+            this.labelFig2Param1.TabIndex = 11;
+            this.labelFig2Param1.Text = "label4";
+            this.labelFig2Param1.Visible = false;
+            // 
+            // labelFig1Param2
+            // 
+            this.labelFig1Param2.AutoSize = true;
+            this.labelFig1Param2.Location = new System.Drawing.Point(119, 102);
+            this.labelFig1Param2.Name = "labelFig1Param2";
+            this.labelFig1Param2.Size = new System.Drawing.Size(51, 20);
+            this.labelFig1Param2.TabIndex = 8;
+            this.labelFig1Param2.Text = "label2";
+            this.labelFig1Param2.Visible = false;
+            // 
+            // labelFig1Param1
+            // 
+            this.labelFig1Param1.AutoSize = true;
+            this.labelFig1Param1.Location = new System.Drawing.Point(6, 102);
+            this.labelFig1Param1.Name = "labelFig1Param1";
+            this.labelFig1Param1.Size = new System.Drawing.Size(51, 20);
+            this.labelFig1Param1.TabIndex = 7;
+            this.labelFig1Param1.Text = "label1";
+            this.labelFig1Param1.Visible = false;
             // 
             // comboBoxFigure2
             // 
@@ -291,77 +335,37 @@
             this.labelFigure2.TabIndex = 5;
             this.labelFigure2.Text = "Фигура 2";
             // 
-            // labelFig1Param1
+            // numericUpDownFig1Param1
             // 
-            this.labelFig1Param1.AutoSize = true;
-            this.labelFig1Param1.Location = new System.Drawing.Point(6, 102);
-            this.labelFig1Param1.Name = "labelFig1Param1";
-            this.labelFig1Param1.Size = new System.Drawing.Size(51, 20);
-            this.labelFig1Param1.TabIndex = 7;
-            this.labelFig1Param1.Text = "label1";
-            this.labelFig1Param1.Visible = false;
+            this.numericUpDownFig1Param1.Location = new System.Drawing.Point(10, 134);
+            this.numericUpDownFig1Param1.Name = "numericUpDownFig1Param1";
+            this.numericUpDownFig1Param1.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig1Param1.TabIndex = 15;
+            this.numericUpDownFig1Param1.Visible = false;
             // 
-            // labelFig1Param2
+            // numericUpDownFig1Param2
             // 
-            this.labelFig1Param2.AutoSize = true;
-            this.labelFig1Param2.Location = new System.Drawing.Point(119, 102);
-            this.labelFig1Param2.Name = "labelFig1Param2";
-            this.labelFig1Param2.Size = new System.Drawing.Size(51, 20);
-            this.labelFig1Param2.TabIndex = 8;
-            this.labelFig1Param2.Text = "label2";
-            this.labelFig1Param2.Visible = false;
+            this.numericUpDownFig1Param2.Location = new System.Drawing.Point(123, 134);
+            this.numericUpDownFig1Param2.Name = "numericUpDownFig1Param2";
+            this.numericUpDownFig1Param2.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig1Param2.TabIndex = 16;
+            this.numericUpDownFig1Param2.Visible = false;
             // 
-            // textBoxFig1Param1
+            // numericUpDownFig2Param2
             // 
-            this.textBoxFig1Param1.Location = new System.Drawing.Point(10, 134);
-            this.textBoxFig1Param1.Name = "textBoxFig1Param1";
-            this.textBoxFig1Param1.Size = new System.Drawing.Size(100, 26);
-            this.textBoxFig1Param1.TabIndex = 9;
-            this.textBoxFig1Param1.Visible = false;
+            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(123, 441);
+            this.numericUpDownFig2Param2.Name = "numericUpDownFig2Param2";
+            this.numericUpDownFig2Param2.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig2Param2.TabIndex = 18;
+            this.numericUpDownFig2Param2.Visible = false;
             // 
-            // textBoxFig1Param2
+            // numericUpDownFig2Param1
             // 
-            this.textBoxFig1Param2.Location = new System.Drawing.Point(123, 134);
-            this.textBoxFig1Param2.Name = "textBoxFig1Param2";
-            this.textBoxFig1Param2.Size = new System.Drawing.Size(100, 26);
-            this.textBoxFig1Param2.TabIndex = 10;
-            this.textBoxFig1Param2.Visible = false;
-            // 
-            // textBoxFig2Param2
-            // 
-            this.textBoxFig2Param2.Location = new System.Drawing.Point(123, 438);
-            this.textBoxFig2Param2.Name = "textBoxFig2Param2";
-            this.textBoxFig2Param2.Size = new System.Drawing.Size(100, 26);
-            this.textBoxFig2Param2.TabIndex = 14;
-            this.textBoxFig2Param2.Visible = false;
-            // 
-            // textBoxFig2Param1
-            // 
-            this.textBoxFig2Param1.Location = new System.Drawing.Point(10, 438);
-            this.textBoxFig2Param1.Name = "textBoxFig2Param1";
-            this.textBoxFig2Param1.Size = new System.Drawing.Size(100, 26);
-            this.textBoxFig2Param1.TabIndex = 13;
-            this.textBoxFig2Param1.Visible = false;
-            // 
-            // labelFig2Param2
-            // 
-            this.labelFig2Param2.AutoSize = true;
-            this.labelFig2Param2.Location = new System.Drawing.Point(119, 406);
-            this.labelFig2Param2.Name = "labelFig2Param2";
-            this.labelFig2Param2.Size = new System.Drawing.Size(51, 20);
-            this.labelFig2Param2.TabIndex = 12;
-            this.labelFig2Param2.Text = "label3";
-            this.labelFig2Param2.Visible = false;
-            // 
-            // labelFig2Param1
-            // 
-            this.labelFig2Param1.AutoSize = true;
-            this.labelFig2Param1.Location = new System.Drawing.Point(6, 406);
-            this.labelFig2Param1.Name = "labelFig2Param1";
-            this.labelFig2Param1.Size = new System.Drawing.Size(51, 20);
-            this.labelFig2Param1.TabIndex = 11;
-            this.labelFig2Param1.Text = "label4";
-            this.labelFig2Param1.Visible = false;
+            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(10, 441);
+            this.numericUpDownFig2Param1.Name = "numericUpDownFig2Param1";
+            this.numericUpDownFig2Param1.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig2Param1.TabIndex = 17;
+            this.numericUpDownFig2Param1.Visible = false;
             // 
             // MainForm
             // 
@@ -394,6 +398,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).EndInit();
             this.groupBoxParametrs.ResumeLayout(false);
             this.groupBoxParametrs.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,14 +430,14 @@
         private System.Windows.Forms.GroupBox groupBoxParametrs;
         private System.Windows.Forms.ComboBox comboBoxFigure2;
         private System.Windows.Forms.Label labelFigure2;
-        private System.Windows.Forms.TextBox textBoxFig2Param2;
-        private System.Windows.Forms.TextBox textBoxFig2Param1;
         private System.Windows.Forms.Label labelFig2Param2;
         private System.Windows.Forms.Label labelFig2Param1;
-        private System.Windows.Forms.TextBox textBoxFig1Param2;
-        private System.Windows.Forms.TextBox textBoxFig1Param1;
         private System.Windows.Forms.Label labelFig1Param2;
         private System.Windows.Forms.Label labelFig1Param1;
+        private System.Windows.Forms.NumericUpDown numericUpDownFig2Param2;
+        private System.Windows.Forms.NumericUpDown numericUpDownFig2Param1;
+        private System.Windows.Forms.NumericUpDown numericUpDownFig1Param2;
+        private System.Windows.Forms.NumericUpDown numericUpDownFig1Param1;
     }
 }
 
