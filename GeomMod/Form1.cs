@@ -169,6 +169,20 @@ namespace GeomMod
             simpleOpenGlControl.Invalidate();
         }
 
+        // установка парамептров фигур из полей формы
+        private void getParams()
+        {
+            r1 = (int)numericUpDownFig1Param1.Value;
+            r2 = (int)numericUpDownFig2Param1.Value;
+            h1 = (int)numericUpDownFig1Param2.Value;
+            h2 = (int)numericUpDownFig2Param2.Value;
+
+            innerRadius1 = (int)numericUpDownFig1Param1.Value;
+            innerRadius2 = (int)numericUpDownFig2Param1.Value;
+            outerRadius1 = (int)numericUpDownFig1Param2.Value;
+            outerRadius2 = (int)numericUpDownFig2Param2.Value;
+        }
+
         // установка начальных параметров фигур
         private void setParams(ComboBox box)
         {
@@ -224,12 +238,12 @@ namespace GeomMod
                         if (box == comboBoxFigure1)
                         {
                             innerRadius1 = 1;
-                            outerRadius1 = 2;
+                            outerRadius1 = 3;
                         }
                         else if (box == comboBoxFigure2)
                         {
                             innerRadius2 = 1;
-                            outerRadius2 = 2;
+                            outerRadius2 = 3;
                         }
                         break;
                     }
@@ -265,6 +279,9 @@ namespace GeomMod
         // отрисовка фигуры
         private void drawFigure(ComboBox box)
         {
+            // устанавливаем параметры (из полей формы)
+            setParams(box);
+
             // в зависимости от выбранного comboBoxFigure1 или же comboBoxFigure2
             switch (box.SelectedIndex)
             {
@@ -276,9 +293,9 @@ namespace GeomMod
                         else if (box == comboBoxFigure2)
                             revealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
                         if (wireMode)
-                            Glut.glutWireSphere(2, 16, 16); // сеточная сфера 
+                            Glut.glutWireSphere(r1, 16, 16); // сеточная сфера 
                         else
-                            Glut.glutSolidSphere(2, 16, 16); // полигональная сфера 
+                            Glut.glutSolidSphere(r2, 16, 16); // полигональная сфера 
                         break;
                     }
                 case 1: // цилиндр
@@ -288,9 +305,9 @@ namespace GeomMod
                         else if (box == comboBoxFigure2)
                             revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
                         if (wireMode)
-                            Glut.glutWireCylinder(1, 2, 32, 32);
+                            Glut.glutWireCylinder(r1, h1, 32, 32);
                         else
-                            Glut.glutSolidCylinder(1, 2, 32, 32);
+                            Glut.glutSolidCylinder(r2, h2, 32, 32);
                         break;
                     }
                 case 2: // куб
@@ -300,9 +317,9 @@ namespace GeomMod
                         else if (box == comboBoxFigure2)
                             revealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "a", "");
                         if (wireMode)
-                            Glut.glutWireCube(2);
+                            Glut.glutWireCube(r1);
                         else
-                            Glut.glutSolidCube(2);
+                            Glut.glutSolidCube(r2);
                         break;
                     }
                 case 3: // конус
@@ -312,9 +329,9 @@ namespace GeomMod
                         else if (box == comboBoxFigure2)
                             revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
                         if (wireMode)
-                            Glut.glutWireCone(2, 3, 32, 32);
+                            Glut.glutWireCone(r1, h1, 32, 32);
                         else
-                            Glut.glutSolidCone(2, 3, 32, 32);
+                            Glut.glutSolidCone(r2, h2, 32, 32);
                         break;
                     }
                 case 4: // тор
@@ -324,9 +341,9 @@ namespace GeomMod
                         else if (box == comboBoxFigure2)
                             revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
                         if (wireMode)
-                            Glut.glutWireTorus(0.2, 2.2, 32, 32);
+                            Glut.glutWireTorus(innerRadius1, outerRadius1, 32, 32);
                         else
-                            Glut.glutSolidTorus(0.2, 2.2, 32, 32);
+                            Glut.glutSolidTorus(innerRadius2, outerRadius2, 32, 32);
                         break;
                     }
             }
