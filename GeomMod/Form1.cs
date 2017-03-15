@@ -118,6 +118,33 @@ namespace GeomMod
             }
         }
 
+        // сделать поле параметра фигуры видимым и вставить в label его название
+        // если у фигуры 1 параметр (сфера, куб)
+        private void revealFields(Label label, NumericUpDown field, string text)
+        {
+            label.Visible = true;
+            field.Visible = true;
+            label.Text = text;
+        }
+
+        // сделать поля параметров фигур видимыми и вставить в label их названия
+        // если у фигуры 2 параметра (цилиндр, конус, тор)
+        private void revealFields(Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
+        {
+            label1.Visible = true;
+            label2.Visible = true;
+            field1.Visible = true;
+            field2.Visible = true;
+            label1.Text = text1;
+            label2.Text = text2;
+        }
+
+        // установка начальных параметров фигур
+        private void setParams()
+        {
+
+        }
+
         // функция отрисовки 
         private void Draw()
         {
@@ -149,42 +176,47 @@ namespace GeomMod
             switch (comboBoxFigure1.SelectedIndex)
             {
                 // рисуем нужный объект, используя функции библиотеки GLUT 
-                case 0:
+                case 0: // сфера
                     {
-                        if (wireMode) // если установлен сеточный режим визуализации 
+                        revealFields(labelFig1Param1, numericUpDownFig1Param1, "r");
+                        if (wireMode)
                             Glut.glutWireSphere(2, 16, 16); // сеточная сфера 
                         else
                             Glut.glutSolidSphere(2, 16, 16); // полигональная сфера 
                         break;
                     }
-                case 1:
+                case 1: // цилиндр
                     {
-                        if (wireMode) // если установлен сеточный режим визуализации 
-                            Glut.glutWireCylinder(1, 2, 32, 32); // цилиндр 
+                        revealFields(labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                        if (wireMode) 
+                            Glut.glutWireCylinder(1, 2, 32, 32); 
                         else
                             Glut.glutSolidCylinder(1, 2, 32, 32);
                         break;
                     }
-                case 2:
+                case 2: // куб
                     {
-                        if (wireMode) // если установлен сеточный режим визуализации 
-                            Glut.glutWireCube(2); // куб 
+                        revealFields(labelFig1Param1, numericUpDownFig1Param1, "a");
+                        if (wireMode)  
+                            Glut.glutWireCube(2); 
                         else
                             Glut.glutSolidCube(2);
                         break;
                     }
-                case 3:
+                case 3: // конус
                     {
-                        if (wireMode) // если установлен сеточный режим визуализации 
-                            Glut.glutWireCone(2, 3, 32, 32); // конус 
+                        revealFields(labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                        if (wireMode) 
+                            Glut.glutWireCone(2, 3, 32, 32); 
                         else
                             Glut.glutSolidCone(2, 3, 32, 32);
                         break;
                     }
-                case 4:
+                case 4: // тор
                     {
-                        if (wireMode) // если установлен сеточный режим визуализации 
-                            Glut.glutWireTorus(0.2, 2.2, 32, 32); // тор 
+                        revealFields(labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
+                        if (wireMode)
+                            Glut.glutWireTorus(0.2, 2.2, 32, 32); 
                         else
                             Glut.glutSolidTorus(0.2, 2.2, 32, 32);
                         break;

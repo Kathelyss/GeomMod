@@ -295,7 +295,7 @@
             // labelFig1Param2
             // 
             this.labelFig1Param2.AutoSize = true;
-            this.labelFig1Param2.Location = new System.Drawing.Point(119, 102);
+            this.labelFig1Param2.Location = new System.Drawing.Point(128, 134);
             this.labelFig1Param2.Name = "labelFig1Param2";
             this.labelFig1Param2.Size = new System.Drawing.Size(51, 20);
             this.labelFig1Param2.TabIndex = 8;
@@ -305,7 +305,7 @@
             // labelFig1Param1
             // 
             this.labelFig1Param1.AutoSize = true;
-            this.labelFig1Param1.Location = new System.Drawing.Point(6, 102);
+            this.labelFig1Param1.Location = new System.Drawing.Point(6, 134);
             this.labelFig1Param1.Name = "labelFig1Param1";
             this.labelFig1Param1.Size = new System.Drawing.Size(51, 20);
             this.labelFig1Param1.TabIndex = 7;
@@ -325,6 +325,7 @@
             this.comboBoxFigure2.Name = "comboBoxFigure2";
             this.comboBoxFigure2.Size = new System.Drawing.Size(213, 28);
             this.comboBoxFigure2.TabIndex = 6;
+            this.comboBoxFigure2.Visible = false;
             // 
             // labelFigure2
             // 
@@ -334,20 +335,21 @@
             this.labelFigure2.Size = new System.Drawing.Size(78, 20);
             this.labelFigure2.TabIndex = 5;
             this.labelFigure2.Text = "Фигура 2";
+            this.labelFigure2.Visible = false;
             // 
             // numericUpDownFig1Param1
             // 
-            this.numericUpDownFig1Param1.Location = new System.Drawing.Point(10, 134);
+            this.numericUpDownFig1Param1.Location = new System.Drawing.Point(49, 134);
             this.numericUpDownFig1Param1.Name = "numericUpDownFig1Param1";
-            this.numericUpDownFig1Param1.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig1Param1.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig1Param1.TabIndex = 15;
             this.numericUpDownFig1Param1.Visible = false;
             // 
             // numericUpDownFig1Param2
             // 
-            this.numericUpDownFig1Param2.Location = new System.Drawing.Point(123, 134);
+            this.numericUpDownFig1Param2.Location = new System.Drawing.Point(164, 134);
             this.numericUpDownFig1Param2.Name = "numericUpDownFig1Param2";
-            this.numericUpDownFig1Param2.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownFig1Param2.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig1Param2.TabIndex = 16;
             this.numericUpDownFig1Param2.Visible = false;
             // 
