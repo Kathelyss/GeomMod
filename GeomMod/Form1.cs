@@ -130,7 +130,7 @@ namespace GeomMod
 
         //////////////////////////////////////////////////////////////////////////////
 
-        // функция отрисовки 
+        // функция отрисовки сцены
         private void Draw()
         {
             // очистка буфера цвета и буфера глубины 
@@ -149,15 +149,15 @@ namespace GeomMod
             // и масштабирование объекта 
             Gl.glScaled(zoom, zoom, zoom);
 
-            //установка цвета объекта
-            float[] color = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 }; // собственно, цвет
-            float[] shininess = new float[1] { 30 };
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
-
-            // отрисовка выбранной фигуры
-            drawFigure(comboBoxFigure2);
+            // устаноыка цвета первой фигуры
+            float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 }; 
+            // отрисовка первой фигуры
+            drawFigure(comboBoxFigure1, color1);
+            
+            // установка цвета второй фигуры
+            float[] color2 = new float[4] { (float)0.9, (float)0.5, (float)0.2, 1 }; 
+            // отрисовка второй фигуры
+            drawFigure(comboBoxFigure2, color2);
 
             // возвращаем состояние матрицы 
             Gl.glPopMatrix();
@@ -277,10 +277,16 @@ namespace GeomMod
         }
 
         // отрисовка фигуры
-        private void drawFigure(ComboBox box)
+        private void drawFigure(ComboBox box, float[] color)
         {
             // устанавливаем параметры (из полей формы)
             setParams(box);
+
+            //установка цвета объекта
+            float[] shininess = new float[1] { 30 };
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
 
             // в зависимости от выбранного comboBoxFigure1 или же comboBoxFigure2
             switch (box.SelectedIndex)
