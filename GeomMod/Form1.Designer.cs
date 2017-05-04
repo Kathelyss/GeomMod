@@ -114,7 +114,7 @@
             this.comboBoxAxis.Name = "comboBoxAxis";
             this.comboBoxAxis.Size = new System.Drawing.Size(133, 28);
             this.comboBoxAxis.TabIndex = 3;
-            this.comboBoxAxis.SelectedIndexChanged += new System.EventHandler(this.comboBoxAxis_SelectedIndexChanged);
+            this.comboBoxAxis.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAxis_SelectedIndexChanged);
             // 
             // comboBoxFigure1
             // 
@@ -165,7 +165,7 @@
             this.trackBarX.Name = "trackBarX";
             this.trackBarX.Size = new System.Drawing.Size(590, 69);
             this.trackBarX.TabIndex = 8;
-            this.trackBarX.Scroll += new System.EventHandler(this.trackBarX_Scroll);
+            this.trackBarX.Scroll += new System.EventHandler(this.TrackBarX_Scroll);
             // 
             // trackBarY
             // 
@@ -176,7 +176,7 @@
             this.trackBarY.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarY.Size = new System.Drawing.Size(69, 590);
             this.trackBarY.TabIndex = 9;
-            this.trackBarY.Scroll += new System.EventHandler(this.trackBarY_Scroll);
+            this.trackBarY.Scroll += new System.EventHandler(this.TrackBarY_Scroll);
             // 
             // trackBarZ
             // 
@@ -187,7 +187,7 @@
             this.trackBarZ.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarZ.Size = new System.Drawing.Size(69, 490);
             this.trackBarZ.TabIndex = 10;
-            this.trackBarZ.Scroll += new System.EventHandler(this.trackBarZ_Scroll);
+            this.trackBarZ.Scroll += new System.EventHandler(this.TrackBarZ_Scroll);
             // 
             // trackBarAngle
             // 
@@ -198,7 +198,7 @@
             this.trackBarAngle.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarAngle.Size = new System.Drawing.Size(69, 490);
             this.trackBarAngle.TabIndex = 13;
-            this.trackBarAngle.Scroll += new System.EventHandler(this.trackBarAngle_Scroll);
+            this.trackBarAngle.Scroll += new System.EventHandler(this.TrackBarAngle_Scroll);
             // 
             // labelAngle
             // 

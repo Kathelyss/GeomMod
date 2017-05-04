@@ -68,31 +68,31 @@ namespace GeomMod
          *      затем подписываем это значение в label элементе под данным ползунком
         */
 
-        private void trackBarX_Scroll(object sender, EventArgs e)
+        private void TrackBarX_Scroll(object sender, EventArgs e)
         {
             a = (double)trackBarX.Value / 1000.0;
             labelInfoX.Text = a.ToString();
         }
 
-        private void trackBarY_Scroll(object sender, EventArgs e)
+        private void TrackBarY_Scroll(object sender, EventArgs e)
         {
             b = (double)trackBarY.Value / 1000.0;
             labelInfoY.Text = b.ToString();
         }
 
-        private void trackBarZ_Scroll(object sender, EventArgs e)
+        private void TrackBarZ_Scroll(object sender, EventArgs e)
         {
             c = (double)trackBarZ.Value / 1000.0;
             labelInfoZ.Text = c.ToString();
         }
 
-        private void trackBarAngle_Scroll(object sender, EventArgs e)
+        private void TrackBarAngle_Scroll(object sender, EventArgs e)
         {
             d = (double)trackBarAngle.Value;
             labelInfoAngle.Text = d.ToString();
         }
 
-        private void comboBoxAxis_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxAxis_SelectedIndexChanged(object sender, EventArgs e)
         {
             // в зависимости от выбранного режима 
             switch (comboBoxAxis.SelectedIndex)
@@ -125,13 +125,13 @@ namespace GeomMod
         // обработка отклика таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
-            Draw(); // вызов функции отрисовки сцены
+            DrawScene(); // вызов функции отрисовки сцены
         }
 
         //////////////////////////////////////////////////////////////////////////////
 
         // функция отрисовки сцены
-        private void Draw()
+        private void DrawScene()
         {
             // очистка буфера цвета и буфера глубины 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
@@ -152,12 +152,12 @@ namespace GeomMod
             // устаноыка цвета первой фигуры
             float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 }; 
             // отрисовка первой фигуры
-            drawFigure(comboBoxFigure1, color1);
+            DrawFigure(comboBoxFigure1, color1);
             
             // установка цвета второй фигуры
             float[] color2 = new float[4] { (float)0.9, (float)0.5, (float)0.2, 1 }; 
             // отрисовка второй фигуры
-            drawFigure(comboBoxFigure2, color2);
+            DrawFigure(comboBoxFigure2, color2);
 
             // возвращаем состояние матрицы 
             Gl.glPopMatrix();
@@ -170,7 +170,7 @@ namespace GeomMod
         }
 
         // установка парамептров фигур из полей формы
-        private void getParams()
+        private void GetParams()
         {
             r1 = (int)numericUpDownFig1Param1.Value;
             r2 = (int)numericUpDownFig2Param1.Value;
@@ -184,7 +184,7 @@ namespace GeomMod
         }
 
         // установка начальных параметров фигур
-        private void setParams(ComboBox box)
+        private void SetParams(ComboBox box)
         {
             switch (box.SelectedIndex)
             {
@@ -254,7 +254,7 @@ namespace GeomMod
          * Если параметр 1, то делаем видимым только 1 label и 1 numericUpDown
          * иначе - 2 label'a и 2 numericUpDown'a
          */
-        private void revealFields(int prms, Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
+        private void RevealFields(int prms, Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
         {
             if (prms == 1) // сфера, куб
             {
@@ -277,10 +277,10 @@ namespace GeomMod
         }
 
         // отрисовка фигуры
-        private void drawFigure(ComboBox box, float[] color)
+        private void DrawFigure(ComboBox box, float[] color)
         {
             // устанавливаем параметры (из полей формы)
-            setParams(box);
+            SetParams(box);
 
             //установка цвета объекта
             float[] shininess = new float[1] { 30 };
@@ -295,9 +295,9 @@ namespace GeomMod
                 case 0: // сфера
                     {
                         if (box == comboBoxFigure1)
-                            revealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "");
+                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "");
                         else if (box == comboBoxFigure2)
-                            revealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
+                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
                         if (wireMode)
                             Glut.glutWireSphere(r1, 16, 16); // сеточная сфера 
                         else
@@ -307,9 +307,9 @@ namespace GeomMod
                 case 1: // цилиндр
                     {
                         if (box == comboBoxFigure1)
-                            revealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
                         else if (box == comboBoxFigure2)
-                            revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
+                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
                         if (wireMode)
                             Glut.glutWireCylinder(r1, h1, 32, 32);
                         else
@@ -319,9 +319,9 @@ namespace GeomMod
                 case 2: // куб
                     {
                         if (box == comboBoxFigure1)
-                            revealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "a", "");
+                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "a", "");
                         else if (box == comboBoxFigure2)
-                            revealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "a", "");
+                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "a", "");
                         if (wireMode)
                             Glut.glutWireCube(r1);
                         else
@@ -331,9 +331,9 @@ namespace GeomMod
                 case 3: // конус
                     {
                         if (box == comboBoxFigure1)
-                            revealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
                         else if (box == comboBoxFigure2)
-                            revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
+                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
                         if (wireMode)
                             Glut.glutWireCone(r1, h1, 32, 32);
                         else
@@ -343,9 +343,9 @@ namespace GeomMod
                 case 4: // тор
                     {
                         if (box == comboBoxFigure1)
-                            revealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
+                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
                         else if (box == comboBoxFigure2)
-                            revealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
+                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
                         if (wireMode)
                             Glut.glutWireTorus(innerRadius1, outerRadius1, 32, 32);
                         else

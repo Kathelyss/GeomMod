@@ -29,8 +29,8 @@ namespace GeomMod
         static int old_x, old_y;        // Used for mouse event
         static int mousePressed;
 
-        // Draw the lines (x,y,z)
-        static void drawings()
+        // DrawScene the lines (x,y,z)
+        static void Drawings()
         {
             // Clear the Color Buffer and Depth Buffer
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
@@ -52,7 +52,7 @@ namespace GeomMod
 
             if (lines)  // If F1 is pressed don't draw the lines
             {
-                // Draw the positive side of the lines x,y,z
+                // DrawScene the positive side of the lines x,y,z
                 Gl.glBegin(Gl.GL_LINES);
                 Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
                 Gl.glVertex3f(0f, 0f, 0f);
@@ -138,7 +138,7 @@ namespace GeomMod
         }
 
         // Initialize the OpenGL window
-        static void init()
+        static void Init()
         {
             Gl.glShadeModel(Gl.GL_SMOOTH);     // Set the shading model to smooth 
             Gl.glClearColor(0, 0, 0, 0.0f);    // Clear the Color
@@ -152,7 +152,7 @@ namespace GeomMod
         }
 
         // This function is called whenever the window size is changed
-        static void reshape(int w, int h)
+        static void Reshape(int w, int h)
         {
             Gl.glViewport(0, 0, w, h);                // Set the viewport
             Gl.glMatrixMode(Gl.GL_PROJECTION);        // Set the Matrix mode
@@ -165,7 +165,7 @@ namespace GeomMod
         }
 
         // This function is used for the navigation keys
-        public static void keyboard(byte key, int x, int y)
+        public static void Keyboard(byte key, int x, int y)
         {
             switch (key)
             {
@@ -275,7 +275,7 @@ namespace GeomMod
         }
 
         // Called on special key pressed
-        private static void specialKey(int key, int x, int y)
+        private static void SpecialKey(int key, int x, int y)
         {
             // Check which key is pressed
             switch (key)
@@ -311,7 +311,7 @@ namespace GeomMod
         }
 
         // Capture the mouse click event 
-        static void processMouseActiveMotion(int button, int state, int x, int y)
+        static void ProcessMouseActiveMotion(int button, int state, int x, int y)
         {
             mousePressed = button;          // Capture which mouse button is down
             old_x = x;                      // Capture the x value
@@ -319,7 +319,7 @@ namespace GeomMod
         }
 
         // Translate the x,y windows coordinates to OpenGL coordinates
-        static void processMouse(int x, int y)
+        static void ProcessMouse(int x, int y)
         {
             if ((mousePressed == 0))    // If left mouse button is pressed
             {
@@ -332,7 +332,7 @@ namespace GeomMod
         }
 
         // Get the mouse wheel direction
-        static void processMouseWheel(int wheel, int direction, int x, int y)
+        static void ProcessMouseWheel(int wheel, int direction, int x, int y)
         {
 
             Z += direction;  // Adjust the Z value 
@@ -349,19 +349,19 @@ namespace GeomMod
             // Set the screen size
             Glut.glutInitWindowSize(600, 600);
             Glut.glutCreateWindow("OpenGL 3D Navigation Program With Tao");
-            init();
-            Glut.glutReshapeFunc(reshape);
-            Glut.glutDisplayFunc(drawings);
+            Init();
+            Glut.glutReshapeFunc(Reshape);
+            Glut.glutDisplayFunc(Drawings);
             // Set window's key callback
-            Glut.glutKeyboardFunc(new Glut.KeyboardCallback(keyboard));
+            Glut.glutKeyboardFunc(new Glut.KeyboardCallback(Keyboard));
             // Set window's to specialKey callback   
-            Glut.glutSpecialFunc(new Glut.SpecialCallback(specialKey));
+            Glut.glutSpecialFunc(new Glut.SpecialCallback(SpecialKey));
             // Set window's to Mouse callback
-            Glut.glutMouseFunc(new Glut.MouseCallback(processMouseActiveMotion));
+            Glut.glutMouseFunc(new Glut.MouseCallback(ProcessMouseActiveMotion));
             // Set window's to motion callback
-            Glut.glutMotionFunc(new Glut.MotionCallback(processMouse));
+            Glut.glutMotionFunc(new Glut.MotionCallback(ProcessMouse));
             // Set window's to mouse motion callback
-            Glut.glutMouseWheelFunc(new Glut.MouseWheelCallback(processMouseWheel));
+            Glut.glutMouseWheelFunc(new Glut.MouseWheelCallback(ProcessMouseWheel));
             Glut.glutMainLoop();
         }
     }
