@@ -160,8 +160,7 @@ namespace GeomMod
             Glu.gluPerspective(75f, (float)w / (float)h, 0.10f, 500.0f);
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
-            Glu.gluLookAt(rotLx, rotLy, 15.0f +
-                     rotLz, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+            Glu.gluLookAt(rotLx, rotLy, 15.0f + rotLz, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         }
 
         // This function is used for the navigation keys
@@ -321,11 +320,10 @@ namespace GeomMod
         // Translate the x,y windows coordinates to OpenGL coordinates
         static void ProcessMouse(int x, int y)
         {
-            if ((mousePressed == 0))    // If left mouse button is pressed
+            if ((mousePressed == 0))        // If left mouse button is pressed
             {
-                X = (x - old_x) / 15;       // I did divide by 15 to adjust 
-                                            // for a nice translation 
-                Y = -(y - old_y) / 15;
+                X = (x - old_x) / 15;       // I did divide by 15 to adjust                                             
+                Y = -(y - old_y) / 15;      // for a nice translation
             }
 
             Glut.glutPostRedisplay();
@@ -334,9 +332,7 @@ namespace GeomMod
         // Get the mouse wheel direction
         static void ProcessMouseWheel(int wheel, int direction, int x, int y)
         {
-
-            Z += direction;  // Adjust the Z value 
-
+            Z += direction;                 // Adjust the Z value 
             Glut.glutPostRedisplay();
         }
 

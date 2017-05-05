@@ -62,6 +62,18 @@ namespace GeomMod
             RenderTimer.Start();
         }
 
+        private void RadioButtonWireMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonWireMode.Checked == true)
+            {
+                wireMode = true;
+            }
+            else
+            {
+                wireMode = false;
+            }
+        }
+
         /* События изменения значений элементов scrollBar
          *  Общий алгоритм:
          *      переводим значение, установившееся в элементе trackBar в необходимый нам формат,
