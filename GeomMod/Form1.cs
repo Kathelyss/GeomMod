@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Tao.OpenGl;
 using Tao.FreeGlut;
-using Tao.Platform.Windows; // для работы с элементом управления SimpleOpenGLControl
+using Tao.OpenGl;
 
 namespace GeomMod
 {
@@ -62,16 +61,13 @@ namespace GeomMod
             RenderTimer.Start();
         }
 
-        private void RadioButtonWireMode_CheckedChanged(object sender, EventArgs e)
+        // переключение сеточного режима из формы
+
+
+        private void checkBoxWireMode_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonWireMode.Checked == true)
-            {
-                wireMode = true;
-            }
-            else
-            {
-                wireMode = false;
-            }
+            wireMode = checkBoxWireMode.Checked;
+
         }
 
         /* События изменения значений элементов scrollBar
@@ -162,12 +158,12 @@ namespace GeomMod
             Gl.glScaled(zoom, zoom, zoom);
 
             // устаноыка цвета первой фигуры
-            float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 }; 
+            float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 };
             // отрисовка первой фигуры
             DrawFigure(comboBoxFigure1, color1);
-            
+
             // установка цвета второй фигуры
-            float[] color2 = new float[4] { (float)0.9, (float)0.5, (float)0.2, 1 }; 
+            float[] color2 = new float[4] { (float)0.9, (float)0.5, (float)0.2, 1 };
             // отрисовка второй фигуры
             DrawFigure(comboBoxFigure2, color2);
 
@@ -268,22 +264,12 @@ namespace GeomMod
          */
         private void RevealFields(int prms, Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
         {
-            if (prms == 1) // сфера, куб
-            {
-                label1.Visible = true;
-                field1.Visible = true;
-
-                label2.Visible = false;
-                field2.Visible = false;
-            }
-            else if (prms == 2) // конус, цилиндр, тор
-            {
-                label1.Visible = true;
-                field1.Visible = true;
-
-                label2.Visible = true;
-                field2.Visible = true;
-            }
+            // сфера, куб и все остальные фигуры
+            label1.Visible = true;
+            field1.Visible = true;
+            // конус, цилиндр, тор
+            label2.Visible = (prms > 1);
+            field2.Visible = (prms > 1);
             label1.Text = text1;
             label2.Text = text2;
         }

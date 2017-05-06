@@ -48,8 +48,8 @@
             this.labelInfoZ = new System.Windows.Forms.Label();
             this.labelInfoAngle = new System.Windows.Forms.Label();
             this.groupBoxParametrs = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.radioButtonWireMode = new System.Windows.Forms.RadioButton();
             this.numericUpDownFig2Param2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig2Param1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig1Param2 = new System.Windows.Forms.NumericUpDown();
@@ -60,18 +60,18 @@
             this.labelFig1Param1 = new System.Windows.Forms.Label();
             this.comboBoxFigure2 = new System.Windows.Forms.ComboBox();
             this.labelFigure2 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.checkBoxWireMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).BeginInit();
             this.groupBoxParametrs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // labelAxis
@@ -258,9 +258,9 @@
             // 
             // groupBoxParametrs
             // 
+            this.groupBoxParametrs.Controls.Add(this.checkBoxWireMode);
             this.groupBoxParametrs.Controls.Add(this.pictureBox2);
             this.groupBoxParametrs.Controls.Add(this.pictureBox1);
-            this.groupBoxParametrs.Controls.Add(this.radioButtonWireMode);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param2);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param1);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param2);
@@ -280,6 +280,14 @@
             this.groupBoxParametrs.TabStop = false;
             this.groupBoxParametrs.Text = "Параметры фигур";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(6, 485);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(213, 188);
+            this.pictureBox2.TabIndex = 21;
+            this.pictureBox2.TabStop = false;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(6, 190);
@@ -287,18 +295,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(213, 188);
             this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
-            // 
-            // radioButtonWireMode
-            // 
-            this.radioButtonWireMode.AutoSize = true;
-            this.radioButtonWireMode.Location = new System.Drawing.Point(6, 43);
-            this.radioButtonWireMode.Name = "radioButtonWireMode";
-            this.radioButtonWireMode.Size = new System.Drawing.Size(163, 24);
-            this.radioButtonWireMode.TabIndex = 19;
-            this.radioButtonWireMode.TabStop = true;
-            this.radioButtonWireMode.Text = "Сеточный режим";
-            this.radioButtonWireMode.UseVisualStyleBackColor = true;
-            this.radioButtonWireMode.CheckedChanged += new System.EventHandler(this.RadioButtonWireMode_CheckedChanged);
             // 
             // numericUpDownFig2Param2
             // 
@@ -395,13 +391,16 @@
             this.labelFigure2.TabIndex = 5;
             this.labelFigure2.Text = "Фигура 2";
             // 
-            // pictureBox2
+            // checkBoxWireMode
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(6, 485);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(213, 188);
-            this.pictureBox2.TabIndex = 21;
-            this.pictureBox2.TabStop = false;
+            this.checkBoxWireMode.AutoSize = true;
+            this.checkBoxWireMode.Location = new System.Drawing.Point(6, 36);
+            this.checkBoxWireMode.Name = "checkBoxWireMode";
+            this.checkBoxWireMode.Size = new System.Drawing.Size(164, 24);
+            this.checkBoxWireMode.TabIndex = 22;
+            this.checkBoxWireMode.Text = "Сеточный режим";
+            this.checkBoxWireMode.UseVisualStyleBackColor = true;
+            this.checkBoxWireMode.CheckedChanged += new System.EventHandler(this.checkBoxWireMode_CheckedChanged);
             // 
             // MainForm
             // 
@@ -434,12 +433,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).EndInit();
             this.groupBoxParametrs.ResumeLayout(false);
             this.groupBoxParametrs.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -477,8 +476,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFig1Param2;
         private System.Windows.Forms.NumericUpDown numericUpDownFig1Param1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.RadioButton radioButtonWireMode;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.CheckBox checkBoxWireMode;
     }
 }
 
