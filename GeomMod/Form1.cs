@@ -255,6 +255,7 @@ namespace GeomMod
                         }
                         break;
                     }
+                
             }
         }
 
@@ -265,8 +266,8 @@ namespace GeomMod
         private void RevealFields(int prms, Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
         {
             // сфера, куб и все остальные фигуры
-            label1.Visible = true;
-            field1.Visible = true;
+            label1.Visible = (prms > 0);
+            field1.Visible = (prms > 0);
             // конус, цилиндр, тор
             label2.Visible = (prms > 1);
             field2.Visible = (prms > 1);
@@ -348,6 +349,14 @@ namespace GeomMod
                             Glut.glutWireTorus(innerRadius1, outerRadius1, 32, 32);
                         else
                             Glut.glutSolidTorus(innerRadius2, outerRadius2, 32, 32);
+                        break;
+                    }
+                default:
+                    {
+                        if (box == comboBoxFigure1)
+                            RevealFields(0, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "", "");
+                        else if (box == comboBoxFigure2)
+                            RevealFields(0, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "", "");
                         break;
                     }
             }
