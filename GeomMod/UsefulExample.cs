@@ -13,6 +13,7 @@ namespace GeomMod
         static float X = 0.0f;        // Translate screen to x direction (left or right)
         static float Y = 0.0f;        // Translate screen to y direction (up or down)
         static float Z = 0.0f;        // Translate screen to z direction (zoom in or out)
+
         static float rotX = 0.0f;    // Rotate screen on x axis 
         static float rotY = 0.0f;    // Rotate screen on y axis
         static float rotZ = 0.0f;    // Rotate screen on z axis
@@ -334,14 +335,15 @@ namespace GeomMod
         {
             Z += direction;                 // Adjust the Z value 
             Glut.glutPostRedisplay();
+            //this.GLPanel.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GLPanel_MouseWheel);
         }
 
         // Main Starts
         static void Gain(string[] args)
         {
-            Glut.glutInit();        // Initialize glut
+            //Glut.glutInit();        // Initialize glut
             // Setup display mode to double buffer and RGB color
-            Glut.glutInitDisplayMode(Glut.GLUT_DOUBLE | Glut.GLUT_RGB);
+            //Glut.glutInitDisplayMode(Glut.GLUT_DOUBLE | Glut.GLUT_RGB);
             // Set the screen size
             Glut.glutInitWindowSize(600, 600);
             Glut.glutCreateWindow("OpenGL 3D Navigation Program With Tao");
@@ -352,12 +354,14 @@ namespace GeomMod
             Glut.glutKeyboardFunc(new Glut.KeyboardCallback(Keyboard));
             // Set window's to specialKey callback   
             Glut.glutSpecialFunc(new Glut.SpecialCallback(SpecialKey));
+
             // Set window's to Mouse callback
             Glut.glutMouseFunc(new Glut.MouseCallback(ProcessMouseActiveMotion));
             // Set window's to motion callback
             Glut.glutMotionFunc(new Glut.MotionCallback(ProcessMouse));
             // Set window's to mouse motion callback
             Glut.glutMouseWheelFunc(new Glut.MouseWheelCallback(ProcessMouseWheel));
+
             Glut.glutMainLoop();
         }
     }

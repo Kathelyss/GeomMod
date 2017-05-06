@@ -48,6 +48,7 @@
             this.labelInfoZ = new System.Windows.Forms.Label();
             this.labelInfoAngle = new System.Windows.Forms.Label();
             this.groupBoxParametrs = new System.Windows.Forms.GroupBox();
+            this.checkBoxWireMode = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.numericUpDownFig2Param2 = new System.Windows.Forms.NumericUpDown();
@@ -60,7 +61,6 @@
             this.labelFig1Param1 = new System.Windows.Forms.Label();
             this.comboBoxFigure2 = new System.Windows.Forms.ComboBox();
             this.labelFigure2 = new System.Windows.Forms.Label();
-            this.checkBoxWireMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
@@ -98,6 +98,9 @@
             this.simpleOpenGlControl.Size = new System.Drawing.Size(590, 590);
             this.simpleOpenGlControl.StencilBits = ((byte)(0));
             this.simpleOpenGlControl.TabIndex = 1;
+            this.simpleOpenGlControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseDown);
+            this.simpleOpenGlControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseMove);
+            this.simpleOpenGlControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseUp);
             // 
             // labelFigure1
             // 
@@ -280,6 +283,17 @@
             this.groupBoxParametrs.TabStop = false;
             this.groupBoxParametrs.Text = "Параметры фигур";
             // 
+            // checkBoxWireMode
+            // 
+            this.checkBoxWireMode.AutoSize = true;
+            this.checkBoxWireMode.Location = new System.Drawing.Point(6, 36);
+            this.checkBoxWireMode.Name = "checkBoxWireMode";
+            this.checkBoxWireMode.Size = new System.Drawing.Size(164, 24);
+            this.checkBoxWireMode.TabIndex = 22;
+            this.checkBoxWireMode.Text = "Сеточный режим";
+            this.checkBoxWireMode.UseVisualStyleBackColor = true;
+            this.checkBoxWireMode.CheckedChanged += new System.EventHandler(this.CheckBoxWireMode_CheckedChanged);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(6, 485);
@@ -302,6 +316,11 @@
             this.numericUpDownFig2Param2.Name = "numericUpDownFig2Param2";
             this.numericUpDownFig2Param2.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig2Param2.TabIndex = 18;
+            this.numericUpDownFig2Param2.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             this.numericUpDownFig2Param2.Visible = false;
             // 
             // numericUpDownFig2Param1
@@ -310,6 +329,11 @@
             this.numericUpDownFig2Param1.Name = "numericUpDownFig2Param1";
             this.numericUpDownFig2Param1.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig2Param1.TabIndex = 17;
+            this.numericUpDownFig2Param1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             this.numericUpDownFig2Param1.Visible = false;
             // 
             // numericUpDownFig1Param2
@@ -318,6 +342,11 @@
             this.numericUpDownFig1Param2.Name = "numericUpDownFig1Param2";
             this.numericUpDownFig1Param2.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig1Param2.TabIndex = 16;
+            this.numericUpDownFig1Param2.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             this.numericUpDownFig1Param2.Visible = false;
             // 
             // numericUpDownFig1Param1
@@ -326,6 +355,11 @@
             this.numericUpDownFig1Param1.Name = "numericUpDownFig1Param1";
             this.numericUpDownFig1Param1.Size = new System.Drawing.Size(59, 26);
             this.numericUpDownFig1Param1.TabIndex = 15;
+            this.numericUpDownFig1Param1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             this.numericUpDownFig1Param1.Visible = false;
             // 
             // labelFig2Param2
@@ -390,17 +424,6 @@
             this.labelFigure2.Size = new System.Drawing.Size(78, 20);
             this.labelFigure2.TabIndex = 5;
             this.labelFigure2.Text = "Фигура 2";
-            // 
-            // checkBoxWireMode
-            // 
-            this.checkBoxWireMode.AutoSize = true;
-            this.checkBoxWireMode.Location = new System.Drawing.Point(6, 36);
-            this.checkBoxWireMode.Name = "checkBoxWireMode";
-            this.checkBoxWireMode.Size = new System.Drawing.Size(164, 24);
-            this.checkBoxWireMode.TabIndex = 22;
-            this.checkBoxWireMode.Text = "Сеточный режим";
-            this.checkBoxWireMode.UseVisualStyleBackColor = true;
-            this.checkBoxWireMode.CheckedChanged += new System.EventHandler(this.checkBoxWireMode_CheckedChanged);
             // 
             // MainForm
             // 
