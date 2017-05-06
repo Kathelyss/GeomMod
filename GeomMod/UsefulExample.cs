@@ -50,38 +50,7 @@ namespace GeomMod
 
             Gl.glTranslatef(X, Y, Z);        // Translates the screen left or right, 
                                              // up or down or zoom in zoom out
-
-            if (lines)  // If F1 is pressed don't draw the lines
-            {
-                // DrawScene the positive side of the lines x,y,z
-                Gl.glBegin(Gl.GL_LINES);
-                Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(10f, 0f, 0f);
-                Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 10f, 0f);
-                Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, 10f);
-                Gl.glEnd();
-
-                // Dotted lines for the negative sides of x,y,z coordinates
-                Gl.glEnable(Gl.GL_LINE_STIPPLE); // Enable line stipple to use a 
-                                                 // dotted pattern for the lines
-                Gl.glLineStipple(1, 0x0101);     // Dotted stipple pattern for the lines
-                Gl.glBegin(Gl.GL_LINES);
-                Gl.glColor3f(0.0f, 1.0f, 0.0f);                    // Green for x axis
-                Gl.glVertex3f(-10f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glColor3f(1.0f, 0.0f, 0.0f);                    // Red for y axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, -10f, 0f);
-                Gl.glColor3f(0.0f, 0.0f, 1.0f);                    // Blue for z axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, -10f);
-                Gl.glEnd();
-            }
+    //drawAxis
 
             // I start to draw my 3D cube
             Gl.glBegin(Gl.GL_POLYGON);
@@ -194,29 +163,25 @@ namespace GeomMod
                     rotLx -= 2.0f;
                     Gl.glMatrixMode(Gl.GL_MODELVIEW);
                     Gl.glLoadIdentity();
-                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz,
-                        0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
                     break;
                 case 74:    // J
                     rotLx += 2.0f;
                     Gl.glMatrixMode(Gl.GL_MODELVIEW);
                     Gl.glLoadIdentity();
-                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz,
-                        0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
                     break;
                 case 107:   // k
                     rotLy -= 2.0f;
                     Gl.glMatrixMode(Gl.GL_MODELVIEW);
                     Gl.glLoadIdentity();
-                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz,
-                        0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
                     break;
                 case 75:    // K
                     rotLy += 2.0f;
                     Gl.glMatrixMode(Gl.GL_MODELVIEW);
                     Gl.glLoadIdentity();
-                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz,
-                        0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
                     break;
                 case 108: // (l) It has a special case when the rotLZ becomes 
                           // less than -15 the screen is viewed from the opposite side
@@ -226,15 +191,13 @@ namespace GeomMod
                         rotLz -= 2.0f;
                     Gl.glMatrixMode(Gl.GL_MODELVIEW);
                     Gl.glLoadIdentity();
-                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz,
-                        0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
                     break;
                 case 76:    // L
                     rotLz += 2.0f;
                     Gl.glMatrixMode(Gl.GL_MODELVIEW);
                     Gl.glLoadIdentity();
-                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz,
-                        0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+                    Glu.gluLookAt(rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
                     break;
                 case 98:    // b        // Rotates on x axis by -90 degree
                     rotX -= 90.0f;
@@ -267,8 +230,7 @@ namespace GeomMod
                     rotLz = 0.0f;
                     Gl.glMatrixMode(Gl.GL_MODELVIEW);
                     Gl.glLoadIdentity();
-                    Glu.gluLookAt(rotLx, rotLy, 15.0f + rotLz,
-                        0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+                    Glu.gluLookAt(rotLx, rotLy, 15.0f + rotLz, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
                     break;
             }
             Glut.glutPostRedisplay();    // Redraw the scene

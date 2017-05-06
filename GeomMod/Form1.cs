@@ -16,6 +16,17 @@ namespace GeomMod
         int cubeSide2, sphereRadius2, coneBasemendRadius2, cilinderBaseRadius2, coneHeight2, cilinderHeight2;
         int innerRadius1, outerRadius1, innerRadius2, outerRadius2; // радиусы тора
 
+        static float rotX = 0.0f;    // Rotate screen on x axis 
+        static float rotY = 0.0f;    // Rotate screen on y axis
+        static float rotZ = 0.0f;    // Rotate screen on z axis
+
+        static float rotLx = 0.0f;   // Translate screen by using the glulookAt function 
+                                     // (left or right)
+        static float rotLy = 0.0f;   // Translate screen by using the glulookAt function 
+                                     // (up or down)
+        static float rotLz = 0.0f;   // Translate screen by using the glulookAt function 
+                                     // (zoom in or out)
+
         //for mouse
         static int old_x, old_y, mousePressed;
         static float X = 0.0f;        // Translate screen to x direction (left or right)
@@ -23,16 +34,17 @@ namespace GeomMod
         static float Z = 0.0f;        // Translate screen to z direction (zoom in or out)
 
         bool wireMode = false; // режим сеточной визуализации
+        bool axis = true;
 
         public MainForm()
         {
             InitializeComponent();
+            simpleOpenGlControl.InitializeContexts();
             simpleOpenGlControl.MouseWheel += new MouseEventHandler(this.SimpleOpenGlControl_MouseWheel);
             simpleOpenGlControl.MouseDown += new MouseEventHandler(SimpleOpenGlControl_MouseDown);
             simpleOpenGlControl.MouseUp += new MouseEventHandler(SimpleOpenGlControl_MouseUp);
             simpleOpenGlControl.MouseMove += new MouseEventHandler(SimpleOpenGlControl_MouseMove);
             //simpleOpenGlControl.KeyUp += new KeyEventHandler(this.HandleKeyPress);
-            simpleOpenGlControl.InitializeContexts();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -129,17 +141,15 @@ namespace GeomMod
             labelInfoZ.Text = Z.ToString();
             Glut.glutPostRedisplay();
         }
-
         // Capture the mouse click event 
-        static void ProcessMouseActiveMotion(int button, int state, int x, int y)
+        private void ProcessMouseActiveMotion(int button, int state, int x, int y)
         {
             mousePressed = button;          // Capture which mouse button is down
             old_x = x;                      // Capture the x value
             old_y = y;                      // Capture the y value
         }
-
         // Translate the x,y windows coordinates to OpenGL coordinates
-        static void ProcessMouse(int x, int y)
+        private void ProcessMouse(int x, int y)
         {
             if ((mousePressed == 0))        // If left mouse button is pressed
             {
@@ -149,6 +159,7 @@ namespace GeomMod
 
             Glut.glutPostRedisplay();
         }
+
 
         private void TrackBarAngle_Scroll(object sender, EventArgs e)
         {
@@ -213,7 +224,10 @@ namespace GeomMod
             // и масштабирование объекта 
             Gl.glScaled(zoom, zoom, zoom);
 
-            // устаноыка цвета первой фигуры
+            //отрисовываем 2D-оси координат
+            DrawAxis(axis);
+
+            // установка цвета первой фигуры
             float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 };
             // отрисовка первой фигуры
             DrawFigure(1, comboBoxFigure1, color1);
@@ -491,5 +505,160 @@ namespace GeomMod
             }
         }
 
+        private void DrawAxis(bool axis)
+        {
+            if (axis)  // If F1 is pressed don't draw the lines
+            {
+                // DrawScene the positive side of the lines x,y,z
+                Gl.glBegin(Gl.GL_LINES);
+
+                Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(10f, 0f, 0f);
+
+                Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, 10f, 0f);
+
+                Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, 0f, 10f);
+
+                Gl.glEnd();
+                
+                // Dotted lines for the negative sides of x,y,z coordinates
+                Gl.glEnable(Gl.GL_LINE_STIPPLE); // Enable line stipple to use a dotted pattern for the lines
+                Gl.glLineStipple(1, 0x00FF);     // Dotted stipple pattern for the lines
+
+                Gl.glBegin(Gl.GL_LINES);
+
+                Gl.glColor3f(0.0f, 1.0f, 0.0f);                    // Green for x axis
+                Gl.glVertex3f(-10f, 0f, 0f);
+                Gl.glVertex3f(0f, 0f, 0f);
+
+                Gl.glColor3f(1.0f, 0.0f, 0.0f);                    // Red for y axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, -10f, 0f);
+
+                Gl.glColor3f(0.0f, 0.0f, 1.0f);                    // Blue for z axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, 0f, -10f);
+
+                Gl.glEnd();
+                
+            }
+        }
+
+
+        /*
+        private void Drawings()
+        {
+            // Clear the Color Buffer and Depth Buffer
+            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+            Gl.glPushMatrix();   // It is important to push the Matrix before 
+                                 // calling glRotatef and glTranslatef
+          
+            Gl.glRotatef(rotX, 1.0f, 0.0f, 0.0f);            // Rotate on x
+            Gl.glRotatef(rotY, 0.0f, 1.0f, 0.0f);            // Rotate on y
+            Gl.glRotatef(rotZ, 0.0f, 0.0f, 1.0f);            // Rotate on z
+
+            if (rotation) // If F2 is pressed update x,y,z for rotation of the cube
+            {
+                rotX += 0.2f;
+                rotY += 0.2f;
+                rotZ += 0.2f;
+            }
+           
+            Gl.glTranslatef(X, Y, Z);        // Translates the screen left or right, 
+                                             // up or down or zoom in zoom out
+
+            if (lines)  // If F1 is pressed don't draw the lines
+            {
+                // DrawScene the positive side of the lines x,y,z
+                Gl.glBegin(Gl.GL_LINES);
+                Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(10f, 0f, 0f);
+                Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, 10f, 0f);
+                Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, 0f, 10f);
+                Gl.glEnd();
+
+                // Dotted lines for the negative sides of x,y,z coordinates
+                Gl.glEnable(Gl.GL_LINE_STIPPLE); // Enable line stipple to use a 
+                                                 // dotted pattern for the lines
+                Gl.glLineStipple(1, 0x0101);     // Dotted stipple pattern for the lines
+                Gl.glBegin(Gl.GL_LINES);
+                Gl.glColor3f(0.0f, 1.0f, 0.0f);                    // Green for x axis
+                Gl.glVertex3f(-10f, 0f, 0f);
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glColor3f(1.0f, 0.0f, 0.0f);                    // Red for y axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, -10f, 0f);
+                Gl.glColor3f(0.0f, 0.0f, 1.0f);                    // Blue for z axis
+                Gl.glVertex3f(0f, 0f, 0f);
+                Gl.glVertex3f(0f, 0f, -10f);
+                Gl.glEnd();
+            }
+
+            // I start to draw my 3D cube
+            Gl.glBegin(Gl.GL_POLYGON);
+            // I'm setting a new color for each corner, this creates a rainbow effect
+            Gl.glColor3f(0.0f, 0.0f, 1.0f);             // Set color to blue
+            Gl.glVertex3f(3.0f, 3.0f, 3.0f);
+            Gl.glColor3f(1.0f, 0.0f, 0.0f);             // Set color to red
+            Gl.glVertex3f(3.0f, -3.0f, 3.0f);
+            Gl.glColor3f(0.0f, 1.0f, 0.0f);             // Set color to green
+            Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
+            Gl.glColor3f(1.0f, 0.0f, 1.0f);     // Set color to something 
+                                                //(right now I don't know which color)
+            Gl.glVertex3f(-3.0f, 3.0f, 3.0f);
+            Gl.glEnd();
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glColor3f(0.50f, 0.50f, 1.0f);         // Set a new color
+            Gl.glVertex3f(3.0f, 3.0f, -3.0f);
+            Gl.glVertex3f(3.0f, -3.0f, -3.0f);
+            Gl.glVertex3f(-3.0f, -3.0f, -3.0f);
+            Gl.glVertex3f(-3.0f, 3.0f, -3.0f);
+            Gl.glEnd();
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glColor3f(0.0f, 1.0f, 0.0f);         // Set a new color (green)
+            Gl.glVertex3f(3.0f, 3.0f, 3.0f);
+            Gl.glVertex3f(3.0f, 3.0f, -3.0f);
+            Gl.glVertex3f(3.0f, -3.0f, -3.0f);
+            Gl.glVertex3f(3.0f, -3.0f, 3.0f);
+            Gl.glEnd();
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glColor3f(0.50f, 1.0f, 0.50f);
+            Gl.glVertex3f(-3.0f, 3.0f, 3.0f);
+            Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
+            Gl.glVertex3f(-3.0f, -3.0f, -3.0f);
+            Gl.glVertex3f(-3.0f, 3.0f, -3.0f);
+            Gl.glEnd();
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glColor3f(1.0f, 0.0f, 0.0f);
+            Gl.glVertex3f(3.0f, 3.0f, 3.0f);
+            Gl.glVertex3f(3.0f, 3.0f, -3.0f);
+            Gl.glVertex3f(-3.0f, 3.0f, -3.0f);
+            Gl.glVertex3f(-3.0f, 3.0f, 3.0f);
+            Gl.glEnd();
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glColor3f(1.0f, 0.50f, 0.50f);
+            Gl.glVertex3f(3.0f, -3.0f, 3.0f);
+            Gl.glVertex3f(3.0f, -3.0f, -3.0f);
+            Gl.glVertex3f(-3.0f, -3.0f, -3.0f);
+            Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
+            Gl.glEnd();
+            
+
+            Gl.glDisable(Gl.GL_LINE_STIPPLE);   // Disable the line stipple
+            Glut.glutPostRedisplay();           // Redraw the scene
+            Gl.glPopMatrix();                   // Don't forget to pop the Matrix
+            Glut.glutSwapBuffers();
+        }
+        */
     }
 }
