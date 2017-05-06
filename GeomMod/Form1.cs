@@ -14,18 +14,7 @@ namespace GeomMod
         // здесь 1 - первая фигура, 2 - вторая фигура
         int cubeSide1, sphereRadius1, coneBasemendRadius1, cilinderBaseRadius1, coneHeight1, cilinderHeight1;
         int cubeSide2, sphereRadius2, coneBasemendRadius2, cilinderBaseRadius2, coneHeight2, cilinderHeight2;
-        int innerRadius1, outerRadius1, innerRadius2, outerRadius2; // радиусы тора
-
-        static float rotX = 0.0f;    // Rotate screen on x axis 
-        static float rotY = 0.0f;    // Rotate screen on y axis
-        static float rotZ = 0.0f;    // Rotate screen on z axis
-
-        static float rotLx = 0.0f;   // Translate screen by using the glulookAt function 
-                                     // (left or right)
-        static float rotLy = 0.0f;   // Translate screen by using the glulookAt function 
-                                     // (up or down)
-        static float rotLz = 0.0f;   // Translate screen by using the glulookAt function 
-                                     // (zoom in or out)
+        int innerRadius1, outerRadius1, innerRadius2, outerRadius2; // радиусы торов
 
         //for mouse
         static int old_x, old_y, mousePressed;
@@ -34,7 +23,6 @@ namespace GeomMod
         static float Z = 0.0f;        // Translate screen to z direction (zoom in or out)
 
         bool wireMode = false; // режим сеточной визуализации
-        bool axis = true;
 
         public MainForm()
         {
@@ -92,22 +80,10 @@ namespace GeomMod
             RenderTimer.Start();
         }
 
-        // неработающий кусок
-        private void SimpleOpenGlControl_MouseWheel(object sender, MouseEventArgs e)
-        {
-            simpleOpenGlControl.MouseWheel += new MouseEventHandler(this.SimpleOpenGlControl_MouseWheel);
-        }
-        private void SimpleOpenGlControl_MouseDown(object sender, MouseEventArgs e) { }
-        private void SimpleOpenGlControl_MouseUp(object sender, MouseEventArgs e) { }
-        private void SimpleOpenGlControl_MouseMove(object sender, MouseEventArgs e) { }
-        //
-
-
         // переключение сеточного режима из формы
         private void CheckBoxWireMode_CheckedChanged(object sender, EventArgs e)
         {
             wireMode = checkBoxWireMode.Checked;
-
         }
 
         /* События изменения значений элементов scrollBar
@@ -133,33 +109,6 @@ namespace GeomMod
             c = (double)trackBarZ.Value / 1000.0;
             labelInfoZ.Text = c.ToString();
         }
-
-
-        private void ZoomViaMouseWheel(int wheel, int direction, int x, int y)
-        {
-            Z += direction;
-            labelInfoZ.Text = Z.ToString();
-            Glut.glutPostRedisplay();
-        }
-        // Capture the mouse click event 
-        private void ProcessMouseActiveMotion(int button, int state, int x, int y)
-        {
-            mousePressed = button;          // Capture which mouse button is down
-            old_x = x;                      // Capture the x value
-            old_y = y;                      // Capture the y value
-        }
-        // Translate the x,y windows coordinates to OpenGL coordinates
-        private void ProcessMouse(int x, int y)
-        {
-            if ((mousePressed == 0))        // If left mouse button is pressed
-            {
-                X = (x - old_x) / 15;       // I did divide by 15 to adjust                                             
-                Y = -(y - old_y) / 15;      // for a nice translation
-            }
-
-            Glut.glutPostRedisplay();
-        }
-
 
         private void TrackBarAngle_Scroll(object sender, EventArgs e)
         {
@@ -203,9 +152,44 @@ namespace GeomMod
             DrawScene(); // вызов функции отрисовки сцены
         }
 
-        //////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
 
-        // функция отрисовки сцены
+        // неработающий кусок
+        private void SimpleOpenGlControl_MouseWheel(object sender, MouseEventArgs e)
+        {
+            simpleOpenGlControl.MouseWheel += new MouseEventHandler(this.SimpleOpenGlControl_MouseWheel);
+        }
+        private void SimpleOpenGlControl_MouseDown(object sender, MouseEventArgs e) { }
+        private void SimpleOpenGlControl_MouseUp(object sender, MouseEventArgs e) { }
+        private void SimpleOpenGlControl_MouseMove(object sender, MouseEventArgs e) { }
+        private void ZoomViaMouseWheel(int wheel, int direction, int x, int y)
+        {
+            Z += direction;
+            labelInfoZ.Text = Z.ToString();
+            Glut.glutPostRedisplay();
+        }
+        // Capture the mouse click event 
+        private void ProcessMouseActiveMotion(int button, int state, int x, int y)
+        {
+            mousePressed = button;          // Capture which mouse button is down
+            old_x = x;                      // Capture the x value
+            old_y = y;                      // Capture the y value
+        }
+        // Translate the x,y windows coordinates to OpenGL coordinates
+        private void ProcessMouse(int x, int y)
+        {
+            if ((mousePressed == 0))        // If left mouse button is pressed
+            {
+                X = (x - old_x) / 15;       // I did divide by 15 to adjust                                             
+                Y = -(y - old_y) / 15;      // for a nice translation
+            }
+
+            Glut.glutPostRedisplay();
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+
+        // отрисовка сцены
         private void DrawScene()
         {
             // очистка буфера цвета и буфера глубины 
@@ -224,8 +208,8 @@ namespace GeomMod
             // и масштабирование объекта 
             Gl.glScaled(zoom, zoom, zoom);
 
-            //отрисовываем 2D-оси координат
-            DrawAxis(axis);
+            //отрисовывка 3D-осей координат
+            DrawAxis();
 
             // установка цвета первой фигуры
             float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 };
@@ -247,7 +231,192 @@ namespace GeomMod
             simpleOpenGlControl.Invalidate();
         }
 
-        // установка парамептров фигур из полей формы
+        // отрисовка осей координат
+        private void DrawAxis()
+        {
+            // отрисовка положительных частей осей координат
+            Gl.glBegin(Gl.GL_LINES);
+
+            Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(50f, 0f, 0f);
+
+            Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, 50f, 0f);
+
+            Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, 0f, 50f);
+
+            Gl.glEnd();
+
+            // пунктир для отрицательных частей осей координат
+            Gl.glEnable(Gl.GL_LINE_STIPPLE); // активизируем пунктирный режим
+            Gl.glLineStipple(1, 0x00FF);     // тип пунктира осей
+
+            Gl.glBegin(Gl.GL_LINES);
+
+            Gl.glColor3f(0.0f, 1.0f, 0.0f);
+            Gl.glVertex3f(-50f, 0f, 0f);
+            Gl.glVertex3f(0f, 0f, 0f);
+
+            Gl.glColor3f(1.0f, 0.0f, 0.0f);
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, -50f, 0f);
+
+            Gl.glColor3f(0.0f, 0.0f, 1.0f);
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, 0f, -50f);
+
+            Gl.glEnd();
+        }
+
+        // отрисовка фигуры
+        private void DrawFigure(int figureNumber, ComboBox box, float[] color)
+        {
+            // устанавливаем параметры (из полей формы)
+            SetParams(box);
+
+            //установка цвета объекта
+            float[] shininess = new float[1] { 30 };
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
+            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
+
+            // в зависимости от выбранного comboBoxFigure1 или же comboBoxFigure2
+            switch (box.SelectedIndex)
+            {
+                // рисуем нужный объект, используя функции библиотеки GLUT 
+                // попутно "открываем" нужные поля и лейблы для параметризации
+                case 0: // сфера
+                    {
+                        if (box == comboBoxFigure1)
+                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "");
+                        else if (box == comboBoxFigure2)
+                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
+
+                        if (figureNumber == 1)
+                        {
+                            if (wireMode)
+                                Glut.glutWireSphere(sphereRadius1, 16, 16); // сеточная сфера 
+                            else
+                                Glut.glutSolidSphere(sphereRadius1, 16, 16); // полигональная сфера 
+                        }
+                        else
+                        {
+                            if (wireMode)
+                                Glut.glutWireSphere(sphereRadius2, 16, 16); // сеточная сфера 
+                            else
+                                Glut.glutSolidSphere(sphereRadius2, 16, 16); // полигональная сфера 
+                        }
+                        break;
+                    }
+                case 1: // цилиндр
+                    {
+                        if (box == comboBoxFigure1)
+                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                        else if (box == comboBoxFigure2)
+                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
+
+                        if (figureNumber == 1)
+                        {
+                            if (wireMode)
+                                Glut.glutWireCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
+                            else
+                                Glut.glutSolidCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
+                        }
+                        else
+                        {
+                            if (wireMode)
+                                Glut.glutWireCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
+                            else
+                                Glut.glutSolidCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
+                        }
+                        break;
+                    }
+                case 2: // куб
+                    {
+                        if (box == comboBoxFigure1)
+                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "a", "");
+                        else if (box == comboBoxFigure2)
+                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "a", "");
+
+                        if (figureNumber == 1)
+                        {
+                            if (wireMode)
+                                Glut.glutWireCube(cubeSide1);
+                            else
+                                Glut.glutSolidCube(cubeSide1);
+                        }
+                        else
+                        {
+                            if (wireMode)
+                                Glut.glutWireCube(cubeSide2);
+                            else
+                                Glut.glutSolidCube(cubeSide2);
+                        }
+                        break;
+                    }
+                case 3: // конус
+                    {
+                        if (box == comboBoxFigure1)
+                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
+                        else if (box == comboBoxFigure2)
+                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
+
+                        if (figureNumber == 1)
+                        {
+                            if (wireMode)
+                                Glut.glutWireCone(coneBasemendRadius1, coneHeight1, 32, 32);
+                            else
+                                Glut.glutSolidCone(coneBasemendRadius1, coneHeight1, 32, 32);
+                        }
+                        else
+                        {
+                            if (wireMode)
+                                Glut.glutWireCone(coneBasemendRadius2, coneHeight2, 32, 32);
+                            else
+                                Glut.glutSolidCone(coneBasemendRadius2, coneHeight2, 32, 32);
+                        }
+                        break;
+                    }
+                case 4: // тор
+                    {
+                        if (box == comboBoxFigure1)
+                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
+                        else if (box == comboBoxFigure2)
+                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
+                        if (figureNumber == 1)
+                        {
+                            if (wireMode)
+                                Glut.glutWireTorus(innerRadius1, outerRadius1, 32, 32);
+                            else
+                                Glut.glutSolidTorus(innerRadius1, outerRadius1, 32, 32);
+                        }
+                        else
+                        {
+                            if (wireMode)
+                                Glut.glutWireTorus(innerRadius2, outerRadius2, 32, 32);
+                            else
+                                Glut.glutSolidTorus(innerRadius2, outerRadius2, 32, 32);
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        if (box == comboBoxFigure1)
+                            RevealFields(0, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "", "");
+                        else if (box == comboBoxFigure2)
+                            RevealFields(0, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "", "");
+                        break;
+                    }
+            }
+        }
+
+
+
+        // получение параметров фигур из полей формы
         private void GetParams()
         {
             //1я фигура
@@ -279,7 +448,7 @@ namespace GeomMod
             outerRadius2 = (int)numericUpDownFig2Param2.Value;
         }
 
-        // установка начальных параметров фигур
+        // установка параметров фигур из полей формы
         private void SetParams(ComboBox box)
         {
             switch (box.SelectedIndex)
@@ -362,193 +531,6 @@ namespace GeomMod
             label1.Text = text1;
             label2.Text = text2;
         }
-
-        // отрисовка фигуры
-        private void DrawFigure(int figureNumber, ComboBox box, float[] color)
-        {
-            // устанавливаем параметры (из полей формы)
-            SetParams(box);
-
-            //установка цвета объекта
-            float[] shininess = new float[1] { 30 };
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
-
-            // в зависимости от выбранного comboBoxFigure1 или же comboBoxFigure2
-            switch (box.SelectedIndex)
-            {
-                // рисуем нужный объект, используя функции библиотеки GLUT 
-                // попутно "открываем" нужные поля и лейблы для параметризации
-                case 0: // сфера
-                    {
-                        if (box == comboBoxFigure1)
-                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
-
-                        if (figureNumber == 1)
-                        {
-                            if (wireMode)
-                                Glut.glutWireSphere(sphereRadius1, 16, 16); // сеточная сфера 
-                            else
-                                Glut.glutSolidSphere(sphereRadius1, 16, 16); // полигональная сфера 
-                        }
-                        else
-                        {
-                            if (wireMode)
-                                Glut.glutWireSphere(sphereRadius2, 16, 16); // сеточная сфера 
-                            else
-                                Glut.glutSolidSphere(sphereRadius2, 16, 16); // полигональная сфера 
-                        }
-                        break;
-                    }
-                case 1: // цилиндр
-                    {
-                        if (box == comboBoxFigure1)
-                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
-
-                        if(figureNumber == 1)
-                        {
-                            if (wireMode)
-                                Glut.glutWireCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
-                            else
-                                Glut.glutSolidCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
-                        }
-                        else
-                        {
-                            if (wireMode)
-                                Glut.glutWireCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
-                            else
-                                Glut.glutSolidCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
-                        }
-                        break;
-                    }
-                case 2: // куб
-                    {
-                        if (box == comboBoxFigure1)
-                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "a", "");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "a", "");
-
-                        if(figureNumber == 1)
-                        {
-                            if (wireMode)
-                                Glut.glutWireCube(cubeSide1);
-                            else
-                                Glut.glutSolidCube(cubeSide1);
-                        }
-                        else
-                        {
-                            if (wireMode)
-                                Glut.glutWireCube(cubeSide2);
-                            else
-                                Glut.glutSolidCube(cubeSide2);
-                        }
-                        break;
-                    }
-                case 3: // конус
-                    {
-                        if (box == comboBoxFigure1)
-                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
-
-                        if(figureNumber == 1)
-                        {
-                            if (wireMode)
-                                Glut.glutWireCone(coneBasemendRadius1, coneHeight1, 32, 32);
-                            else
-                                Glut.glutSolidCone(coneBasemendRadius1, coneHeight1, 32, 32);
-                        }
-                        else
-                        {
-                            if (wireMode)
-                                Glut.glutWireCone(coneBasemendRadius2, coneHeight2, 32, 32);
-                            else
-                                Glut.glutSolidCone(coneBasemendRadius2, coneHeight2, 32, 32);
-                        }
-                        break;
-                    }
-                case 4: // тор
-                    {
-                        if (box == comboBoxFigure1)
-                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
-                        if (figureNumber == 1)
-                        {
-                            if (wireMode)
-                                Glut.glutWireTorus(innerRadius1, outerRadius1, 32, 32);
-                            else
-                                Glut.glutSolidTorus(innerRadius1, outerRadius1, 32, 32);
-                        }
-                        else
-                        {
-                            if (wireMode)
-                                Glut.glutWireTorus(innerRadius2, outerRadius2, 32, 32);
-                            else
-                                Glut.glutSolidTorus(innerRadius2, outerRadius2, 32, 32);
-                        }
-                        break;
-                    }
-                default:
-                    {
-                        if (box == comboBoxFigure1)
-                            RevealFields(0, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "", "");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(0, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "", "");
-                        break;
-                    }
-            }
-        }
-
-        private void DrawAxis(bool axis)
-        {
-            if (axis)  // If F1 is pressed don't draw the lines
-            {
-                // DrawScene the positive side of the lines x,y,z
-                Gl.glBegin(Gl.GL_LINES);
-
-                Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(10f, 0f, 0f);
-
-                Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 10f, 0f);
-
-                Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, 10f);
-
-                Gl.glEnd();
-                
-                // Dotted lines for the negative sides of x,y,z coordinates
-                Gl.glEnable(Gl.GL_LINE_STIPPLE); // Enable line stipple to use a dotted pattern for the lines
-                Gl.glLineStipple(1, 0x00FF);     // Dotted stipple pattern for the lines
-
-                Gl.glBegin(Gl.GL_LINES);
-
-                Gl.glColor3f(0.0f, 1.0f, 0.0f);                    // Green for x axis
-                Gl.glVertex3f(-10f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, 0f);
-
-                Gl.glColor3f(1.0f, 0.0f, 0.0f);                    // Red for y axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, -10f, 0f);
-
-                Gl.glColor3f(0.0f, 0.0f, 1.0f);                    // Blue for z axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, -10f);
-
-                Gl.glEnd();
-                
-            }
-        }
-
 
         /*
         private void Drawings()
