@@ -9,7 +9,7 @@ namespace GeomMod
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
+        double a = -5, b = 0, c = -50, d = 10, zoom = 1; // выбранные оси 
         int os_x = 1, os_y = 0, os_z = 0;
         // здесь 1 - первая фигура, 2 - вторая фигура
         int cubeSide1, sphereRadius1, coneBasemendRadius1, cilinderBaseRadius1, coneHeight1, cilinderHeight1;
@@ -53,6 +53,7 @@ namespace GeomMod
 
             // установка цвета очистки экрана (RGBA) 
             Gl.glClearColor(255, 255, 255, 1);
+            //Gl.glClearColor(0, 0, 0, 0);
 
             // установка порта вывода 
             Gl.glViewport(0, 0, simpleOpenGlControl.Width, simpleOpenGlControl.Height);
@@ -68,10 +69,12 @@ namespace GeomMod
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
+
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // начальная настройка параметров openGL (тест глубины, освещение и первый источник света) 
-            Gl.glEnable(Gl.GL_DEPTH_TEST);
-            Gl.glEnable(Gl.GL_LIGHTING);
-            Gl.glEnable(Gl.GL_LIGHT0);
+            //Gl.glEnable(Gl.GL_DEPTH_TEST);
+           // Gl.glEnable(Gl.GL_LIGHTING);
+            //Gl.glEnable(Gl.GL_LIGHT0);
 
             // установка оси вращения сцены (ось х)
             comboBoxAxis.SelectedIndex = 0;
@@ -195,7 +198,7 @@ namespace GeomMod
             // очистка буфера цвета и буфера глубины 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 
-            Gl.glClearColor(255, 255, 255, 1);
+             Gl.glClearColor(255, 255, 255, 1);
             // очищение текущей матрицы 
             Gl.glLoadIdentity();
 
@@ -210,6 +213,7 @@ namespace GeomMod
 
             //отрисовывка 3D-осей координат
             DrawAxis();
+           // Drawings();
 
             // установка цвета первой фигуры
             float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 };
@@ -233,43 +237,45 @@ namespace GeomMod
 
         // отрисовка осей координат
         private void DrawAxis()
-        {
+        {            
             // отрисовка положительных частей осей координат
             Gl.glBegin(Gl.GL_LINES);
 
-            Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(50f, 0f, 0f);
+            Gl.glColor3f(0.0f, 1.0f, 0.0f); // зеленый цвет оси Х
+            Gl.glVertex3f(0, 0, 0);
+            Gl.glVertex3f(100, 0, 0);
 
-            Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, 50f, 0f);
+            Gl.glColor3f(0.0f, 0.0f, 1.0f); // синий цвет оси Y
+            Gl.glVertex3f(0, 0, 0);
+            Gl.glVertex3f(0, 100, 0);
 
-            Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, 0f, 50f);
+            Gl.glColor3f(1.0f, 0.0f, 0.0f); // красный цвет оси Z
+            Gl.glVertex3f(0, 0, 0);
+            Gl.glVertex3f(0, 0, 100);
 
             Gl.glEnd();
 
             // пунктир для отрицательных частей осей координат
             Gl.glEnable(Gl.GL_LINE_STIPPLE); // активизируем пунктирный режим
             Gl.glLineStipple(1, 0x00FF);     // тип пунктира осей
-
+            
             Gl.glBegin(Gl.GL_LINES);
 
             Gl.glColor3f(0.0f, 1.0f, 0.0f);
-            Gl.glVertex3f(-50f, 0f, 0f);
-            Gl.glVertex3f(0f, 0f, 0f);
-
-            Gl.glColor3f(1.0f, 0.0f, 0.0f);
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, -50f, 0f);
+            Gl.glVertex3f(-100, 0, 0);
+            Gl.glVertex3f(0, 0, 0);
 
             Gl.glColor3f(0.0f, 0.0f, 1.0f);
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, 0f, -50f);
+            Gl.glVertex3f(0, 0, 0);
+            Gl.glVertex3f(0, -100, 0);
+
+            Gl.glColor3f(1.0f, 0.0f, 0.0f);
+            Gl.glVertex3f(0, 0, 0);
+            Gl.glVertex3f(0, 0, -100);
 
             Gl.glEnd();
+            
+            Gl.glDisable(Gl.GL_LINE_STIPPLE);
         }
 
         // отрисовка фигуры
@@ -277,13 +283,13 @@ namespace GeomMod
         {
             // устанавливаем параметры (из полей формы)
             SetParams(box);
-
+            /*
             //установка цвета объекта
             float[] shininess = new float[1] { 30 };
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
-
+            */
             // в зависимости от выбранного comboBoxFigure1 или же comboBoxFigure2
             switch (box.SelectedIndex)
             {
@@ -532,60 +538,57 @@ namespace GeomMod
             label2.Text = text2;
         }
 
-        /*
+
         private void Drawings()
         {
             // Clear the Color Buffer and Depth Buffer
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             Gl.glPushMatrix();   // It is important to push the Matrix before 
                                  // calling glRotatef and glTranslatef
-          
-            Gl.glRotatef(rotX, 1.0f, 0.0f, 0.0f);            // Rotate on x
-            Gl.glRotatef(rotY, 0.0f, 1.0f, 0.0f);            // Rotate on y
-            Gl.glRotatef(rotZ, 0.0f, 0.0f, 1.0f);            // Rotate on z
 
-            if (rotation) // If F2 is pressed update x,y,z for rotation of the cube
-            {
-                rotX += 0.2f;
-                rotY += 0.2f;
-                rotZ += 0.2f;
-            }
-           
+            /*  Gl.glRotatef(rotX, 1.0f, 0.0f, 0.0f);            // Rotate on x
+              Gl.glRotatef(rotY, 0.0f, 1.0f, 0.0f);            // Rotate on y
+              Gl.glRotatef(rotZ, 0.0f, 0.0f, 1.0f);            // Rotate on z
+
+              if (rotation) // If F2 is pressed update x,y,z for rotation of the cube
+              {
+                  rotX += 0.2f;
+                  rotY += 0.2f;
+                  rotZ += 0.2f;
+              }
+
             Gl.glTranslatef(X, Y, Z);        // Translates the screen left or right, 
                                              // up or down or zoom in zoom out
+            */
+            // DrawScene the positive side of the lines x,y,z
+            Gl.glBegin(Gl.GL_LINES);
+            Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(10f, 0f, 0f);
+            Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, 10f, 0f);
+            Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, 0f, 10f);
+            Gl.glEnd();
 
-            if (lines)  // If F1 is pressed don't draw the lines
-            {
-                // DrawScene the positive side of the lines x,y,z
-                Gl.glBegin(Gl.GL_LINES);
-                Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(10f, 0f, 0f);
-                Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 10f, 0f);
-                Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, 10f);
-                Gl.glEnd();
-
-                // Dotted lines for the negative sides of x,y,z coordinates
-                Gl.glEnable(Gl.GL_LINE_STIPPLE); // Enable line stipple to use a 
-                                                 // dotted pattern for the lines
-                Gl.glLineStipple(1, 0x0101);     // Dotted stipple pattern for the lines
-                Gl.glBegin(Gl.GL_LINES);
-                Gl.glColor3f(0.0f, 1.0f, 0.0f);                    // Green for x axis
-                Gl.glVertex3f(-10f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glColor3f(1.0f, 0.0f, 0.0f);                    // Red for y axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, -10f, 0f);
-                Gl.glColor3f(0.0f, 0.0f, 1.0f);                    // Blue for z axis
-                Gl.glVertex3f(0f, 0f, 0f);
-                Gl.glVertex3f(0f, 0f, -10f);
-                Gl.glEnd();
-            }
-
+            // Dotted lines for the negative sides of x,y,z coordinates
+            Gl.glEnable(Gl.GL_LINE_STIPPLE); // Enable line stipple to use a 
+                                             // dotted pattern for the lines
+            Gl.glLineStipple(1, 0x0101);     // Dotted stipple pattern for the lines
+            Gl.glBegin(Gl.GL_LINES);
+            Gl.glColor3f(0.0f, 1.0f, 0.0f);                    // Green for x axis
+            Gl.glVertex3f(-10f, 0f, 0f);
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glColor3f(1.0f, 0.0f, 0.0f);                    // Red for y axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, -10f, 0f);
+            Gl.glColor3f(0.0f, 0.0f, 1.0f);                    // Blue for z axis
+            Gl.glVertex3f(0f, 0f, 0f);
+            Gl.glVertex3f(0f, 0f, -10f);
+            Gl.glEnd();
+            
             // I start to draw my 3D cube
             Gl.glBegin(Gl.GL_POLYGON);
             // I'm setting a new color for each corner, this creates a rainbow effect
@@ -636,11 +639,9 @@ namespace GeomMod
             Gl.glEnd();
             
 
-            Gl.glDisable(Gl.GL_LINE_STIPPLE);   // Disable the line stipple
-            Glut.glutPostRedisplay();           // Redraw the scene
+            Gl.glDisable(Gl.GL_LINE_STIPPLE);
             Gl.glPopMatrix();                   // Don't forget to pop the Matrix
-            Glut.glutSwapBuffers();
         }
-        */
+
     }
 }

@@ -141,6 +141,7 @@
             // labelX
             // 
             this.labelX.AutoSize = true;
+            this.labelX.ForeColor = System.Drawing.Color.Green;
             this.labelX.Location = new System.Drawing.Point(946, 616);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(20, 20);
@@ -150,6 +151,7 @@
             // labelY
             // 
             this.labelY.AutoSize = true;
+            this.labelY.ForeColor = System.Drawing.Color.Blue;
             this.labelY.Location = new System.Drawing.Point(275, 23);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(20, 20);
@@ -159,6 +161,7 @@
             // labelZ
             // 
             this.labelZ.AutoSize = true;
+            this.labelZ.ForeColor = System.Drawing.Color.Red;
             this.labelZ.Location = new System.Drawing.Point(985, 85);
             this.labelZ.Name = "labelZ";
             this.labelZ.Size = new System.Drawing.Size(74, 20);
