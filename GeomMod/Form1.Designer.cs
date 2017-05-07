@@ -49,8 +49,6 @@
             this.labelInfoAngle = new System.Windows.Forms.Label();
             this.groupBoxParametrs = new System.Windows.Forms.GroupBox();
             this.checkBoxWireMode = new System.Windows.Forms.CheckBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.numericUpDownFig2Param2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig2Param1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig1Param2 = new System.Windows.Forms.NumericUpDown();
@@ -66,8 +64,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).BeginInit();
             this.groupBoxParametrs.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).BeginInit();
@@ -77,7 +73,7 @@
             // labelAxis
             // 
             this.labelAxis.AutoSize = true;
-            this.labelAxis.Location = new System.Drawing.Point(980, 22);
+            this.labelAxis.Location = new System.Drawing.Point(11, 76);
             this.labelAxis.Name = "labelAxis";
             this.labelAxis.Size = new System.Drawing.Size(137, 20);
             this.labelAxis.TabIndex = 0;
@@ -90,12 +86,13 @@
             this.simpleOpenGlControl.AutoFinish = false;
             this.simpleOpenGlControl.AutoMakeCurrent = true;
             this.simpleOpenGlControl.AutoSwapBuffers = true;
-            this.simpleOpenGlControl.BackColor = System.Drawing.Color.Black;
+            this.simpleOpenGlControl.BackColor = System.Drawing.Color.White;
+            this.simpleOpenGlControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.simpleOpenGlControl.ColorBits = ((byte)(32));
             this.simpleOpenGlControl.DepthBits = ((byte)(16));
-            this.simpleOpenGlControl.Location = new System.Drawing.Point(376, 22);
+            this.simpleOpenGlControl.Location = new System.Drawing.Point(332, 33);
             this.simpleOpenGlControl.Name = "simpleOpenGlControl";
-            this.simpleOpenGlControl.Size = new System.Drawing.Size(590, 590);
+            this.simpleOpenGlControl.Size = new System.Drawing.Size(1000, 1000);
             this.simpleOpenGlControl.StencilBits = ((byte)(0));
             this.simpleOpenGlControl.TabIndex = 1;
             this.simpleOpenGlControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseDown);
@@ -105,7 +102,7 @@
             // labelFigure1
             // 
             this.labelFigure1.AutoSize = true;
-            this.labelFigure1.Location = new System.Drawing.Point(2, 86);
+            this.labelFigure1.Location = new System.Drawing.Point(11, 177);
             this.labelFigure1.Name = "labelFigure1";
             this.labelFigure1.Size = new System.Drawing.Size(78, 20);
             this.labelFigure1.TabIndex = 2;
@@ -118,9 +115,9 @@
             "вокруг оси Х",
             "вокруг оси Y",
             "вокруг оси Z"});
-            this.comboBoxAxis.Location = new System.Drawing.Point(984, 45);
+            this.comboBoxAxis.Location = new System.Drawing.Point(15, 99);
             this.comboBoxAxis.Name = "comboBoxAxis";
-            this.comboBoxAxis.Size = new System.Drawing.Size(133, 28);
+            this.comboBoxAxis.Size = new System.Drawing.Size(145, 28);
             this.comboBoxAxis.TabIndex = 3;
             this.comboBoxAxis.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAxis_SelectedIndexChanged);
             // 
@@ -133,16 +130,16 @@
             "Куб",
             "Конус",
             "Тор"});
-            this.comboBoxFigure1.Location = new System.Drawing.Point(6, 109);
+            this.comboBoxFigure1.Location = new System.Drawing.Point(15, 200);
             this.comboBoxFigure1.Name = "comboBoxFigure1";
-            this.comboBoxFigure1.Size = new System.Drawing.Size(198, 28);
+            this.comboBoxFigure1.Size = new System.Drawing.Size(115, 28);
             this.comboBoxFigure1.TabIndex = 4;
             // 
             // labelX
             // 
             this.labelX.AutoSize = true;
             this.labelX.ForeColor = System.Drawing.Color.MediumSeaGreen;
-            this.labelX.Location = new System.Drawing.Point(946, 616);
+            this.labelX.Location = new System.Drawing.Point(1313, 1036);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(20, 20);
             this.labelX.TabIndex = 5;
@@ -152,7 +149,7 @@
             // 
             this.labelY.AutoSize = true;
             this.labelY.ForeColor = System.Drawing.Color.Blue;
-            this.labelY.Location = new System.Drawing.Point(275, 23);
+            this.labelY.Location = new System.Drawing.Point(223, 23);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(20, 20);
             this.labelY.TabIndex = 6;
@@ -162,7 +159,7 @@
             // 
             this.labelZ.AutoSize = true;
             this.labelZ.ForeColor = System.Drawing.Color.Red;
-            this.labelZ.Location = new System.Drawing.Point(985, 85);
+            this.labelZ.Location = new System.Drawing.Point(1343, 23);
             this.labelZ.Name = "labelZ";
             this.labelZ.Size = new System.Drawing.Size(74, 20);
             this.labelZ.TabIndex = 7;
@@ -171,53 +168,53 @@
             // trackBarX
             // 
             this.trackBarX.BackColor = System.Drawing.Color.White;
-            this.trackBarX.Location = new System.Drawing.Point(376, 639);
+            this.trackBarX.Location = new System.Drawing.Point(324, 1059);
             this.trackBarX.Maximum = 50000;
             this.trackBarX.Minimum = -50000;
             this.trackBarX.Name = "trackBarX";
-            this.trackBarX.Size = new System.Drawing.Size(590, 69);
+            this.trackBarX.Size = new System.Drawing.Size(1009, 69);
             this.trackBarX.TabIndex = 8;
             this.trackBarX.Scroll += new System.EventHandler(this.TrackBarX_Scroll);
             // 
             // trackBarY
             // 
             this.trackBarY.BackColor = System.Drawing.Color.White;
-            this.trackBarY.Location = new System.Drawing.Point(301, 23);
+            this.trackBarY.Location = new System.Drawing.Point(249, 33);
             this.trackBarY.Maximum = 50000;
             this.trackBarY.Minimum = -50000;
             this.trackBarY.Name = "trackBarY";
             this.trackBarY.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarY.Size = new System.Drawing.Size(69, 590);
+            this.trackBarY.Size = new System.Drawing.Size(69, 1000);
             this.trackBarY.TabIndex = 9;
             this.trackBarY.Scroll += new System.EventHandler(this.TrackBarY_Scroll);
             // 
             // trackBarZ
             // 
             this.trackBarZ.BackColor = System.Drawing.Color.White;
-            this.trackBarZ.Location = new System.Drawing.Point(992, 108);
+            this.trackBarZ.Location = new System.Drawing.Point(1351, 58);
             this.trackBarZ.Maximum = 50000;
             this.trackBarZ.Minimum = -50000;
             this.trackBarZ.Name = "trackBarZ";
             this.trackBarZ.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarZ.Size = new System.Drawing.Size(69, 490);
+            this.trackBarZ.Size = new System.Drawing.Size(69, 975);
             this.trackBarZ.TabIndex = 10;
             this.trackBarZ.Scroll += new System.EventHandler(this.TrackBarZ_Scroll);
             // 
             // trackBarAngle
             // 
-            this.trackBarAngle.Location = new System.Drawing.Point(1068, 108);
+            this.trackBarAngle.Location = new System.Drawing.Point(1427, 58);
             this.trackBarAngle.Maximum = 360;
             this.trackBarAngle.Minimum = -360;
             this.trackBarAngle.Name = "trackBarAngle";
             this.trackBarAngle.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarAngle.Size = new System.Drawing.Size(69, 490);
+            this.trackBarAngle.Size = new System.Drawing.Size(69, 975);
             this.trackBarAngle.TabIndex = 13;
             this.trackBarAngle.Scroll += new System.EventHandler(this.TrackBarAngle_Scroll);
             // 
             // labelAngle
             // 
             this.labelAngle.AutoSize = true;
-            this.labelAngle.Location = new System.Drawing.Point(1065, 85);
+            this.labelAngle.Location = new System.Drawing.Point(1423, 23);
             this.labelAngle.Name = "labelAngle";
             this.labelAngle.Size = new System.Drawing.Size(50, 20);
             this.labelAngle.TabIndex = 11;
@@ -232,7 +229,7 @@
             // labelInfoX
             // 
             this.labelInfoX.AutoSize = true;
-            this.labelInfoX.Location = new System.Drawing.Point(660, 679);
+            this.labelInfoX.Location = new System.Drawing.Point(820, 1108);
             this.labelInfoX.Name = "labelInfoX";
             this.labelInfoX.Size = new System.Drawing.Size(18, 20);
             this.labelInfoX.TabIndex = 15;
@@ -241,7 +238,7 @@
             // labelInfoY
             // 
             this.labelInfoY.AutoSize = true;
-            this.labelInfoY.Location = new System.Drawing.Point(307, 616);
+            this.labelInfoY.Location = new System.Drawing.Point(258, 1036);
             this.labelInfoY.Name = "labelInfoY";
             this.labelInfoY.Size = new System.Drawing.Size(18, 20);
             this.labelInfoY.TabIndex = 16;
@@ -250,7 +247,7 @@
             // labelInfoZ
             // 
             this.labelInfoZ.AutoSize = true;
-            this.labelInfoZ.Location = new System.Drawing.Point(998, 601);
+            this.labelInfoZ.Location = new System.Drawing.Point(1367, 1059);
             this.labelInfoZ.Name = "labelInfoZ";
             this.labelInfoZ.Size = new System.Drawing.Size(18, 20);
             this.labelInfoZ.TabIndex = 17;
@@ -259,7 +256,7 @@
             // labelInfoAngle
             // 
             this.labelInfoAngle.AutoSize = true;
-            this.labelInfoAngle.Location = new System.Drawing.Point(1075, 601);
+            this.labelInfoAngle.Location = new System.Drawing.Point(1444, 1059);
             this.labelInfoAngle.Name = "labelInfoAngle";
             this.labelInfoAngle.Size = new System.Drawing.Size(18, 20);
             this.labelInfoAngle.TabIndex = 18;
@@ -268,8 +265,6 @@
             // groupBoxParametrs
             // 
             this.groupBoxParametrs.Controls.Add(this.checkBoxWireMode);
-            this.groupBoxParametrs.Controls.Add(this.pictureBox2);
-            this.groupBoxParametrs.Controls.Add(this.pictureBox1);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param2);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param1);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param2);
@@ -282,9 +277,11 @@
             this.groupBoxParametrs.Controls.Add(this.labelFigure2);
             this.groupBoxParametrs.Controls.Add(this.comboBoxFigure1);
             this.groupBoxParametrs.Controls.Add(this.labelFigure1);
+            this.groupBoxParametrs.Controls.Add(this.comboBoxAxis);
+            this.groupBoxParametrs.Controls.Add(this.labelAxis);
             this.groupBoxParametrs.Location = new System.Drawing.Point(23, 22);
             this.groupBoxParametrs.Name = "groupBoxParametrs";
-            this.groupBoxParametrs.Size = new System.Drawing.Size(239, 694);
+            this.groupBoxParametrs.Size = new System.Drawing.Size(186, 548);
             this.groupBoxParametrs.TabIndex = 19;
             this.groupBoxParametrs.TabStop = false;
             this.groupBoxParametrs.Text = "Параметры фигур";
@@ -302,27 +299,12 @@
             this.checkBoxWireMode.UseVisualStyleBackColor = true;
             this.checkBoxWireMode.CheckedChanged += new System.EventHandler(this.CheckBoxWireMode_CheckedChanged);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(6, 485);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(213, 188);
-            this.pictureBox2.TabIndex = 21;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(6, 190);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(213, 188);
-            this.pictureBox1.TabIndex = 20;
-            this.pictureBox1.TabStop = false;
-            // 
             // numericUpDownFig2Param2
             // 
-            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(145, 453);
+            this.numericUpDownFig2Param2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(62, 493);
             this.numericUpDownFig2Param2.Name = "numericUpDownFig2Param2";
-            this.numericUpDownFig2Param2.Size = new System.Drawing.Size(59, 26);
+            this.numericUpDownFig2Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param2.TabIndex = 18;
             this.numericUpDownFig2Param2.Value = new decimal(new int[] {
             2,
@@ -333,9 +315,10 @@
             // 
             // numericUpDownFig2Param1
             // 
-            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(34, 453);
+            this.numericUpDownFig2Param1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(62, 449);
             this.numericUpDownFig2Param1.Name = "numericUpDownFig2Param1";
-            this.numericUpDownFig2Param1.Size = new System.Drawing.Size(59, 26);
+            this.numericUpDownFig2Param1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param1.TabIndex = 17;
             this.numericUpDownFig2Param1.Value = new decimal(new int[] {
             2,
@@ -346,9 +329,10 @@
             // 
             // numericUpDownFig1Param2
             // 
-            this.numericUpDownFig1Param2.Location = new System.Drawing.Point(145, 158);
+            this.numericUpDownFig1Param2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownFig1Param2.Location = new System.Drawing.Point(62, 293);
             this.numericUpDownFig1Param2.Name = "numericUpDownFig1Param2";
-            this.numericUpDownFig1Param2.Size = new System.Drawing.Size(59, 26);
+            this.numericUpDownFig1Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig1Param2.TabIndex = 16;
             this.numericUpDownFig1Param2.Value = new decimal(new int[] {
             2,
@@ -359,9 +343,10 @@
             // 
             // numericUpDownFig1Param1
             // 
-            this.numericUpDownFig1Param1.Location = new System.Drawing.Point(34, 158);
+            this.numericUpDownFig1Param1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownFig1Param1.Location = new System.Drawing.Point(62, 249);
             this.numericUpDownFig1Param1.Name = "numericUpDownFig1Param1";
-            this.numericUpDownFig1Param1.Size = new System.Drawing.Size(59, 26);
+            this.numericUpDownFig1Param1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig1Param1.TabIndex = 15;
             this.numericUpDownFig1Param1.Value = new decimal(new int[] {
             2,
@@ -373,7 +358,7 @@
             // labelFig2Param2
             // 
             this.labelFig2Param2.AutoSize = true;
-            this.labelFig2Param2.Location = new System.Drawing.Point(109, 459);
+            this.labelFig2Param2.Location = new System.Drawing.Point(20, 499);
             this.labelFig2Param2.Name = "labelFig2Param2";
             this.labelFig2Param2.Size = new System.Drawing.Size(36, 20);
             this.labelFig2Param2.TabIndex = 12;
@@ -383,7 +368,7 @@
             // labelFig2Param1
             // 
             this.labelFig2Param1.AutoSize = true;
-            this.labelFig2Param1.Location = new System.Drawing.Point(2, 459);
+            this.labelFig2Param1.Location = new System.Drawing.Point(20, 455);
             this.labelFig2Param1.Name = "labelFig2Param1";
             this.labelFig2Param1.Size = new System.Drawing.Size(36, 20);
             this.labelFig2Param1.TabIndex = 11;
@@ -393,7 +378,7 @@
             // labelFig1Param2
             // 
             this.labelFig1Param2.AutoSize = true;
-            this.labelFig1Param2.Location = new System.Drawing.Point(109, 164);
+            this.labelFig1Param2.Location = new System.Drawing.Point(20, 299);
             this.labelFig1Param2.Name = "labelFig1Param2";
             this.labelFig1Param2.Size = new System.Drawing.Size(36, 20);
             this.labelFig1Param2.TabIndex = 8;
@@ -403,7 +388,7 @@
             // labelFig1Param1
             // 
             this.labelFig1Param1.AutoSize = true;
-            this.labelFig1Param1.Location = new System.Drawing.Point(2, 164);
+            this.labelFig1Param1.Location = new System.Drawing.Point(20, 255);
             this.labelFig1Param1.Name = "labelFig1Param1";
             this.labelFig1Param1.Size = new System.Drawing.Size(36, 20);
             this.labelFig1Param1.TabIndex = 7;
@@ -419,15 +404,15 @@
             "Куб",
             "Конус",
             "Тор"});
-            this.comboBoxFigure2.Location = new System.Drawing.Point(6, 404);
+            this.comboBoxFigure2.Location = new System.Drawing.Point(15, 400);
             this.comboBoxFigure2.Name = "comboBoxFigure2";
-            this.comboBoxFigure2.Size = new System.Drawing.Size(198, 28);
+            this.comboBoxFigure2.Size = new System.Drawing.Size(115, 28);
             this.comboBoxFigure2.TabIndex = 6;
             // 
             // labelFigure2
             // 
             this.labelFigure2.AutoSize = true;
-            this.labelFigure2.Location = new System.Drawing.Point(2, 381);
+            this.labelFigure2.Location = new System.Drawing.Point(11, 377);
             this.labelFigure2.Name = "labelFigure2";
             this.labelFigure2.Size = new System.Drawing.Size(78, 20);
             this.labelFigure2.TabIndex = 5;
@@ -438,7 +423,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1136, 728);
+            this.ClientSize = new System.Drawing.Size(1508, 1144);
             this.Controls.Add(this.groupBoxParametrs);
             this.Controls.Add(this.labelInfoAngle);
             this.Controls.Add(this.labelY);
@@ -452,9 +437,8 @@
             this.Controls.Add(this.trackBarX);
             this.Controls.Add(this.labelZ);
             this.Controls.Add(this.labelX);
-            this.Controls.Add(this.comboBoxAxis);
             this.Controls.Add(this.simpleOpenGlControl);
-            this.Controls.Add(this.labelAxis);
+            this.MinimumSize = new System.Drawing.Size(1530, 1200);
             this.Name = "MainForm";
             this.Text = "Геометрическое моделирование";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -464,8 +448,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAngle)).EndInit();
             this.groupBoxParametrs.ResumeLayout(false);
             this.groupBoxParametrs.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).EndInit();
@@ -506,8 +488,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFig2Param1;
         private System.Windows.Forms.NumericUpDown numericUpDownFig1Param2;
         private System.Windows.Forms.NumericUpDown numericUpDownFig1Param1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.CheckBox checkBoxWireMode;
     }
 }
