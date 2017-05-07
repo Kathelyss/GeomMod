@@ -141,7 +141,7 @@
             // labelX
             // 
             this.labelX.AutoSize = true;
-            this.labelX.ForeColor = System.Drawing.Color.Green;
+            this.labelX.ForeColor = System.Drawing.Color.MediumSeaGreen;
             this.labelX.Location = new System.Drawing.Point(946, 616);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(20, 20);
@@ -170,6 +170,7 @@
             // 
             // trackBarX
             // 
+            this.trackBarX.BackColor = System.Drawing.Color.White;
             this.trackBarX.Location = new System.Drawing.Point(376, 639);
             this.trackBarX.Maximum = 50000;
             this.trackBarX.Minimum = -50000;
@@ -180,6 +181,7 @@
             // 
             // trackBarY
             // 
+            this.trackBarY.BackColor = System.Drawing.Color.White;
             this.trackBarY.Location = new System.Drawing.Point(301, 23);
             this.trackBarY.Maximum = 50000;
             this.trackBarY.Minimum = -50000;
@@ -191,6 +193,7 @@
             // 
             // trackBarZ
             // 
+            this.trackBarZ.BackColor = System.Drawing.Color.White;
             this.trackBarZ.Location = new System.Drawing.Point(992, 108);
             this.trackBarZ.Maximum = 50000;
             this.trackBarZ.Minimum = -50000;
@@ -289,6 +292,8 @@
             // checkBoxWireMode
             // 
             this.checkBoxWireMode.AutoSize = true;
+            this.checkBoxWireMode.Checked = true;
+            this.checkBoxWireMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxWireMode.Location = new System.Drawing.Point(6, 36);
             this.checkBoxWireMode.Name = "checkBoxWireMode";
             this.checkBoxWireMode.Size = new System.Drawing.Size(164, 24);

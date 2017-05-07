@@ -9,7 +9,7 @@ namespace GeomMod
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        double a = -5, b = 0, c = -50, d = 10, zoom = 1; // выбранные оси 
+        double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
         int os_x = 1, os_y = 0, os_z = 0;
         // здесь 1 - первая фигура, 2 - вторая фигура
         int cubeSide1, sphereRadius1, coneBasemendRadius1, cilinderBaseRadius1, coneHeight1, cilinderHeight1;
@@ -22,7 +22,9 @@ namespace GeomMod
         static float Y = 0.0f;        // Translate screen to y direction (up or down)
         static float Z = 0.0f;        // Translate screen to z direction (zoom in or out)
 
-        bool wireMode = false; // режим сеточной визуализации
+        bool wireMode = true; // режим сеточной визуализации
+
+        public bool WireMode { get => wireMode; set => wireMode = value; }
 
         public MainForm()
         {
@@ -51,34 +53,22 @@ namespace GeomMod
             Glut.glutMouseWheelFunc(new Glut.MouseWheelCallback(ZoomViaMouseWheel));
             /////
 
+
             // установка цвета очистки экрана (RGBA) 
             Gl.glClearColor(255, 255, 255, 1);
-            //Gl.glClearColor(0, 0, 0, 0);
-
             // установка порта вывода 
             Gl.glViewport(0, 0, simpleOpenGlControl.Width, simpleOpenGlControl.Height);
-
             // активация проекционной матрицы 
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             // очистка матрицы 
             Gl.glLoadIdentity();
-
             // установка перспективы 
             Glu.gluPerspective(45, (float)simpleOpenGlControl.Width / (float)simpleOpenGlControl.Height, 0.1, 200);
-
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
-
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // начальная настройка параметров openGL (тест глубины, освещение и первый источник света) 
-            //Gl.glEnable(Gl.GL_DEPTH_TEST);
-           // Gl.glEnable(Gl.GL_LIGHTING);
-            //Gl.glEnable(Gl.GL_LIGHT0);
-
             // установка оси вращения сцены (ось х)
             comboBoxAxis.SelectedIndex = 0;
-
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
         }
@@ -86,7 +76,7 @@ namespace GeomMod
         // переключение сеточного режима из формы
         private void CheckBoxWireMode_CheckedChanged(object sender, EventArgs e)
         {
-            wireMode = checkBoxWireMode.Checked;
+            WireMode = checkBoxWireMode.Checked;
         }
 
         /* События изменения значений элементов scrollBar
@@ -197,11 +187,9 @@ namespace GeomMod
         {
             // очистка буфера цвета и буфера глубины 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-
-             Gl.glClearColor(255, 255, 255, 1);
-            // очищение текущей матрицы 
+            Gl.glClearColor(255, 255, 255, 1);
+            // очистка текущей матрицы 
             Gl.glLoadIdentity();
-
             // помещаем состояние матрицы в стек матриц, дальнейшие трансформации затронут только визуализацию объекта 
             Gl.glPushMatrix();
             // производим перемещение в зависимости от значений, полученных при перемещении ползунков 
@@ -211,26 +199,18 @@ namespace GeomMod
             // и масштабирование объекта 
             Gl.glScaled(zoom, zoom, zoom);
 
-            //отрисовывка 3D-осей координат
+            //отрисовка 3D-осей координат
             DrawAxis();
            // Drawings();
 
-            // установка цвета первой фигуры
-            float[] color1 = new float[4] { (float)0.5, (float)0.9, (float)0.2, 1 };
-            // отрисовка первой фигуры
-            DrawFigure(1, comboBoxFigure1, color1);
-
-            // установка цвета второй фигуры
-            float[] color2 = new float[4] { (float)0.9, (float)0.5, (float)0.2, 1 };
-            // отрисовка второй фигуры
-            DrawFigure(2, comboBoxFigure2, color2);
+            // отрисовка фигур
+            DrawFigure(1, comboBoxFigure1);
+            DrawFigure(2, comboBoxFigure2);
 
             // возвращаем состояние матрицы 
             Gl.glPopMatrix();
-
             // завершаем рисование 
             Gl.glFlush();
-
             // обновляем элемент 
             simpleOpenGlControl.Invalidate();
         }
@@ -278,19 +258,19 @@ namespace GeomMod
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
         }
 
-        // отрисовка фигуры
-        private void DrawFigure(int figureNumber, ComboBox box, float[] color)
+        // отрисовка фигуры        
+        private void DrawFigure(int figureNumber, ComboBox box)
         {
-            // устанавливаем параметры (из полей формы)
+            // установка параметров фигуры (из полей формы)
             SetParams(box);
-            /*
-            //установка цвета объекта
-            float[] shininess = new float[1] { 30 };
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, color); // цвет объекта
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, color); // отраженный свет
-            Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, shininess); // степень отраженного света
-            */
-            // в зависимости от выбранного comboBoxFigure1 или же comboBoxFigure2
+            
+            //установка цвета фигуры
+            if(figureNumber == 1)
+                Gl.glColor3f(0.5f, 0.9f, 0.1f);
+            else
+                Gl.glColor3f(0.9f, 0.5f, 0.2f);
+            
+            // в зависимости от выбранной фигуры (1 или 2)
             switch (box.SelectedIndex)
             {
                 // рисуем нужный объект, используя функции библиотеки GLUT 
@@ -303,15 +283,15 @@ namespace GeomMod
                             RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
 
                         if (figureNumber == 1)
-                        {
-                            if (wireMode)
+                        {                           
+                            if (WireMode)
                                 Glut.glutWireSphere(sphereRadius1, 16, 16); // сеточная сфера 
                             else
                                 Glut.glutSolidSphere(sphereRadius1, 16, 16); // полигональная сфера 
                         }
                         else
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireSphere(sphereRadius2, 16, 16); // сеточная сфера 
                             else
                                 Glut.glutSolidSphere(sphereRadius2, 16, 16); // полигональная сфера 
@@ -327,14 +307,14 @@ namespace GeomMod
 
                         if (figureNumber == 1)
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
                             else
                                 Glut.glutSolidCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
                         }
                         else
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
                             else
                                 Glut.glutSolidCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
@@ -350,14 +330,14 @@ namespace GeomMod
 
                         if (figureNumber == 1)
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireCube(cubeSide1);
                             else
                                 Glut.glutSolidCube(cubeSide1);
                         }
                         else
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireCube(cubeSide2);
                             else
                                 Glut.glutSolidCube(cubeSide2);
@@ -373,14 +353,14 @@ namespace GeomMod
 
                         if (figureNumber == 1)
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireCone(coneBasemendRadius1, coneHeight1, 32, 32);
                             else
                                 Glut.glutSolidCone(coneBasemendRadius1, coneHeight1, 32, 32);
                         }
                         else
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireCone(coneBasemendRadius2, coneHeight2, 32, 32);
                             else
                                 Glut.glutSolidCone(coneBasemendRadius2, coneHeight2, 32, 32);
@@ -395,14 +375,14 @@ namespace GeomMod
                             RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
                         if (figureNumber == 1)
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireTorus(innerRadius1, outerRadius1, 32, 32);
                             else
                                 Glut.glutSolidTorus(innerRadius1, outerRadius1, 32, 32);
                         }
                         else
                         {
-                            if (wireMode)
+                            if (WireMode)
                                 Glut.glutWireTorus(innerRadius2, outerRadius2, 32, 32);
                             else
                                 Glut.glutSolidTorus(innerRadius2, outerRadius2, 32, 32);
@@ -543,10 +523,9 @@ namespace GeomMod
         {
             // Clear the Color Buffer and Depth Buffer
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-            Gl.glPushMatrix();   // It is important to push the Matrix before 
-                                 // calling glRotatef and glTranslatef
-
-            /*  Gl.glRotatef(rotX, 1.0f, 0.0f, 0.0f);            // Rotate on x
+            Gl.glPushMatrix();   // It is important to push the Matrix before calling glRotatef and glTranslatef
+            /*  
+              Gl.glRotatef(rotX, 1.0f, 0.0f, 0.0f);            // Rotate on x
               Gl.glRotatef(rotY, 0.0f, 1.0f, 0.0f);            // Rotate on y
               Gl.glRotatef(rotZ, 0.0f, 0.0f, 1.0f);            // Rotate on z
 
@@ -556,40 +535,11 @@ namespace GeomMod
                   rotY += 0.2f;
                   rotZ += 0.2f;
               }
-
-            Gl.glTranslatef(X, Y, Z);        // Translates the screen left or right, 
-                                             // up or down or zoom in zoom out
+            Gl.glTranslatef(X, Y, Z);        // Translates the screen left or right, up or down or zoom in zoom out
             */
-            // DrawScene the positive side of the lines x,y,z
-            Gl.glBegin(Gl.GL_LINES);
-            Gl.glColor3f(0.0f, 1.0f, 0.0f);                // Green for x axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(10f, 0f, 0f);
-            Gl.glColor3f(1.0f, 0.0f, 0.0f);                // Red for y axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, 10f, 0f);
-            Gl.glColor3f(0.0f, 0.0f, 1.0f);                // Blue for z axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, 0f, 10f);
-            Gl.glEnd();
-
-            // Dotted lines for the negative sides of x,y,z coordinates
-            Gl.glEnable(Gl.GL_LINE_STIPPLE); // Enable line stipple to use a 
-                                             // dotted pattern for the lines
-            Gl.glLineStipple(1, 0x0101);     // Dotted stipple pattern for the lines
-            Gl.glBegin(Gl.GL_LINES);
-            Gl.glColor3f(0.0f, 1.0f, 0.0f);                    // Green for x axis
-            Gl.glVertex3f(-10f, 0f, 0f);
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glColor3f(1.0f, 0.0f, 0.0f);                    // Red for y axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, -10f, 0f);
-            Gl.glColor3f(0.0f, 0.0f, 1.0f);                    // Blue for z axis
-            Gl.glVertex3f(0f, 0f, 0f);
-            Gl.glVertex3f(0f, 0f, -10f);
-            Gl.glEnd();
+            DrawAxis();
             
-            // I start to draw my 3D cube
+            // start to draw 3D cube
             Gl.glBegin(Gl.GL_POLYGON);
             // I'm setting a new color for each corner, this creates a rainbow effect
             Gl.glColor3f(0.0f, 0.0f, 1.0f);             // Set color to blue
@@ -638,7 +588,6 @@ namespace GeomMod
             Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
             Gl.glEnd();
             
-
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
             Gl.glPopMatrix();                   // Don't forget to pop the Matrix
         }
