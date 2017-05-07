@@ -99,7 +99,7 @@ namespace GeomMod
 
         private void TrackBarZ_Scroll(object sender, EventArgs e)
         {
-            c = (double)trackBarZ.Value / 1000.0;
+            c = (double)trackBarZ.Value / 10.0;
             labelInfoZ.Text = c.ToString();
         }
 
@@ -266,9 +266,9 @@ namespace GeomMod
             
             //установка цвета фигуры
             if(figureNumber == 1)
-                Gl.glColor3f(0.5f, 0.9f, 0.1f);
+                Gl.glColor3f(0.5f, 0.0f, 0.5f); //
             else
-                Gl.glColor3f(0.9f, 0.5f, 0.2f);
+                Gl.glColor3f(0.9f, 0.5f, 0.2f); // оранжевый
             
             // в зависимости от выбранной фигуры (1 или 2)
             switch (box.SelectedIndex)
