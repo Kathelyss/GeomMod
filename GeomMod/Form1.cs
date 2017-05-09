@@ -99,7 +99,7 @@ namespace GeomMod
 
         private void TrackBarZ_Scroll(object sender, EventArgs e)
         {
-            c = (double)trackBarZ.Value / 10.0;
+            c = (double)trackBarZ.Value / 1000.0;
             labelInfoZ.Text = c.ToString();
         }
 
@@ -201,7 +201,9 @@ namespace GeomMod
 
             //отрисовка 3D-осей координат
             DrawAxis();
-           // Drawings();
+            // Drawings();
+            DrawParallelepiped(1, 2, 3, 4, 5, 6);
+            DrawCone(-3, -10, 5, 6, 3);
 
             // отрисовка фигур
             DrawFigure(1, comboBoxFigure1);
@@ -217,7 +219,7 @@ namespace GeomMod
 
         // отрисовка осей координат
         private void DrawAxis()
-        {            
+        {
             // отрисовка положительных частей осей координат
             Gl.glBegin(Gl.GL_LINES);
 
@@ -238,7 +240,7 @@ namespace GeomMod
             // пунктир для отрицательных частей осей координат
             Gl.glEnable(Gl.GL_LINE_STIPPLE); // активизируем пунктирный режим
             Gl.glLineStipple(1, 0x00FF);     // тип пунктира осей
-            
+
             Gl.glBegin(Gl.GL_LINES);
 
             Gl.glColor3f(0.0f, 1.0f, 0.0f);
@@ -254,7 +256,7 @@ namespace GeomMod
             Gl.glVertex3f(0, 0, -100);
 
             Gl.glEnd();
-            
+
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
         }
 
@@ -263,13 +265,13 @@ namespace GeomMod
         {
             // установка параметров фигуры (из полей формы)
             SetParams(box);
-            
+
             //установка цвета фигуры
-            if(figureNumber == 1)
+            if (figureNumber == 1)
                 Gl.glColor3f(0.5f, 0.0f, 0.5f); //
             else
                 Gl.glColor3f(0.9f, 0.5f, 0.2f); // оранжевый
-            
+
             // в зависимости от выбранной фигуры (1 или 2)
             switch (box.SelectedIndex)
             {
@@ -283,7 +285,7 @@ namespace GeomMod
                             RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
 
                         if (figureNumber == 1)
-                        {                           
+                        {
                             if (WireMode)
                                 Glut.glutWireSphere(sphereRadius1, 16, 16); // сеточная сфера 
                             else
@@ -538,7 +540,7 @@ namespace GeomMod
             Gl.glTranslatef(X, Y, Z);        // Translates the screen left or right, up or down or zoom in zoom out
             */
             DrawAxis();
-            
+
             // start to draw 3D cube
             Gl.glBegin(Gl.GL_POLYGON);
             // I'm setting a new color for each corner, this creates a rainbow effect
@@ -587,10 +589,63 @@ namespace GeomMod
             Gl.glVertex3f(-3.0f, -3.0f, -3.0f);
             Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
             Gl.glEnd();
-            
+
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
             Gl.glPopMatrix();                   // Don't forget to pop the Matrix
         }
 
+
+        private void DrawParallelepiped(int x, int y, int z, int height, int width, int depth)
+        {
+            Gl.glBegin(Gl.GL_LINE_STRIP);
+            Gl.glColor3f(0.0f, 1.0f, 0.0f);
+
+            Gl.glVertex3f(x, y, z);
+            Gl.glVertex3f(x + width, y, z);
+            Gl.glVertex3f(x + width, y + height, z);
+            Gl.glVertex3f(x, y + height, z);
+
+            Gl.glVertex3f(x, y + height, z - depth);
+            Gl.glVertex3f(x + width, y + height, z - depth);
+            Gl.glVertex3f(x + width, y, z - depth);
+            Gl.glVertex3f(x, y, z - depth);
+            Gl.glVertex3f(x, y, z);
+            Gl.glEnd();
+
+            Gl.glBegin(Gl.GL_LINES);
+            Gl.glVertex3f(x, y + height, z);
+            Gl.glVertex3f(x, y, z);
+
+            Gl.glVertex3f(x, y + height, z - depth);
+            Gl.glVertex3f(x, y, z - depth);
+
+            Gl.glVertex3f(x + width, y, z);
+            Gl.glVertex3f(x + width, y, z - depth);
+
+            Gl.glVertex3f(x + width, y + height, z - depth);
+            Gl.glVertex3f(x + width, y + height, z);
+
+            Gl.glEnd();
+        }
+
+        private void DrawCone(int x, int y, int z, int height, int radius)
+        {
+            //как меняются координаты ?
+            for (int i = 0; i < 10; i++)
+            {
+                Gl.glBegin(Gl.GL_LINE_STRIP);
+                Gl.glColor3f(0.0f, 1.0f, 1.0f);
+
+                Gl.glVertex3f(x, y, z); // центр
+                Gl.glVertex3f(x, y + height, z); // вершина
+                Gl.glVertex3f(x - radius, y, z); // точка на окружности
+                Gl.glVertex3f(x, y, z);
+
+                Gl.glEnd();
+            }
+
+            //            Gl.glBegin(Gl.GL_LINES);
+            //            Gl.glEnd();
+        }
     }
 }
