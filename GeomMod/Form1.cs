@@ -164,8 +164,6 @@ namespace GeomMod
 
             //отрисовка 3D-осей координат
             DrawAxis();
-            //DrawCone(5, 1, 5, 5, 3);
-            //  DrawCilinder(-4, -1, -2, 7, 4);
 
             // отрисовка фигур
             DrawFigure(1, comboBoxFigure1);
@@ -272,12 +270,12 @@ namespace GeomMod
                         if (box == comboBoxFigure1)
                         {
                             RevealFields(1, 1, "a", "");
-                            DrawParallelepiped(cx1, cy1, cz1, cubeSide1, cubeSide1, cubeSide1);
+                            DrawCube(cx1, cy1, cz1, cubeSide1);
                         }
                         else if (box == comboBoxFigure2)
                         {
                             RevealFields(1, 2, "a", "");
-                            DrawParallelepiped(cx2, cy2, cz2, cubeSide2, cubeSide2, cubeSide2);
+                            DrawCube(cx2, cy2, cz2, cubeSide2);
                         }
                         break;
                     }
@@ -292,20 +290,6 @@ namespace GeomMod
                         {
                             RevealFields(2, 2, "r", "h");
                             DrawCone(cx2, cy2, cz2, coneHeight2, coneBaseRadius2);
-                        }
-                        break;
-                    }
-                case 4: // параллелепипед
-                    {
-                        if (box == comboBoxFigure1)
-                        {
-                            RevealFields(3, 1, "w", "d");
-                            DrawParallelepiped(cx1, cy1, cz1, parHeight1, parWidth1, parDepth1);
-                        }
-                        else if (box == comboBoxFigure2)
-                        {
-                            RevealFields(3, 2, "w", "d");
-                            DrawParallelepiped(cx2, cy2, cz2, parHeight2, parWidth2, parDepth2);
                         }
                         break;
                     }
@@ -334,10 +318,6 @@ namespace GeomMod
             //цилиндр
             cylinderBaseRadius1 = (int)numericUpDownFig1Param1.Value;
             cylinderHeight1 = (int)numericUpDownFig1Param2.Value;
-            //параллелепипед
-            parWidth1 = (int)numericUpDownFig1Param1.Value;
-            parDepth1 = (int)numericUpDownFig1Param2.Value;
-            parHeight1 = (int)numericUpDownFig1Param3.Value;
 
             cx1 = (int)numericUpDownCX1.Value;
             cy1 = (int)numericUpDownCY1.Value;
@@ -353,10 +333,6 @@ namespace GeomMod
             //цилиндр
             cylinderBaseRadius2 = (int)numericUpDownFig2Param1.Value;
             cylinderHeight2 = (int)numericUpDownFig2Param2.Value;
-            //параллелепипед        
-            parWidth2 = (int)numericUpDownFig2Param1.Value;
-            parDepth2 = (int)numericUpDownFig2Param2.Value;
-            parHeight2 = (int)numericUpDownFig2Param3.Value;
 
             cx2 = (int)numericUpDownCX2.Value;
             cy2 = (int)numericUpDownCY2.Value;
@@ -420,23 +396,6 @@ namespace GeomMod
                         }
                         break;
                     }
-                case 4: // параллелепипед
-                    {
-                        if (box == comboBoxFigure1)
-                        {
-                            parWidth1 = (int)numericUpDownFig1Param1.Value; //x
-                            parDepth1 = (int)numericUpDownFig1Param2.Value; //z
-                            parHeight1 = (int)numericUpDownFig1Param3.Value;
-                        }
-                        else if (box == comboBoxFigure2)
-                        {
-                            parWidth2 = (int)numericUpDownFig2Param1.Value; //x
-                            parDepth2 = (int)numericUpDownFig2Param2.Value; //z
-                            parHeight2 = (int)numericUpDownFig2Param3.Value;
-                        }
-                        break;
-                    }
-
             }
         }
 
@@ -448,33 +407,25 @@ namespace GeomMod
         {
             if (figNum == 1)
             {
-                // сфера, куб и все остальные фигуры
+                // все фигуры
                 labelFig1Param1.Visible = (prms > 0);
                 numericUpDownFig1Param1.Visible = (prms > 0);
                 labelFig1Param1.Text = text1;
-                // конус, цилиндр, параллелепипед
+                // конус, цилиндр
                 labelFig1Param2.Visible = (prms > 1);
                 numericUpDownFig1Param2.Visible = (prms > 1);
                 labelFig1Param2.Text = text2;
-                //параллелепипед
-                labelFig1Param3.Visible = (prms > 2);
-                numericUpDownFig1Param3.Visible = (prms > 2);
-                labelFig1Param3.Text = "h";
             }
             else
             {
-                // сфера, куб и все остальные фигуры
+                // все фигуры
                 labelFig2Param1.Visible = (prms > 0);
                 numericUpDownFig2Param1.Visible = (prms > 0);
                 labelFig2Param1.Text = text1;
-                // конус, цилиндр, параллелепипед
+                // конус, цилиндр
                 labelFig2Param2.Visible = (prms > 1);
                 numericUpDownFig2Param2.Visible = (prms > 1);
                 labelFig2Param2.Text = text2;
-                //параллелепипед
-                labelFig2Param3.Visible = (prms > 2);
-                numericUpDownFig2Param3.Visible = (prms > 2);
-                labelFig2Param3.Text = "h";
             }
         }
 
@@ -499,39 +450,11 @@ namespace GeomMod
         }
 
         //задание вектора - углом!
-        private void DrawParallelepiped(int x, int y, int z, int height, int width, int depth)
+        private void DrawCube(int x, int y, int z, int side)
         {
-            //Gl.glTranslatef(x, y, z);
-            //Glut.glutWireCube(height);
-
-
-            Gl.glBegin(Gl.GL_LINE_STRIP);
-            Gl.glVertex3f(x, y, z);
-            Gl.glVertex3f(x + width, y, z);
-            Gl.glVertex3f(x + width, y + height, z);
-            Gl.glVertex3f(x, y + height, z);
-
-            Gl.glVertex3f(x, y + height, z - depth);
-            Gl.glVertex3f(x + width, y + height, z - depth);
-            Gl.glVertex3f(x + width, y, z - depth);
-            Gl.glVertex3f(x, y, z - depth);
-            Gl.glVertex3f(x, y, z);
-            Gl.glEnd();
-
-            Gl.glBegin(Gl.GL_LINES);
-            Gl.glVertex3f(x, y + height, z);
-            Gl.glVertex3f(x, y, z);
-
-            Gl.glVertex3f(x, y + height, z - depth);
-            Gl.glVertex3f(x, y, z - depth);
-
-            Gl.glVertex3f(x + width, y, z);
-            Gl.glVertex3f(x + width, y, z - depth);
-
-            Gl.glVertex3f(x + width, y + height, z - depth);
-            Gl.glVertex3f(x + width, y + height, z);
-
-            Gl.glEnd();
+            Gl.glTranslatef(x, y, z);
+            Gl.glRotatef(-90, x, 0, 0);
+            Glut.glutWireCube(side);
         }
 
         private void DrawCone(int x, int y, int z, int height, int radius)
