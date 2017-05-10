@@ -48,7 +48,6 @@
             this.labelInfoZ = new System.Windows.Forms.Label();
             this.labelInfoAngle = new System.Windows.Forms.Label();
             this.groupBoxParametrs = new System.Windows.Forms.GroupBox();
-            this.checkBoxWireMode = new System.Windows.Forms.CheckBox();
             this.numericUpDownFig2Param2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig2Param1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig1Param2 = new System.Windows.Forms.NumericUpDown();
@@ -59,6 +58,10 @@
             this.labelFig1Param1 = new System.Windows.Forms.Label();
             this.comboBoxFigure2 = new System.Windows.Forms.ComboBox();
             this.labelFigure2 = new System.Windows.Forms.Label();
+            this.numericUpDownFig2Param3 = new System.Windows.Forms.NumericUpDown();
+            this.labelFig2Param3 = new System.Windows.Forms.Label();
+            this.numericUpDownFig1Param3 = new System.Windows.Forms.NumericUpDown();
+            this.labelFig1Param3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
@@ -68,6 +71,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param3)).BeginInit();
             this.SuspendLayout();
             // 
             // labelAxis
@@ -129,7 +134,7 @@
             "Цилиндр",
             "Куб",
             "Конус",
-            "Тор"});
+            "Параллелепипед"});
             this.comboBoxFigure1.Location = new System.Drawing.Point(15, 200);
             this.comboBoxFigure1.Name = "comboBoxFigure1";
             this.comboBoxFigure1.Size = new System.Drawing.Size(115, 28);
@@ -264,7 +269,10 @@
             // 
             // groupBoxParametrs
             // 
-            this.groupBoxParametrs.Controls.Add(this.checkBoxWireMode);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param3);
+            this.groupBoxParametrs.Controls.Add(this.labelFig1Param3);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param3);
+            this.groupBoxParametrs.Controls.Add(this.labelFig2Param3);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param2);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param1);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param2);
@@ -281,28 +289,15 @@
             this.groupBoxParametrs.Controls.Add(this.labelAxis);
             this.groupBoxParametrs.Location = new System.Drawing.Point(23, 22);
             this.groupBoxParametrs.Name = "groupBoxParametrs";
-            this.groupBoxParametrs.Size = new System.Drawing.Size(186, 548);
+            this.groupBoxParametrs.Size = new System.Drawing.Size(186, 612);
             this.groupBoxParametrs.TabIndex = 19;
             this.groupBoxParametrs.TabStop = false;
             this.groupBoxParametrs.Text = "Параметры фигур";
             // 
-            // checkBoxWireMode
-            // 
-            this.checkBoxWireMode.AutoSize = true;
-            this.checkBoxWireMode.Checked = true;
-            this.checkBoxWireMode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxWireMode.Location = new System.Drawing.Point(6, 36);
-            this.checkBoxWireMode.Name = "checkBoxWireMode";
-            this.checkBoxWireMode.Size = new System.Drawing.Size(164, 24);
-            this.checkBoxWireMode.TabIndex = 22;
-            this.checkBoxWireMode.Text = "Сеточный режим";
-            this.checkBoxWireMode.UseVisualStyleBackColor = true;
-            this.checkBoxWireMode.CheckedChanged += new System.EventHandler(this.CheckBoxWireMode_CheckedChanged);
-            // 
             // numericUpDownFig2Param2
             // 
             this.numericUpDownFig2Param2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(62, 493);
+            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(62, 530);
             this.numericUpDownFig2Param2.Name = "numericUpDownFig2Param2";
             this.numericUpDownFig2Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param2.TabIndex = 18;
@@ -316,7 +311,7 @@
             // numericUpDownFig2Param1
             // 
             this.numericUpDownFig2Param1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(62, 449);
+            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(62, 486);
             this.numericUpDownFig2Param1.Name = "numericUpDownFig2Param1";
             this.numericUpDownFig2Param1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param1.TabIndex = 17;
@@ -358,7 +353,7 @@
             // labelFig2Param2
             // 
             this.labelFig2Param2.AutoSize = true;
-            this.labelFig2Param2.Location = new System.Drawing.Point(20, 499);
+            this.labelFig2Param2.Location = new System.Drawing.Point(20, 536);
             this.labelFig2Param2.Name = "labelFig2Param2";
             this.labelFig2Param2.Size = new System.Drawing.Size(36, 20);
             this.labelFig2Param2.TabIndex = 12;
@@ -368,7 +363,7 @@
             // labelFig2Param1
             // 
             this.labelFig2Param1.AutoSize = true;
-            this.labelFig2Param1.Location = new System.Drawing.Point(20, 455);
+            this.labelFig2Param1.Location = new System.Drawing.Point(20, 492);
             this.labelFig2Param1.Name = "labelFig2Param1";
             this.labelFig2Param1.Size = new System.Drawing.Size(36, 20);
             this.labelFig2Param1.TabIndex = 11;
@@ -403,8 +398,8 @@
             "Цилиндр",
             "Куб",
             "Конус",
-            "Тор"});
-            this.comboBoxFigure2.Location = new System.Drawing.Point(15, 400);
+            "Параллелепипед"});
+            this.comboBoxFigure2.Location = new System.Drawing.Point(15, 437);
             this.comboBoxFigure2.Name = "comboBoxFigure2";
             this.comboBoxFigure2.Size = new System.Drawing.Size(115, 28);
             this.comboBoxFigure2.TabIndex = 6;
@@ -412,11 +407,59 @@
             // labelFigure2
             // 
             this.labelFigure2.AutoSize = true;
-            this.labelFigure2.Location = new System.Drawing.Point(11, 377);
+            this.labelFigure2.Location = new System.Drawing.Point(11, 414);
             this.labelFigure2.Name = "labelFigure2";
             this.labelFigure2.Size = new System.Drawing.Size(78, 20);
             this.labelFigure2.TabIndex = 5;
             this.labelFigure2.Text = "Фигура 2";
+            // 
+            // numericUpDownFig2Param3
+            // 
+            this.numericUpDownFig2Param3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownFig2Param3.Location = new System.Drawing.Point(62, 571);
+            this.numericUpDownFig2Param3.Name = "numericUpDownFig2Param3";
+            this.numericUpDownFig2Param3.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownFig2Param3.TabIndex = 20;
+            this.numericUpDownFig2Param3.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownFig2Param3.Visible = false;
+            // 
+            // labelFig2Param3
+            // 
+            this.labelFig2Param3.AutoSize = true;
+            this.labelFig2Param3.Location = new System.Drawing.Point(20, 577);
+            this.labelFig2Param3.Name = "labelFig2Param3";
+            this.labelFig2Param3.Size = new System.Drawing.Size(36, 20);
+            this.labelFig2Param3.TabIndex = 19;
+            this.labelFig2Param3.Text = "p23";
+            this.labelFig2Param3.Visible = false;
+            // 
+            // numericUpDownFig1Param3
+            // 
+            this.numericUpDownFig1Param3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownFig1Param3.Location = new System.Drawing.Point(62, 334);
+            this.numericUpDownFig1Param3.Name = "numericUpDownFig1Param3";
+            this.numericUpDownFig1Param3.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownFig1Param3.TabIndex = 22;
+            this.numericUpDownFig1Param3.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownFig1Param3.Visible = false;
+            // 
+            // labelFig1Param3
+            // 
+            this.labelFig1Param3.AutoSize = true;
+            this.labelFig1Param3.Location = new System.Drawing.Point(20, 340);
+            this.labelFig1Param3.Name = "labelFig1Param3";
+            this.labelFig1Param3.Size = new System.Drawing.Size(36, 20);
+            this.labelFig1Param3.TabIndex = 21;
+            this.labelFig1Param3.Text = "p13";
+            this.labelFig1Param3.Visible = false;
             // 
             // MainForm
             // 
@@ -452,6 +495,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -488,7 +533,10 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFig2Param1;
         private System.Windows.Forms.NumericUpDown numericUpDownFig1Param2;
         private System.Windows.Forms.NumericUpDown numericUpDownFig1Param1;
-        private System.Windows.Forms.CheckBox checkBoxWireMode;
+        private System.Windows.Forms.NumericUpDown numericUpDownFig1Param3;
+        private System.Windows.Forms.Label labelFig1Param3;
+        private System.Windows.Forms.NumericUpDown numericUpDownFig2Param3;
+        private System.Windows.Forms.Label labelFig2Param3;
     }
 }
 

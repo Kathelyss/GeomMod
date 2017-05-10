@@ -14,17 +14,13 @@ namespace GeomMod
         // здесь 1 - первая фигура, 2 - вторая фигура
         int cubeSide1, sphereRadius1, coneBasemendRadius1, cilinderBaseRadius1, coneHeight1, cilinderHeight1;
         int cubeSide2, sphereRadius2, coneBasemendRadius2, cilinderBaseRadius2, coneHeight2, cilinderHeight2;
-        int innerRadius1, outerRadius1, innerRadius2, outerRadius2; // радиусы торов
+        int parWidth1, parDepth1, parHeight1, parWidth2, parDepth2, parHeight2; // радиусы торов
 
         //for mouse
         static int old_x, old_y, mousePressed;
         static float X = 0.0f;        // Translate screen to x direction (left or right)
         static float Y = 0.0f;        // Translate screen to y direction (up or down)
         static float Z = 0.0f;        // Translate screen to z direction (zoom in or out)
-
-        bool wireMode = true; // режим сеточной визуализации
-
-        public bool WireMode { get => wireMode; set => wireMode = value; }
 
         public MainForm()
         {
@@ -71,12 +67,6 @@ namespace GeomMod
             comboBoxAxis.SelectedIndex = 0;
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
-        }
-
-        // переключение сеточного режима из формы
-        private void CheckBoxWireMode_CheckedChanged(object sender, EventArgs e)
-        {
-            WireMode = checkBoxWireMode.Checked;
         }
 
         /* События изменения значений элементов scrollBar
@@ -201,10 +191,8 @@ namespace GeomMod
 
             //отрисовка 3D-осей координат
             DrawAxis();
-            // Drawings();
-            DrawParallelepiped(1, 2, 3, 4, 5, 6);
-            DrawCone(-3, -10, 5, 6, 3);
-            DrawCilinder(-4, -1, -2, 7, 4);
+            //  DrawCone(-3, -10, 5, 6, 3);
+            //  DrawCilinder(-4, -1, -2, 7, 4);
 
             // отрисовка фигур
             DrawFigure(1, comboBoxFigure1);
@@ -281,123 +269,79 @@ namespace GeomMod
                 case 0: // сфера
                     {
                         if (box == comboBoxFigure1)
-                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "");
-
-                        if (figureNumber == 1)
                         {
-                            if (WireMode)
-                                Glut.glutWireSphere(sphereRadius1, 16, 16); // сеточная сфера 
-                            else
-                                Glut.glutSolidSphere(sphereRadius1, 16, 16); // полигональная сфера 
+                            RevealFields(1, 1, "r", "");
+                            Glut.glutWireSphere(sphereRadius1, 16, 16); // сеточная сфера 
                         }
-                        else
+                        else if (box == comboBoxFigure2)
                         {
-                            if (WireMode)
-                                Glut.glutWireSphere(sphereRadius2, 16, 16); // сеточная сфера 
-                            else
-                                Glut.glutSolidSphere(sphereRadius2, 16, 16); // полигональная сфера 
+                            RevealFields(1, 2, "r", "");
+                            Glut.glutWireSphere(sphereRadius2, 16, 16); // сеточная сфера 
                         }
                         break;
                     }
                 case 1: // цилиндр
                     {
                         if (box == comboBoxFigure1)
-                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
-
-                        if (figureNumber == 1)
                         {
-                            if (WireMode)
-                                Glut.glutWireCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
-                            else
-                                Glut.glutSolidCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
+                            RevealFields(2, 1, "r", "h");
+                            Glut.glutWireCylinder(cilinderBaseRadius1, cilinderHeight1, 32, 32);
                         }
-                        else
+                        else if (box == comboBoxFigure2)
                         {
-                            if (WireMode)
-                                Glut.glutWireCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
-                            else
-                                Glut.glutSolidCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
+                            RevealFields(2, 2, "r", "h");
+                            Glut.glutWireCylinder(cilinderBaseRadius2, cilinderHeight2, 32, 32);
                         }
                         break;
                     }
                 case 2: // куб
                     {
                         if (box == comboBoxFigure1)
-                            RevealFields(1, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "a", "");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(1, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "a", "");
-
-                        if (figureNumber == 1)
                         {
-                            if (WireMode)
-                                Glut.glutWireCube(cubeSide1);
-                            else
-                                Glut.glutSolidCube(cubeSide1);
+                            RevealFields(1, 1, "a", "");
+                            DrawParallelepiped(1, 1, 1, cubeSide1, cubeSide1, cubeSide1);
                         }
-                        else
+                        else if (box == comboBoxFigure2)
                         {
-                            if (WireMode)
-                                Glut.glutWireCube(cubeSide2);
-                            else
-                                Glut.glutSolidCube(cubeSide2);
+                            RevealFields(1, 2, "a", "");
+                            DrawParallelepiped(1, 1, 1, cubeSide2, cubeSide2, cubeSide2);
                         }
                         break;
                     }
                 case 3: // конус
                     {
                         if (box == comboBoxFigure1)
-                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "h");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "h");
-
-                        if (figureNumber == 1)
                         {
-                            if (WireMode)
-                                Glut.glutWireCone(coneBasemendRadius1, coneHeight1, 32, 32);
-                            else
-                                Glut.glutSolidCone(coneBasemendRadius1, coneHeight1, 32, 32);
+                            RevealFields(2, 1, "r", "h");
+                            Glut.glutWireCone(coneBasemendRadius1, coneHeight1, 32, 32);
                         }
-                        else
+                        else if (box == comboBoxFigure2)
                         {
-                            if (WireMode)
-                                Glut.glutWireCone(coneBasemendRadius2, coneHeight2, 32, 32);
-                            else
-                                Glut.glutSolidCone(coneBasemendRadius2, coneHeight2, 32, 32);
+                            RevealFields(2, 2, "r", "h");
+                            Glut.glutWireCone(coneBasemendRadius2, coneHeight2, 32, 32);
                         }
                         break;
                     }
-                case 4: // тор
+                case 4: // параллелепипед
                     {
                         if (box == comboBoxFigure1)
-                            RevealFields(2, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "r", "R");
-                        else if (box == comboBoxFigure2)
-                            RevealFields(2, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "r", "R");
-                        if (figureNumber == 1)
                         {
-                            if (WireMode)
-                                Glut.glutWireTorus(innerRadius1, outerRadius1, 32, 32);
-                            else
-                                Glut.glutSolidTorus(innerRadius1, outerRadius1, 32, 32);
+                            RevealFields(3, 1, "w", "d");
+                            DrawParallelepiped(1, 1, 1, parHeight1, parWidth1, parDepth1);
                         }
-                        else
+                        else if (box == comboBoxFigure2)
                         {
-                            if (WireMode)
-                                Glut.glutWireTorus(innerRadius2, outerRadius2, 32, 32);
-                            else
-                                Glut.glutSolidTorus(innerRadius2, outerRadius2, 32, 32);
+                            RevealFields(3, 2, "w", "d");
+                            DrawParallelepiped(1, 1, 1, parHeight2, parWidth2, parDepth2);
                         }
                         break;
                     }
                 default:
                     {
                         if (box == comboBoxFigure1)
-                            RevealFields(0, labelFig1Param1, labelFig1Param2, numericUpDownFig1Param1, numericUpDownFig1Param2, "", "");
+                            RevealFields(0, 1, "", "");
                         else if (box == comboBoxFigure2)
-                            RevealFields(0, labelFig2Param1, labelFig2Param2, numericUpDownFig2Param1, numericUpDownFig2Param2, "", "");
+                            RevealFields(0, 2, "", "");
                         break;
                     }
             }
@@ -418,9 +362,10 @@ namespace GeomMod
             //цилиндр
             cilinderBaseRadius1 = (int)numericUpDownFig1Param1.Value;
             cilinderHeight1 = (int)numericUpDownFig1Param2.Value;
-            //тор
-            innerRadius1 = (int)numericUpDownFig1Param1.Value;
-            outerRadius1 = (int)numericUpDownFig1Param2.Value;
+            //параллелепипед
+            parWidth1 = (int)numericUpDownFig1Param1.Value;
+            parDepth1 = (int)numericUpDownFig1Param2.Value;
+            parHeight1 = (int)numericUpDownFig1Param3.Value;
 
             //2я фигура
             //куб и сфера
@@ -432,9 +377,10 @@ namespace GeomMod
             //цилиндр
             cilinderBaseRadius2 = (int)numericUpDownFig2Param1.Value;
             cilinderHeight2 = (int)numericUpDownFig2Param2.Value;
-            //тор            
-            innerRadius2 = (int)numericUpDownFig2Param1.Value;
-            outerRadius2 = (int)numericUpDownFig2Param2.Value;
+            //параллелепипед        
+            parWidth2 = (int)numericUpDownFig2Param1.Value;
+            parDepth2 = (int)numericUpDownFig2Param2.Value;
+            parHeight2 = (int)numericUpDownFig2Param3.Value;
         }
 
         // установка параметров фигур из полей формы
@@ -487,17 +433,19 @@ namespace GeomMod
                         }
                         break;
                     }
-                case 4: // тор
+                case 4: // параллелепипед
                     {
                         if (box == comboBoxFigure1)
                         {
-                            innerRadius1 = (int)numericUpDownFig1Param1.Value; //1;
-                            outerRadius1 = (int)numericUpDownFig1Param2.Value; //3;
+                            parWidth1 = (int)numericUpDownFig1Param1.Value; //x
+                            parDepth1 = (int)numericUpDownFig1Param2.Value; //z
+                            parHeight1 = (int)numericUpDownFig1Param3.Value;
                         }
                         else if (box == comboBoxFigure2)
                         {
-                            innerRadius2 = (int)numericUpDownFig2Param1.Value; //1;
-                            outerRadius2 = (int)numericUpDownFig2Param2.Value; //3;
+                            parWidth2 = (int)numericUpDownFig2Param1.Value; //x
+                            parDepth2 = (int)numericUpDownFig2Param2.Value; //z
+                            parHeight2 = (int)numericUpDownFig2Param3.Value;
                         }
                         break;
                     }
@@ -509,16 +457,38 @@ namespace GeomMod
          * Если параметр 1, то делаем видимым только 1 label и 1 numericUpDown
          * иначе - 2 label'a и 2 numericUpDown'a
          */
-        private void RevealFields(int prms, Label label1, Label label2, NumericUpDown field1, NumericUpDown field2, string text1, string text2)
+        private void RevealFields(int prms, int figNum, string text1, string text2)
         {
-            // сфера, куб и все остальные фигуры
-            label1.Visible = (prms > 0);
-            field1.Visible = (prms > 0);
-            // конус, цилиндр, тор
-            label2.Visible = (prms > 1);
-            field2.Visible = (prms > 1);
-            label1.Text = text1;
-            label2.Text = text2;
+            if (figNum == 1)
+            {
+                // сфера, куб и все остальные фигуры
+                labelFig1Param1.Visible = (prms > 0);
+                numericUpDownFig1Param1.Visible = (prms > 0);
+                labelFig1Param1.Text = text1;
+                // конус, цилиндр, параллелепипед
+                labelFig1Param2.Visible = (prms > 1);
+                numericUpDownFig1Param2.Visible = (prms > 1);
+                labelFig1Param2.Text = text2;
+                //параллелепипед
+                labelFig1Param3.Visible = (prms > 2);
+                numericUpDownFig1Param3.Visible = (prms > 2);
+                labelFig1Param3.Text = "h";
+            }
+            else
+            {
+                // сфера, куб и все остальные фигуры
+                labelFig2Param1.Visible = (prms > 0);
+                numericUpDownFig2Param1.Visible = (prms > 0);
+                labelFig2Param1.Text = text1;
+                // конус, цилиндр, параллелепипед
+                labelFig2Param2.Visible = (prms > 1);
+                numericUpDownFig2Param2.Visible = (prms > 1);
+                labelFig2Param2.Text = text2;
+                //параллелепипед
+                labelFig2Param3.Visible = (prms > 2);
+                numericUpDownFig2Param3.Visible = (prms > 2);
+                labelFig2Param3.Text = "h";
+            }
         }
 
 
@@ -595,7 +565,7 @@ namespace GeomMod
             Gl.glPopMatrix();                   // Don't forget to pop the Matrix
         }
 
-
+        //задание вектора - ?
         private void DrawParallelepiped(int x, int y, int z, int height, int width, int depth)
         {
             Gl.glBegin(Gl.GL_LINE_STRIP);
@@ -632,23 +602,23 @@ namespace GeomMod
         private void DrawCone(int x, int y, int z, int height, int radius)
         {
             //как меняются координаты x, z?
-           // for (int i = 0; i < 10; i++)
+            // for (int i = 0; i < 10; i++)
             //{
-                Gl.glBegin(Gl.GL_LINE_STRIP);
-                Gl.glColor3f(0.0f, 1.0f, 1.0f);
+            Gl.glBegin(Gl.GL_LINE_STRIP);
+            Gl.glColor3f(0.0f, 1.0f, 1.0f);
 
-                Gl.glVertex3f(x, y, z); // центр
-                Gl.glVertex3f(x, y + height, z); // вершина
-                Gl.glVertex3f(x - radius, y, z); // точка на окружности
-                Gl.glVertex3f(x, y, z); // центр
-                Gl.glVertex3f(x + radius, y, z); // точка на окружности
-                Gl.glVertex3f(x, y + height, z); // вершина
-                Gl.glVertex3f(x, y, z - radius); // точка на окружности
-                Gl.glVertex3f(x, y, z); // центр
-                Gl.glVertex3f(x, y + height, z); // вершина
-                Gl.glVertex3f(x, y, z + radius); // точка на окружности
-                Gl.glVertex3f(x, y, z);
-                Gl.glEnd();
+            Gl.glVertex3f(x, y, z); // центр
+            Gl.glVertex3f(x, y + height, z); // вершина
+            Gl.glVertex3f(x - radius, y, z); // точка на окружности
+            Gl.glVertex3f(x, y, z); // центр
+            Gl.glVertex3f(x + radius, y, z); // точка на окружности
+            Gl.glVertex3f(x, y + height, z); // вершина
+            Gl.glVertex3f(x, y, z - radius); // точка на окружности
+            Gl.glVertex3f(x, y, z); // центр
+            Gl.glVertex3f(x, y + height, z); // вершина
+            Gl.glVertex3f(x, y, z + radius); // точка на окружности
+            Gl.glVertex3f(x, y, z);
+            Gl.glEnd();
             //}
         }
 
@@ -658,7 +628,7 @@ namespace GeomMod
             // for (int i = 0; i < 10; i++)
             //{
             Gl.glBegin(Gl.GL_LINE_STRIP);
-            Gl.glColor3f(0.0f, 1.0f, 1.0f);
+            Gl.glColor3f(1.0f, 0.0f, 1.0f);
 
             Gl.glVertex3f(x, y, z); // центр
             Gl.glVertex3f(x, y + height, z); // вершина
