@@ -14,8 +14,8 @@ namespace GeomMod
         // здесь 1 - первая фигура, 2 - вторая фигура
         int cubeSide1, sphereRadius1, coneBaseRadius1, cylinderBaseRadius1, coneHeight1, cylinderHeight1;
         int cubeSide2, sphereRadius2, coneBaseRadius2, cylinderBaseRadius2, coneHeight2, cylinderHeight2;
-        int parWidth1, parDepth1, parHeight1, parWidth2, parDepth2, parHeight2; // радиусы торов
         int cx1, cx2, cy1, cy2, cz1, cz2;
+        int currAngle;
 
         //for mouse
         static int old_x, old_y, mousePressed;

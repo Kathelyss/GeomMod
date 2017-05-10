@@ -327,6 +327,11 @@
             // 
             this.numericUpDownCZ2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownCZ2.Location = new System.Drawing.Point(62, 875);
+            this.numericUpDownCZ2.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDownCZ2.Name = "numericUpDownCZ2";
             this.numericUpDownCZ2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownCZ2.TabIndex = 34;
@@ -344,6 +349,11 @@
             // 
             this.numericUpDownCY2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownCY2.Location = new System.Drawing.Point(62, 834);
+            this.numericUpDownCY2.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDownCY2.Name = "numericUpDownCY2";
             this.numericUpDownCY2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownCY2.TabIndex = 32;
@@ -352,6 +362,11 @@
             // 
             this.numericUpDownCX2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownCX2.Location = new System.Drawing.Point(62, 790);
+            this.numericUpDownCX2.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDownCX2.Name = "numericUpDownCX2";
             this.numericUpDownCX2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownCX2.TabIndex = 31;
@@ -378,6 +393,11 @@
             // 
             this.numericUpDownCZ1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownCZ1.Location = new System.Drawing.Point(62, 482);
+            this.numericUpDownCZ1.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDownCZ1.Name = "numericUpDownCZ1";
             this.numericUpDownCZ1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownCZ1.TabIndex = 28;
@@ -395,6 +415,11 @@
             // 
             this.numericUpDownCY1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownCY1.Location = new System.Drawing.Point(62, 441);
+            this.numericUpDownCY1.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDownCY1.Name = "numericUpDownCY1";
             this.numericUpDownCY1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownCY1.TabIndex = 26;
@@ -403,6 +428,11 @@
             // 
             this.numericUpDownCX1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownCX1.Location = new System.Drawing.Point(62, 397);
+            this.numericUpDownCX1.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDownCX1.Name = "numericUpDownCX1";
             this.numericUpDownCX1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownCX1.TabIndex = 25;
@@ -429,6 +459,11 @@
             // 
             this.numericUpDownFig1Param3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownFig1Param3.Location = new System.Drawing.Point(62, 334);
+            this.numericUpDownFig1Param3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownFig1Param3.Name = "numericUpDownFig1Param3";
             this.numericUpDownFig1Param3.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig1Param3.TabIndex = 22;
@@ -453,6 +488,11 @@
             // 
             this.numericUpDownFig2Param3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownFig2Param3.Location = new System.Drawing.Point(62, 713);
+            this.numericUpDownFig2Param3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownFig2Param3.Name = "numericUpDownFig2Param3";
             this.numericUpDownFig2Param3.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param3.TabIndex = 20;
@@ -477,6 +517,11 @@
             // 
             this.numericUpDownFig2Param2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownFig2Param2.Location = new System.Drawing.Point(62, 672);
+            this.numericUpDownFig2Param2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownFig2Param2.Name = "numericUpDownFig2Param2";
             this.numericUpDownFig2Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param2.TabIndex = 18;
@@ -491,6 +536,11 @@
             // 
             this.numericUpDownFig2Param1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownFig2Param1.Location = new System.Drawing.Point(62, 628);
+            this.numericUpDownFig2Param1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownFig2Param1.Name = "numericUpDownFig2Param1";
             this.numericUpDownFig2Param1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param1.TabIndex = 17;
@@ -505,6 +555,11 @@
             // 
             this.numericUpDownFig1Param2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownFig1Param2.Location = new System.Drawing.Point(62, 293);
+            this.numericUpDownFig1Param2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownFig1Param2.Name = "numericUpDownFig1Param2";
             this.numericUpDownFig1Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig1Param2.TabIndex = 16;
@@ -519,6 +574,11 @@
             // 
             this.numericUpDownFig1Param1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownFig1Param1.Location = new System.Drawing.Point(62, 249);
+            this.numericUpDownFig1Param1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownFig1Param1.Name = "numericUpDownFig1Param1";
             this.numericUpDownFig1Param1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig1Param1.TabIndex = 15;
