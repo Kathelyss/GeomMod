@@ -62,6 +62,18 @@
             this.labelFig2Param3 = new System.Windows.Forms.Label();
             this.numericUpDownFig1Param3 = new System.Windows.Forms.NumericUpDown();
             this.labelFig1Param3 = new System.Windows.Forms.Label();
+            this.numericUpDownCZ1 = new System.Windows.Forms.NumericUpDown();
+            this.labelZ1 = new System.Windows.Forms.Label();
+            this.numericUpDownCY1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownCX1 = new System.Windows.Forms.NumericUpDown();
+            this.labelY1 = new System.Windows.Forms.Label();
+            this.labelX1 = new System.Windows.Forms.Label();
+            this.numericUpDownCZ2 = new System.Windows.Forms.NumericUpDown();
+            this.labelZ2 = new System.Windows.Forms.Label();
+            this.numericUpDownCY2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownCX2 = new System.Windows.Forms.NumericUpDown();
+            this.labelY2 = new System.Windows.Forms.Label();
+            this.labelX2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
@@ -73,6 +85,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCZ1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCY1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCX1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCZ2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCY2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCX2)).BeginInit();
             this.SuspendLayout();
             // 
             // labelAxis
@@ -269,6 +287,18 @@
             // 
             // groupBoxParametrs
             // 
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownCZ2);
+            this.groupBoxParametrs.Controls.Add(this.labelZ2);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownCY2);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownCX2);
+            this.groupBoxParametrs.Controls.Add(this.labelY2);
+            this.groupBoxParametrs.Controls.Add(this.labelX2);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownCZ1);
+            this.groupBoxParametrs.Controls.Add(this.labelZ1);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownCY1);
+            this.groupBoxParametrs.Controls.Add(this.numericUpDownCX1);
+            this.groupBoxParametrs.Controls.Add(this.labelY1);
+            this.groupBoxParametrs.Controls.Add(this.labelX1);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param3);
             this.groupBoxParametrs.Controls.Add(this.labelFig1Param3);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param3);
@@ -289,7 +319,7 @@
             this.groupBoxParametrs.Controls.Add(this.labelAxis);
             this.groupBoxParametrs.Location = new System.Drawing.Point(23, 22);
             this.groupBoxParametrs.Name = "groupBoxParametrs";
-            this.groupBoxParametrs.Size = new System.Drawing.Size(186, 612);
+            this.groupBoxParametrs.Size = new System.Drawing.Size(186, 934);
             this.groupBoxParametrs.TabIndex = 19;
             this.groupBoxParametrs.TabStop = false;
             this.groupBoxParametrs.Text = "Параметры фигур";
@@ -297,7 +327,7 @@
             // numericUpDownFig2Param2
             // 
             this.numericUpDownFig2Param2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(62, 530);
+            this.numericUpDownFig2Param2.Location = new System.Drawing.Point(62, 672);
             this.numericUpDownFig2Param2.Name = "numericUpDownFig2Param2";
             this.numericUpDownFig2Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param2.TabIndex = 18;
@@ -311,7 +341,7 @@
             // numericUpDownFig2Param1
             // 
             this.numericUpDownFig2Param1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(62, 486);
+            this.numericUpDownFig2Param1.Location = new System.Drawing.Point(62, 628);
             this.numericUpDownFig2Param1.Name = "numericUpDownFig2Param1";
             this.numericUpDownFig2Param1.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param1.TabIndex = 17;
@@ -353,7 +383,7 @@
             // labelFig2Param2
             // 
             this.labelFig2Param2.AutoSize = true;
-            this.labelFig2Param2.Location = new System.Drawing.Point(20, 536);
+            this.labelFig2Param2.Location = new System.Drawing.Point(20, 678);
             this.labelFig2Param2.Name = "labelFig2Param2";
             this.labelFig2Param2.Size = new System.Drawing.Size(36, 20);
             this.labelFig2Param2.TabIndex = 12;
@@ -363,7 +393,7 @@
             // labelFig2Param1
             // 
             this.labelFig2Param1.AutoSize = true;
-            this.labelFig2Param1.Location = new System.Drawing.Point(20, 492);
+            this.labelFig2Param1.Location = new System.Drawing.Point(20, 634);
             this.labelFig2Param1.Name = "labelFig2Param1";
             this.labelFig2Param1.Size = new System.Drawing.Size(36, 20);
             this.labelFig2Param1.TabIndex = 11;
@@ -399,7 +429,7 @@
             "Куб",
             "Конус",
             "Параллелепипед"});
-            this.comboBoxFigure2.Location = new System.Drawing.Point(15, 437);
+            this.comboBoxFigure2.Location = new System.Drawing.Point(15, 579);
             this.comboBoxFigure2.Name = "comboBoxFigure2";
             this.comboBoxFigure2.Size = new System.Drawing.Size(115, 28);
             this.comboBoxFigure2.TabIndex = 6;
@@ -407,7 +437,7 @@
             // labelFigure2
             // 
             this.labelFigure2.AutoSize = true;
-            this.labelFigure2.Location = new System.Drawing.Point(11, 414);
+            this.labelFigure2.Location = new System.Drawing.Point(11, 556);
             this.labelFigure2.Name = "labelFigure2";
             this.labelFigure2.Size = new System.Drawing.Size(78, 20);
             this.labelFigure2.TabIndex = 5;
@@ -416,7 +446,7 @@
             // numericUpDownFig2Param3
             // 
             this.numericUpDownFig2Param3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownFig2Param3.Location = new System.Drawing.Point(62, 571);
+            this.numericUpDownFig2Param3.Location = new System.Drawing.Point(62, 713);
             this.numericUpDownFig2Param3.Name = "numericUpDownFig2Param3";
             this.numericUpDownFig2Param3.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param3.TabIndex = 20;
@@ -430,7 +460,7 @@
             // labelFig2Param3
             // 
             this.labelFig2Param3.AutoSize = true;
-            this.labelFig2Param3.Location = new System.Drawing.Point(20, 577);
+            this.labelFig2Param3.Location = new System.Drawing.Point(20, 719);
             this.labelFig2Param3.Name = "labelFig2Param3";
             this.labelFig2Param3.Size = new System.Drawing.Size(36, 20);
             this.labelFig2Param3.TabIndex = 19;
@@ -460,6 +490,108 @@
             this.labelFig1Param3.TabIndex = 21;
             this.labelFig1Param3.Text = "p13";
             this.labelFig1Param3.Visible = false;
+            // 
+            // numericUpDownCZ1
+            // 
+            this.numericUpDownCZ1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownCZ1.Location = new System.Drawing.Point(62, 482);
+            this.numericUpDownCZ1.Name = "numericUpDownCZ1";
+            this.numericUpDownCZ1.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownCZ1.TabIndex = 28;
+            // 
+            // labelZ1
+            // 
+            this.labelZ1.AutoSize = true;
+            this.labelZ1.Location = new System.Drawing.Point(20, 488);
+            this.labelZ1.Name = "labelZ1";
+            this.labelZ1.Size = new System.Drawing.Size(17, 20);
+            this.labelZ1.TabIndex = 27;
+            this.labelZ1.Text = "z";
+            // 
+            // numericUpDownCY1
+            // 
+            this.numericUpDownCY1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownCY1.Location = new System.Drawing.Point(62, 441);
+            this.numericUpDownCY1.Name = "numericUpDownCY1";
+            this.numericUpDownCY1.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownCY1.TabIndex = 26;
+            // 
+            // numericUpDownCX1
+            // 
+            this.numericUpDownCX1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownCX1.Location = new System.Drawing.Point(62, 397);
+            this.numericUpDownCX1.Name = "numericUpDownCX1";
+            this.numericUpDownCX1.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownCX1.TabIndex = 25;
+            // 
+            // labelY1
+            // 
+            this.labelY1.AutoSize = true;
+            this.labelY1.Location = new System.Drawing.Point(20, 447);
+            this.labelY1.Name = "labelY1";
+            this.labelY1.Size = new System.Drawing.Size(16, 20);
+            this.labelY1.TabIndex = 24;
+            this.labelY1.Text = "y";
+            // 
+            // labelX1
+            // 
+            this.labelX1.AutoSize = true;
+            this.labelX1.Location = new System.Drawing.Point(20, 403);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(16, 20);
+            this.labelX1.TabIndex = 23;
+            this.labelX1.Text = "x";
+            // 
+            // numericUpDownCZ2
+            // 
+            this.numericUpDownCZ2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownCZ2.Location = new System.Drawing.Point(62, 875);
+            this.numericUpDownCZ2.Name = "numericUpDownCZ2";
+            this.numericUpDownCZ2.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownCZ2.TabIndex = 34;
+            // 
+            // labelZ2
+            // 
+            this.labelZ2.AutoSize = true;
+            this.labelZ2.Location = new System.Drawing.Point(20, 881);
+            this.labelZ2.Name = "labelZ2";
+            this.labelZ2.Size = new System.Drawing.Size(17, 20);
+            this.labelZ2.TabIndex = 33;
+            this.labelZ2.Text = "z";
+            // 
+            // numericUpDownCY2
+            // 
+            this.numericUpDownCY2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownCY2.Location = new System.Drawing.Point(62, 834);
+            this.numericUpDownCY2.Name = "numericUpDownCY2";
+            this.numericUpDownCY2.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownCY2.TabIndex = 32;
+            // 
+            // numericUpDownCX2
+            // 
+            this.numericUpDownCX2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownCX2.Location = new System.Drawing.Point(62, 790);
+            this.numericUpDownCX2.Name = "numericUpDownCX2";
+            this.numericUpDownCX2.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownCX2.TabIndex = 31;
+            // 
+            // labelY2
+            // 
+            this.labelY2.AutoSize = true;
+            this.labelY2.Location = new System.Drawing.Point(20, 840);
+            this.labelY2.Name = "labelY2";
+            this.labelY2.Size = new System.Drawing.Size(16, 20);
+            this.labelY2.TabIndex = 30;
+            this.labelY2.Text = "y";
+            // 
+            // labelX2
+            // 
+            this.labelX2.AutoSize = true;
+            this.labelX2.Location = new System.Drawing.Point(20, 796);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(16, 20);
+            this.labelX2.TabIndex = 29;
+            this.labelX2.Text = "x";
             // 
             // MainForm
             // 
@@ -497,6 +629,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCZ1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCY1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCX1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCZ2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCY2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCX2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -537,6 +675,18 @@
         private System.Windows.Forms.Label labelFig1Param3;
         private System.Windows.Forms.NumericUpDown numericUpDownFig2Param3;
         private System.Windows.Forms.Label labelFig2Param3;
+        private System.Windows.Forms.NumericUpDown numericUpDownCZ2;
+        private System.Windows.Forms.Label labelZ2;
+        private System.Windows.Forms.NumericUpDown numericUpDownCY2;
+        private System.Windows.Forms.NumericUpDown numericUpDownCX2;
+        private System.Windows.Forms.Label labelY2;
+        private System.Windows.Forms.Label labelX2;
+        private System.Windows.Forms.NumericUpDown numericUpDownCZ1;
+        private System.Windows.Forms.Label labelZ1;
+        private System.Windows.Forms.NumericUpDown numericUpDownCY1;
+        private System.Windows.Forms.NumericUpDown numericUpDownCX1;
+        private System.Windows.Forms.Label labelY1;
+        private System.Windows.Forms.Label labelX1;
     }
 }
 
