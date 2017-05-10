@@ -145,30 +145,6 @@ namespace GeomMod
         private void SimpleOpenGlControl_MouseDown(object sender, MouseEventArgs e) { }
         private void SimpleOpenGlControl_MouseUp(object sender, MouseEventArgs e) { }
         private void SimpleOpenGlControl_MouseMove(object sender, MouseEventArgs e) { }
-        private void ZoomViaMouseWheel(int wheel, int direction, int x, int y)
-        {
-            Z += direction;
-            labelInfoZ.Text = Z.ToString();
-            Glut.glutPostRedisplay();
-        }
-        // Capture the mouse click event 
-        private void ProcessMouseActiveMotion(int button, int state, int x, int y)
-        {
-            mousePressed = button;          // Capture which mouse button is down
-            old_x = x;                      // Capture the x value
-            old_y = y;                      // Capture the y value
-        }
-        // Translate the x,y windows coordinates to OpenGL coordinates
-        private void ProcessMouse(int x, int y)
-        {
-            if ((mousePressed == 0))        // If left mouse button is pressed
-            {
-                X = (x - old_x) / 15;       // I did divide by 15 to adjust                                             
-                Y = -(y - old_y) / 15;      // for a nice translation
-            }
-
-            Glut.glutPostRedisplay();
-        }
 
         ////////////////////////////////////////////////////////////////////////////
 
@@ -347,8 +323,7 @@ namespace GeomMod
             }
         }
 
-
-
+    
         // получение параметров фигур из полей формы
         private void GetParams()
         {
@@ -494,7 +469,6 @@ namespace GeomMod
 
         private void Drawings()
         {
-            // Clear the Color Buffer and Depth Buffer
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             Gl.glPushMatrix();   // It is important to push the Matrix before calling glRotatef and glTranslatef
             /*  
@@ -508,69 +482,14 @@ namespace GeomMod
                   rotY += 0.2f;
                   rotZ += 0.2f;
               }
-            Gl.glTranslatef(X, Y, Z);        // Translates the screen left or right, up or down or zoom in zoom out
+            Gl.glTranslatef(X, Y, Z); // Translates the screen left or right, up or down or zoom in zoom out
             */
-            DrawAxis();
-
-            // start to draw 3D cube
-            Gl.glBegin(Gl.GL_POLYGON);
-            // I'm setting a new color for each corner, this creates a rainbow effect
-            Gl.glColor3f(0.0f, 0.0f, 1.0f);             // Set color to blue
-            Gl.glVertex3f(3.0f, 3.0f, 3.0f);
-            Gl.glColor3f(1.0f, 0.0f, 0.0f);             // Set color to red
-            Gl.glVertex3f(3.0f, -3.0f, 3.0f);
-            Gl.glColor3f(0.0f, 1.0f, 0.0f);             // Set color to green
-            Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
-            Gl.glColor3f(1.0f, 0.0f, 1.0f);     // Set color to something 
-                                                //(right now I don't know which color)
-            Gl.glVertex3f(-3.0f, 3.0f, 3.0f);
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glColor3f(0.50f, 0.50f, 1.0f);         // Set a new color
-            Gl.glVertex3f(3.0f, 3.0f, -3.0f);
-            Gl.glVertex3f(3.0f, -3.0f, -3.0f);
-            Gl.glVertex3f(-3.0f, -3.0f, -3.0f);
-            Gl.glVertex3f(-3.0f, 3.0f, -3.0f);
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glColor3f(0.0f, 1.0f, 0.0f);         // Set a new color (green)
-            Gl.glVertex3f(3.0f, 3.0f, 3.0f);
-            Gl.glVertex3f(3.0f, 3.0f, -3.0f);
-            Gl.glVertex3f(3.0f, -3.0f, -3.0f);
-            Gl.glVertex3f(3.0f, -3.0f, 3.0f);
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glColor3f(0.50f, 1.0f, 0.50f);
-            Gl.glVertex3f(-3.0f, 3.0f, 3.0f);
-            Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
-            Gl.glVertex3f(-3.0f, -3.0f, -3.0f);
-            Gl.glVertex3f(-3.0f, 3.0f, -3.0f);
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glColor3f(1.0f, 0.0f, 0.0f);
-            Gl.glVertex3f(3.0f, 3.0f, 3.0f);
-            Gl.glVertex3f(3.0f, 3.0f, -3.0f);
-            Gl.glVertex3f(-3.0f, 3.0f, -3.0f);
-            Gl.glVertex3f(-3.0f, 3.0f, 3.0f);
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glColor3f(1.0f, 0.50f, 0.50f);
-            Gl.glVertex3f(3.0f, -3.0f, 3.0f);
-            Gl.glVertex3f(3.0f, -3.0f, -3.0f);
-            Gl.glVertex3f(-3.0f, -3.0f, -3.0f);
-            Gl.glVertex3f(-3.0f, -3.0f, 3.0f);
-            Gl.glEnd();
-
-            Gl.glDisable(Gl.GL_LINE_STIPPLE);
-            Gl.glPopMatrix();                   // Don't forget to pop the Matrix
         }
 
         //задание вектора - ?
         private void DrawParallelepiped(int x, int y, int z, int height, int width, int depth)
         {
             Gl.glBegin(Gl.GL_LINE_STRIP);
-            Gl.glColor3f(0.0f, 1.0f, 0.0f);
-
             Gl.glVertex3f(x, y, z);
             Gl.glVertex3f(x + width, y, z);
             Gl.glVertex3f(x + width, y + height, z);
