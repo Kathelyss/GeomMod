@@ -204,6 +204,7 @@ namespace GeomMod
             // Drawings();
             DrawParallelepiped(1, 2, 3, 4, 5, 6);
             DrawCone(-3, -10, 5, 6, 3);
+            DrawCilinder(-4, -1, -2, 7, 4);
 
             // отрисовка фигур
             DrawFigure(1, comboBoxFigure1);
@@ -630,22 +631,50 @@ namespace GeomMod
 
         private void DrawCone(int x, int y, int z, int height, int radius)
         {
-            //как меняются координаты ?
-            for (int i = 0; i < 10; i++)
-            {
+            //как меняются координаты x, z?
+           // for (int i = 0; i < 10; i++)
+            //{
                 Gl.glBegin(Gl.GL_LINE_STRIP);
                 Gl.glColor3f(0.0f, 1.0f, 1.0f);
 
                 Gl.glVertex3f(x, y, z); // центр
                 Gl.glVertex3f(x, y + height, z); // вершина
                 Gl.glVertex3f(x - radius, y, z); // точка на окружности
+                Gl.glVertex3f(x, y, z); // центр
+                Gl.glVertex3f(x + radius, y, z); // точка на окружности
+                Gl.glVertex3f(x, y + height, z); // вершина
+                Gl.glVertex3f(x, y, z - radius); // точка на окружности
+                Gl.glVertex3f(x, y, z); // центр
+                Gl.glVertex3f(x, y + height, z); // вершина
+                Gl.glVertex3f(x, y, z + radius); // точка на окружности
                 Gl.glVertex3f(x, y, z);
-
                 Gl.glEnd();
-            }
+            //}
+        }
 
-            //            Gl.glBegin(Gl.GL_LINES);
-            //            Gl.glEnd();
+        private void DrawCilinder(int x, int y, int z, int height, int radius)
+        {
+            //как меняются координаты x, z?
+            // for (int i = 0; i < 10; i++)
+            //{
+            Gl.glBegin(Gl.GL_LINE_STRIP);
+            Gl.glColor3f(0.0f, 1.0f, 1.0f);
+
+            Gl.glVertex3f(x, y, z); // центр
+            Gl.glVertex3f(x, y + height, z); // вершина
+            Gl.glVertex3f(x - radius, y + height, z); // точка наверху
+            Gl.glVertex3f(x - radius, y, z); // точка внизу
+            Gl.glVertex3f(x, y, z); // центр
+            Gl.glVertex3f(x + radius, y, z);
+            Gl.glVertex3f(x + radius, y + height, z);
+            Gl.glVertex3f(x, y + height, z);
+            Gl.glVertex3f(x, y + height, z - radius);
+            Gl.glVertex3f(x, y, z - radius);
+            Gl.glVertex3f(x, y, z + radius);
+            Gl.glVertex3f(x, y + height, z + radius);
+            Gl.glVertex3f(x, y + height, z);
+            Gl.glEnd();
+            //}
         }
     }
 }
