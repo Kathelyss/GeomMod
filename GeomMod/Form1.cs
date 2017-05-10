@@ -17,6 +17,7 @@ namespace GeomMod
         int cx1, cx2, cy1, cy2, cz1, cz2;
         int currAngle;
 
+
         //for mouse
         static int old_x, old_y, mousePressed;
         static float X = 0.0f;        // Translate screen to x direction (left or right)
