@@ -15,8 +15,17 @@ namespace GeomMod
         int cubeSide1, sphereRadius1, coneBaseRadius1, cylinderBaseRadius1, coneHeight1, cylinderHeight1;
         int cubeSide2, sphereRadius2, coneBaseRadius2, cylinderBaseRadius2, coneHeight2, cylinderHeight2;
         int cx1, cx2, cy1, cy2, cz1, cz2;
-        int currAngle;
 
+        public class CenterPoint
+        {
+            public int coord_x, coord_y, coord_z;
+            public CenterPoint(int x, int y, int z)
+            {
+                coord_x = x;
+                coord_y = y;
+                coord_z = z;
+            }
+        };
 
         //for mouse
         static int old_x, old_y, mousePressed;
@@ -152,30 +161,21 @@ namespace GeomMod
             // очистка буфера цвета и буфера глубины 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             Gl.glClearColor(255, 255, 255, 1);
-            // очистка текущей матрицы 
-            Gl.glLoadIdentity();
+            Gl.glLoadIdentity();                // очистка текущей матрицы 
             // помещаем состояние матрицы в стек матриц, дальнейшие трансформации затронут только визуализацию объекта 
             Gl.glPushMatrix();
-            // производим перемещение в зависимости от значений, полученных при перемещении ползунков 
+            // перемещение в зависимости от значений, полученных при перемещении ползунков 
             Gl.glTranslated(a, b, c);
-            // поворот по установленной оси 
-            Gl.glRotated(d, os_x, os_y, os_z);
-            // и масштабирование объекта 
-            Gl.glScaled(zoom, zoom, zoom);
+            Gl.glRotated(d, os_x, os_y, os_z);  // поворот по установленной оси             
+            Gl.glScaled(zoom, zoom, zoom);      // и масштабирование объекта 
 
-            //отрисовка 3D-осей координат
-            DrawAxis();
-
-            // отрисовка фигур
-            DrawFigure(1, comboBoxFigure1);
+            DrawAxis();                         //отрисовка 3D-осей координат            
+            DrawFigure(1, comboBoxFigure1);     // отрисовка фигур
             DrawFigure(2, comboBoxFigure2);
 
-            // возвращаем состояние матрицы 
-            Gl.glPopMatrix();
-            // завершаем рисование 
-            Gl.glFlush();
-            // обновляем элемент 
-            simpleOpenGlControl.Invalidate();
+            Gl.glPopMatrix();                   // возвращаем состояние матрицы             
+            Gl.glFlush();                       // завершаем рисование             
+            simpleOpenGlControl.Invalidate();   // обновляем элемент 
         }
 
         // отрисовка осей координат
@@ -183,7 +183,6 @@ namespace GeomMod
         {
             // отрисовка положительных частей осей координат
             Gl.glBegin(Gl.GL_LINES);
-
             Gl.glColor3f(0.0f, 1.0f, 0.0f); // зеленый цвет оси Х
             Gl.glVertex3f(0, 0, 0);
             Gl.glVertex3f(100, 0, 0);
@@ -195,7 +194,6 @@ namespace GeomMod
             Gl.glColor3f(1.0f, 0.0f, 0.0f); // красный цвет оси Z
             Gl.glVertex3f(0, 0, 0);
             Gl.glVertex3f(0, 0, 100);
-
             Gl.glEnd();
 
             // пунктир для отрицательных частей осей координат
@@ -203,7 +201,6 @@ namespace GeomMod
             Gl.glLineStipple(1, 0x00FF);     // тип пунктира осей
 
             Gl.glBegin(Gl.GL_LINES);
-
             Gl.glColor3f(0.0f, 1.0f, 0.0f);
             Gl.glVertex3f(-100, 0, 0);
             Gl.glVertex3f(0, 0, 0);
@@ -215,9 +212,7 @@ namespace GeomMod
             Gl.glColor3f(1.0f, 0.0f, 0.0f);
             Gl.glVertex3f(0, 0, 0);
             Gl.glVertex3f(0, 0, -100);
-
             Gl.glEnd();
-
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
         }
 
@@ -243,12 +238,12 @@ namespace GeomMod
                         if (box == comboBoxFigure1)
                         {
                             RevealFields(1, 1, "r", "");
-                            Glut.glutWireSphere(sphereRadius1, 16, 16); // сеточная сфера 
+                            DrawShpere(-90, new CenterPoint(cx1, cy1, cz1), sphereRadius1);
                         }
                         else if (box == comboBoxFigure2)
                         {
                             RevealFields(1, 2, "r", "");
-                            Glut.glutWireSphere(sphereRadius2, 16, 16); // сеточная сфера 
+                            DrawShpere(0, new CenterPoint(cx2 - cx1, cy2 - cy1, cz2 - cz1), sphereRadius2);
                         }
                         break;
                     }
@@ -257,12 +252,12 @@ namespace GeomMod
                         if (box == comboBoxFigure1)
                         {
                             RevealFields(2, 1, "r", "h");
-                            DrawCylinder(cx1, cy1, cz1, cylinderHeight1, cylinderBaseRadius1);
+                            DrawCylinder(-90, new CenterPoint(cx1, cy1, cz1), cylinderHeight1, cylinderBaseRadius1);
                         }
                         else if (box == comboBoxFigure2)
                         {
                             RevealFields(2, 2, "r", "h");
-                            DrawCylinder(cx2, cy2, cz2, cylinderHeight2, cylinderBaseRadius2);
+                            DrawCylinder(0, new CenterPoint(cx2 - cx1, cy2 - cy1, cz2 - cz1), cylinderHeight2, cylinderBaseRadius2);
                         }
                         break;
                     }
@@ -271,12 +266,12 @@ namespace GeomMod
                         if (box == comboBoxFigure1)
                         {
                             RevealFields(1, 1, "a", "");
-                            DrawCube(cx1, cy1, cz1, cubeSide1);
+                            DrawCube(-90, new CenterPoint(cx1, cy1, cz1), cubeSide1);
                         }
                         else if (box == comboBoxFigure2)
                         {
                             RevealFields(1, 2, "a", "");
-                            DrawCube(cx2, cy2, cz2, cubeSide2);
+                            DrawCube(0, new CenterPoint(cx2 - cx1, cy2 - cy1, cz2 - cz1), cubeSide2);
                         }
                         break;
                     }
@@ -284,13 +279,13 @@ namespace GeomMod
                     {
                         if (box == comboBoxFigure1)
                         {
-                            RevealFields(2, 1, "r", "h");                            
-                            DrawCone(cx1, cy1, cz1, coneHeight1, coneBaseRadius1);
+                            RevealFields(2, 1, "r", "h");
+                            DrawCone(-90, new CenterPoint(cx1, cy1, cz1), coneHeight1, coneBaseRadius1);
                         }
                         else if (box == comboBoxFigure2)
                         {
                             RevealFields(2, 2, "r", "h");
-                            DrawCone(cx2, cy2, cz2, coneHeight2, coneBaseRadius2);
+                            DrawCone(0, new CenterPoint(cx2 - cx1, cy2 - cy1, cz2 - cz1), coneHeight2, coneBaseRadius2);
                         }
                         break;
                     }
@@ -305,7 +300,7 @@ namespace GeomMod
             }
         }
 
-    
+
         // получение параметров фигур из полей формы
         private void GetParams()
         {
@@ -356,44 +351,44 @@ namespace GeomMod
                 case 0: // сфера
                     {
                         if (box == comboBoxFigure1)
-                            sphereRadius1 = (int)numericUpDownFig1Param1.Value; //2;
+                            sphereRadius1 = (int)numericUpDownFig1Param1.Value;
                         else if (box == comboBoxFigure2)
-                            sphereRadius2 = (int)numericUpDownFig2Param1.Value; //2;
+                            sphereRadius2 = (int)numericUpDownFig2Param1.Value;
                         break;
                     }
                 case 1: // цилиндр
                     {
                         if (box == comboBoxFigure1)
                         {
-                            cylinderBaseRadius1 = (int)numericUpDownFig1Param1.Value; //1;
-                            cylinderHeight1 = (int)numericUpDownFig1Param2.Value; //2;
+                            cylinderBaseRadius1 = (int)numericUpDownFig1Param1.Value;
+                            cylinderHeight1 = (int)numericUpDownFig1Param2.Value;
                         }
                         else if (box == comboBoxFigure2)
                         {
-                            cylinderBaseRadius2 = (int)numericUpDownFig2Param1.Value; //1;
-                            cylinderHeight2 = (int)numericUpDownFig2Param2.Value; //2;
+                            cylinderBaseRadius2 = (int)numericUpDownFig2Param1.Value;
+                            cylinderHeight2 = (int)numericUpDownFig2Param2.Value;
                         }
                         break;
                     }
                 case 2: // куб
                     {
                         if (box == comboBoxFigure1)
-                            cubeSide1 = (int)numericUpDownFig1Param1.Value; //2;
+                            cubeSide1 = (int)numericUpDownFig1Param1.Value;
                         else if (box == comboBoxFigure2)
-                            cubeSide2 = (int)numericUpDownFig2Param1.Value; //2;
+                            cubeSide2 = (int)numericUpDownFig2Param1.Value;
                         break;
                     }
                 case 3: // конус
                     {
                         if (box == comboBoxFigure1)
                         {
-                            coneBaseRadius1 = (int)numericUpDownFig1Param1.Value; //2;
-                            coneHeight1 = (int)numericUpDownFig1Param2.Value; //3;
+                            coneBaseRadius1 = (int)numericUpDownFig1Param1.Value;
+                            coneHeight1 = (int)numericUpDownFig1Param2.Value;
                         }
                         else if (box == comboBoxFigure2)
                         {
-                            coneBaseRadius2 = (int)numericUpDownFig2Param1.Value; //2;
-                            coneHeight2 = (int)numericUpDownFig2Param2.Value; //3;
+                            coneBaseRadius2 = (int)numericUpDownFig2Param1.Value;
+                            coneHeight2 = (int)numericUpDownFig2Param2.Value;
                         }
                         break;
                     }
@@ -450,26 +445,33 @@ namespace GeomMod
             */
         }
 
-        //задание вектора - углом!
-        private void DrawCube(int x, int y, int z, int side)
+        //задание вектора - углом
+        private void DrawCube(int angle, CenterPoint point, int side)
         {
-            Gl.glTranslatef(x, y, z);
-            Gl.glRotatef(-90, x, 0, 0);
+            Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
+            Gl.glRotatef(angle, point.coord_x, 0, 0);
             Glut.glutWireCube(side);
         }
 
-        private void DrawCone(int x, int y, int z, int height, int radius)
+        private void DrawCone(int angle, CenterPoint point, int height, int radius)
         {
-            Gl.glTranslatef(x, y, z);
-            Gl.glRotatef(-90, x, 0, 0);
+            Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
+            Gl.glRotatef(angle, point.coord_x, 0, 0);
             Glut.glutWireCone(radius, height, 32, 32);
         }
 
-        private void DrawCylinder(int x, int y, int z, int height, int radius)
+        private void DrawCylinder(int angle, CenterPoint point, int height, int radius)
         {
-            Gl.glTranslatef(x, y, z);
-            Gl.glRotatef(-90, x, 0, 0);
+            Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
+            Gl.glRotatef(angle, point.coord_x, 0, 0);
             Glut.glutWireCylinder(radius, height, 32, 32);
+        }
+
+        private void DrawShpere(int angle, CenterPoint point, int radius)
+        {
+            Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
+            Gl.glRotatef(angle, point.coord_x, 0, 0);
+            Glut.glutWireSphere(radius, 16, 16);
         }
     }
 }
