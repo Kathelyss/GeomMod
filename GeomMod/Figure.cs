@@ -56,9 +56,9 @@ namespace GeomMod
                     (int)form.numericUpDownCZ1.Value);
             else
                 Center = new CenterPoint(
-                    (int)form.numericUpDownCX2.Value - (int)form.numericUpDownCX1.Value, 
-                    (int)form.numericUpDownCY2.Value - (int)form.numericUpDownCY1.Value,  
-                    (int)form.numericUpDownCZ2.Value - (int)form.numericUpDownCZ1.Value);
+                    (int)form.numericUpDownCX2.Value, 
+                    (int)form.numericUpDownCY2.Value,  
+                    (int)form.numericUpDownCZ2.Value);
 
             switch (box.SelectedIndex)
             {

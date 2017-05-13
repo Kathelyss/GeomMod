@@ -36,13 +36,6 @@ namespace GeomMod
         }
         */
 
-        private void DrawShpere(CenterPoint point, int angle, int radius)
-        {
-            Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
-            Gl.glRotatef(angle, point.coord_x, 0, 0);
-            Glut.glutWireSphere(radius, 16, 16);
-        }
-
         private void DrawCircle(CenterPoint point, float radius, int slices)
         {
             double theta = (2 * Math.PI) / (double)slices;
@@ -67,13 +60,60 @@ namespace GeomMod
             Gl.glEnd();
         }
 
+        private void DrawShpere(CenterPoint point, int angle, int radius)
+        {
+            Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
+            Gl.glRotatef(angle, point.coord_x, 0, 0);
+            Glut.glutWireSphere(radius, 16, 16);
+        }
+
+        /*private void DrawShpere(CenterPoint point, float radius)
+        {
+            //  for (float i = 0; i <= radius; i++)
+            //    DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
+
+            double theta = (2 * Math.PI) / (double)32.0;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x = radius; //we start at angle = 0 
+            double z = 0;
+
+            Gl.glBegin(Gl.GL_LINE_LOOP);
+            for (int i = 0; i < 32; i++)
+            {
+                Gl.glVertex3d(x + point.coord_x, point.coord_y, z + point.coord_z); // точка на окружности в основании
+
+                Gl.glBegin(Gl.GL_LINE_LOOP);
+                for (int j = 0; j < 16; j++)
+                {
+                    Gl.glVertex3d(x + point.coord_x, y + point.coord_y, z + point.coord_z); // точка на окружности в основании
+
+                    double tz1 = -z;
+                    double ty1 = x;
+                    x += tz1 * tangetial_factor;
+                    z += ty1 * tangetial_factor;
+                    x *= radial_factor;
+                    z *= radial_factor;
+                }
+                Gl.glEnd();
+                double tz = -z;
+                double ty = x;
+                x += tz * tangetial_factor;
+                z += ty * tangetial_factor;
+                x *= radial_factor;
+                z *= radial_factor;
+            }
+            Gl.glEnd();
+        }
+        */
+
         private void DrawCone(CenterPoint point, float radius, int height)
         {
             float tmp_radius = radius;
             for (int i = 0; i <= height; i++)
             {
-                //  DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
-                // radius = (float)(radius - 0.5);
+                DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
+                radius = (float)(radius - 0.7);
             }
             radius = tmp_radius;
 
@@ -103,7 +143,7 @@ namespace GeomMod
 
         private void DrawCylinder(CenterPoint point, float radius, int height)
         {
-            for (int i = 0; i <= height; i++)
+            for (float i = 0; i <= height; i++)
                 DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
 
             double theta = (2 * Math.PI) / (double)32.0;
@@ -241,14 +281,14 @@ namespace GeomMod
             // в зависимости от выбранной фигуры (1 или 2)
             switch (box.SelectedIndex)
             {
-                case 0: // сфера
+                /*case 0: // сфера
                     {
                         if (figureNumber == 1)
                             DrawShpere(figure.Center, -90, figure.Radius);
                         else if (figureNumber == 2)
                             DrawShpere(figure.Center, -360, figure.Radius);
                         break;
-                    }
+                    }*/
                 case 1: // цилиндр
                     {
                         if (figureNumber == 1)
@@ -295,10 +335,11 @@ namespace GeomMod
             Gl.glScaled(MainForm.zoom, MainForm.zoom, MainForm.zoom);      // и масштабирование объекта 
 
             DrawAxis();                         //отрисовка 3D-осей координат            
-                                                // DrawFigure(form, form.comboBoxFigure1, 1);// отрисовка фигур
-                                                //DrawFigure(form, form.comboBoxFigure2, 2);
+            DrawFigure(form, form.comboBoxFigure1, 1);// отрисовка фигур
+            DrawFigure(form, form.comboBoxFigure2, 2);
 
-            // DrawCone(new CenterPoint(1, 0, 0), 6, 7);
+            //DrawCone(new CenterPoint(1, 0, 0), 6, 7);
+           // DrawShpere(new CenterPoint(1, 0, 0), 3);
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             

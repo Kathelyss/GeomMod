@@ -126,8 +126,8 @@ namespace GeomMod
         // обработка отклика таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
-           // RevealFields(comboBoxFigure1);
-            //RevealFields(comboBoxFigure2);
+            RevealFields(comboBoxFigure1);
+            RevealFields(comboBoxFigure2);
             drawings.DrawScene(this); // вызов функции отрисовки сцены
         }
 
