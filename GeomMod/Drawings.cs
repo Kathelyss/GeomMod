@@ -14,20 +14,19 @@ namespace GeomMod
         Figure figure = new Figure();
 
         //задание вектора - углом
+        /*
         public void DrawCube(CenterPoint point, int angle, int side)
         {
             Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
             Gl.glRotatef(angle, point.coord_x, 0, 0);
             Glut.glutWireCube(side);
-        }
-
-        /*
+        }       
         public void DrawCone(CenterPoint point, int angle, int height, int radius)
         {
             Gl.glTranslatef(point.coord_x, point.coord_y, point.coord_z);
             Gl.glRotatef(angle, point.coord_x, 0, 0);
             Glut.glutWireCone(radius, height, 32, 32);
-        }
+        } 
         
         public void DrawCylinder(CenterPoint point, int angle, int height, int radius)
         {
@@ -48,7 +47,7 @@ namespace GeomMod
         {
             double theta = (2 * Math.PI) / (double)slices;
             double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta); 
+            double radial_factor = Math.Cos(theta);
             double x = radius; //we start at angle = 0 
             double z = 0;
 
@@ -61,7 +60,7 @@ namespace GeomMod
 
                 x += tx * tangetial_factor;
                 z += ty * tangetial_factor;
- 
+
                 x *= radial_factor;
                 z *= radial_factor;
             }
@@ -73,8 +72,8 @@ namespace GeomMod
             float tmp_radius = radius;
             for (int i = 0; i <= height; i++)
             {
-              //  DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
-               // radius = (float)(radius - 0.5);
+                //  DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
+                // radius = (float)(radius - 0.5);
             }
             radius = tmp_radius;
 
@@ -101,11 +100,11 @@ namespace GeomMod
             }
             Gl.glEnd();
         }
-         
+
         private void DrawCylinder(CenterPoint point, float radius, int height)
         {
             for (int i = 0; i <= height; i++)
-               DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
+                DrawCircle(new CenterPoint(point.coord_x, point.coord_y + i, point.coord_z), radius, 32);
 
             double theta = (2 * Math.PI) / (double)32.0;
             double tangetial_factor = Math.Tan(theta);
@@ -123,9 +122,9 @@ namespace GeomMod
                 Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z); // центр в основании
 
                 double tx = -z;
-                double ty = x; 
+                double ty = x;
                 x += tx * tangetial_factor;
-                z += ty * tangetial_factor; 
+                z += ty * tangetial_factor;
                 x *= radial_factor;
                 z *= radial_factor;
             }
@@ -134,15 +133,60 @@ namespace GeomMod
 
         private void DrawCube(CenterPoint point, float side)
         {
+            float iter = (side / 6);
+            // квадраты вдоль левой стенки (вертикальные)
             Gl.glBegin(Gl.GL_LINE_LOOP);
-            for (int i = 0; i < 10 && (point.coord_x - side / 2 + i) < side; i++)
+            for (float i = 0; (point.coord_x - side / 2 + i) < (point.coord_x + side / 2); i += iter)
             {
+                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z);
+                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z - side / 2);
+                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y + side, point.coord_z - side / 2);
+                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y + side, point.coord_z + side / 2);
                 Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z + side / 2);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z - side);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y + side, point.coord_z - side);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y + side, point.coord_z + side);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z + side / 2);
+                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z);
             }
+            Gl.glEnd();
+
+            //квадраты вдоль передней стенки (вертикальные)
+            Gl.glBegin(Gl.GL_LINE_LOOP);
+            for (float i = 0; (point.coord_z + side / 2 - i) > (point.coord_z - side / 2); i += iter)
+            {
+                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z + side / 2 - i);
+                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y, point.coord_z + side / 2 - i);
+                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + side, point.coord_z + side / 2 - i);
+                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + side, point.coord_z + side / 2 - i);
+                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y, point.coord_z + side / 2 - i);
+                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z + side / 2 - i);
+            }
+            Gl.glEnd();
+
+            // квадраты горизонтальные
+            Gl.glBegin(Gl.GL_LINE_LOOP);
+            for (float i = 0; (point.coord_y + i) < (point.coord_y + side); i += iter)
+            {
+                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + i, point.coord_z + side / 2);
+                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + i, point.coord_z + side / 2);
+                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + i, point.coord_z - side / 2);
+                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + i, point.coord_z - side / 2);
+                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + i, point.coord_z + side / 2);
+            }
+            Gl.glEnd();
+
+            //недостающие стенки 
+            Gl.glBegin(Gl.GL_LINE_STRIP);
+            Gl.glVertex3d(point.coord_x + side / 2, point.coord_y, point.coord_z + side / 2);
+            Gl.glVertex3d(point.coord_x + side / 2, point.coord_y, point.coord_z - side / 2);
+            Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + side, point.coord_z - side / 2);
+            Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + side, point.coord_z + side / 2);
+            Gl.glVertex3d(point.coord_x + side / 2, point.coord_y, point.coord_z + side / 2);
+            Gl.glEnd();
+
+            Gl.glBegin(Gl.GL_LINE_STRIP);
+            Gl.glVertex3d(point.coord_x - side / 2, point.coord_y, point.coord_z - side / 2);
+            Gl.glVertex3d(point.coord_x + side / 2, point.coord_y, point.coord_z - side / 2);
+            Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + side, point.coord_z - side / 2);
+            Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + side, point.coord_z - side / 2);
+            Gl.glVertex3d(point.coord_x - side / 2, point.coord_y, point.coord_z - side / 2);
             Gl.glEnd();
         }
 
@@ -216,9 +260,9 @@ namespace GeomMod
                 case 2: // куб
                     {
                         if (figureNumber == 1)
-                            DrawCube(figure.Center, -90, figure.Radius);
+                            DrawCube(figure.Center, figure.Radius);
                         else if (figureNumber == 2)
-                            DrawCube(figure.Center, -360, figure.Radius);
+                            DrawCube(figure.Center, figure.Radius);
                         break;
                     }
                 case 3: // конус
@@ -251,10 +295,10 @@ namespace GeomMod
             Gl.glScaled(MainForm.zoom, MainForm.zoom, MainForm.zoom);      // и масштабирование объекта 
 
             DrawAxis();                         //отрисовка 3D-осей координат            
-            // DrawFigure(form, form.comboBoxFigure1, 1);// отрисовка фигур
-            //DrawFigure(form, form.comboBoxFigure2, 2);
+                                                // DrawFigure(form, form.comboBoxFigure1, 1);// отрисовка фигур
+                                                //DrawFigure(form, form.comboBoxFigure2, 2);
 
-            DrawCone(new CenterPoint(1, 0, 0), 6, 7);
+            // DrawCone(new CenterPoint(1, 0, 0), 6, 7);
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
