@@ -8,8 +8,8 @@ namespace GeomMod
 {
     public class CenterPoint
     {
-        public int coord_x, coord_y, coord_z;
-        public CenterPoint(int x, int y, int z)
+        public float coord_x, coord_y, coord_z;
+        public CenterPoint(float x, float y, float z)
         {
             coord_x = x;
             coord_y = y;
@@ -46,13 +46,19 @@ namespace GeomMod
         }
 
 
-        // установка параметров фигур из полей формы
+        // установка параметров фигуры из полей формы
         public void SetParams(MainForm form, ComboBox box, int figureNumber)
         {
             if (figureNumber == 1)
-                Center = new CenterPoint((int)form.numericUpDownCX1.Value, (int)form.numericUpDownCY1.Value, (int)form.numericUpDownCZ1.Value);
+                Center = new CenterPoint(
+                    (int)form.numericUpDownCX1.Value, 
+                    (int)form.numericUpDownCY1.Value, 
+                    (int)form.numericUpDownCZ1.Value);
             else
-                Center = new CenterPoint((int)form.numericUpDownCX2.Value, (int)form.numericUpDownCY2.Value, (int)form.numericUpDownCZ2.Value);
+                Center = new CenterPoint(
+                    (int)form.numericUpDownCX2.Value - (int)form.numericUpDownCX1.Value, 
+                    (int)form.numericUpDownCY2.Value - (int)form.numericUpDownCY1.Value,  
+                    (int)form.numericUpDownCZ2.Value - (int)form.numericUpDownCZ1.Value);
 
             switch (box.SelectedIndex)
             {
