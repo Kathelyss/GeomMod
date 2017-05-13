@@ -9,15 +9,17 @@ namespace GeomMod
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        public double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
-        public int os_x = 1, os_y = 0, os_z = 0;
+        public static double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
+        public static int os_x = 1, os_y = 0, os_z = 0;
         Drawings drawings = new Drawings();
 
+        /*
         //for mouse
         static int old_x, old_y, mousePressed;
         static float X = 0.0f;        // Translate screen to x direction (left or right)
         static float Y = 0.0f;        // Translate screen to y direction (up or down)
         static float Z = 0.0f;        // Translate screen to z direction (zoom in or out)
+        */
 
         public MainForm()
         {
@@ -124,7 +126,9 @@ namespace GeomMod
         // обработка отклика таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
-            drawings.DrawScene(simpleOpenGlControl, comboBoxFigure1, comboBoxFigure2); // вызов функции отрисовки сцены
+           // RevealFields(comboBoxFigure1);
+            //RevealFields(comboBoxFigure2);
+            drawings.DrawScene(this); // вызов функции отрисовки сцены
         }
 
 
@@ -145,9 +149,40 @@ namespace GeomMod
          * Если параметр 1, то делаем видимым только 1 label и 1 numericUpDown
          * иначе - 2 label'a и 2 numericUpDown'a
          */
-        public void RevealFields(int prms, int figNum, string text1, string text2)
+        public void RevealFields(ComboBox box)
         {
-            if (figNum == 1)
+            int prms = 0;
+            string text1 = "", text2 = "";
+            switch (box.SelectedIndex) // "открываем" поля и лейблы для параметризации
+            {                
+                case 0: // сфера
+                    {
+                        prms = 1;
+                        text1 = "r";
+                        break;
+                    }
+                case 1:
+                case 3: // цилиндр, конус
+                    {
+                        prms = 2;
+                        text1 = "r";
+                        text2 = "h";
+                        break;
+                    }
+                case 2: // куб
+                    {
+                        prms = 1;
+                        text1 = "a";
+                        break;
+                    }
+                default:
+                    {
+                        prms = 0;
+                        break;
+                    }
+            }
+
+            if (box == comboBoxFigure1)
             {
                 // все фигуры
                 labelFig1Param1.Visible = (prms > 0);
@@ -169,6 +204,6 @@ namespace GeomMod
                 numericUpDownFig2Param2.Visible = (prms > 1);
                 labelFig2Param2.Text = text2;
             }
-        }        
+        }
     }
 }

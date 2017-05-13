@@ -11,7 +11,7 @@ namespace GeomMod
 {   
     public class Drawings
     {
-        MainForm Form = new MainForm();
+        Figure figure = new Figure();
 
         private void Draw()
         {
@@ -61,7 +61,7 @@ namespace GeomMod
             Glut.glutWireSphere(radius, 16, 16);
         }
 
-        public void DrawScene(Tao.Platform.Windows.SimpleOpenGlControl drawingField, ComboBox box1, ComboBox box2)
+        public void DrawScene(MainForm form)
         {
             // очистка буфера цвета и буфера глубины 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
@@ -70,20 +70,19 @@ namespace GeomMod
             // помещаем состояние матрицы в стек матриц, дальнейшие трансформации затронут только визуализацию объекта 
             Gl.glPushMatrix();
             // перемещение в зависимости от значений, полученных при перемещении ползунков 
-            Gl.glTranslated(Form.a, Form.b, Form.c);
-            Gl.glRotated(Form.d, Form.os_x, Form.os_y, Form.os_z);  // поворот по установленной оси             
-            Gl.glScaled(Form.zoom, Form.zoom, Form.zoom);      // и масштабирование объекта 
+            Gl.glTranslated(MainForm.a, MainForm.b, MainForm.c);
+            Gl.glRotated(MainForm.d, MainForm.os_x, MainForm.os_y, MainForm.os_z);  // поворот по установленной оси             
+            Gl.glScaled(MainForm.zoom, MainForm.zoom, MainForm.zoom);      // и масштабирование объекта 
 
             DrawAxis();                         //отрисовка 3D-осей координат            
-            DrawFigure(1, box1);                // отрисовка фигур
-            DrawFigure(2, box2);
+            DrawFigure(form, form.comboBoxFigure1, 1);// отрисовка фигур
+            DrawFigure(form, form.comboBoxFigure2, 2);
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
-            drawingField.Invalidate();          // обновляем элемент 
+            form.simpleOpenGlControl.Invalidate();          // обновляем элемент 
         }
 
-        // отрисовка осей координат
         private void DrawAxis()
         {
             // отрисовка положительных частей осей координат
@@ -120,93 +119,55 @@ namespace GeomMod
             Gl.glEnd();
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
         }
-
-        // отрисовка фигуры        
-        private void DrawFigure(int figureNumber, ComboBox box)
-        {
-            CenterPoint center1 = null;
-            CenterPoint center2 = null;
+       
+        private void DrawFigure(MainForm form, ComboBox box, int figureNumber)
+        {            
             // установка параметров фигуры (из полей формы)
-            Figure.SetParams(box);
+            figure.SetParams(form, box, figureNumber);
 
             //установка цвета фигуры
             if (figureNumber == 1)
-            {
                 Gl.glColor3f(0.5f, 0.0f, 0.5f); //
-                center1 = new CenterPoint(cx1, cy1, cz1);
-            }
             else
-            {
                 Gl.glColor3f(0.9f, 0.5f, 0.2f); // оранжевый
-                center2 = new CenterPoint(cx2 - cx1, cy2 - cy1, cz2 - cz1);
-            }
+
             // в зависимости от выбранной фигуры (1 или 2)
             switch (box.SelectedIndex)
             {
-                // рисуем нужный объект, используя функции библиотеки GLUT 
-                // попутно "открываем" нужные поля и лейблы для параметризации
                 case 0: // сфера
                     {
                         if (figureNumber == 1)
-                        {
-                            Form.RevealFields(1, 1, "r", "");
-                            DrawShpere(center1, -90, sphereRadius1);
-                        }
+                            DrawShpere(figure.Center, -90, figure.Radius);
                         else if (figureNumber == 2)
-                        {
-                            Form.RevealFields(1, 2, "r", "");
-                            DrawShpere(center2, 0, sphereRadius2);
-                        }
+                            DrawShpere(figure.Center, 0, figure.Radius);
                         break;
                     }
                 case 1: // цилиндр
                     {
                         if (figureNumber == 1)
-                        {
-                            Form.RevealFields(2, 1, "r", "h");
-                            DrawCylinder(center1, -90, cylinderHeight1, cylinderBaseRadius1);
-                        }
+                            DrawCylinder(figure.Center, -90, figure.Height, figure.Radius);
                         else if (figureNumber == 2)
-                        {
-                            Form.RevealFields(2, 2, "r", "h");
-                            DrawCylinder(center2, 0, cylinderHeight2, cylinderBaseRadius2);
-                        }
+                            DrawCylinder(figure.Center, 0, figure.Height, figure.Radius);
                         break;
                     }
                 case 2: // куб
                     {
                         if (figureNumber == 1)
-                        {
-                            Form.RevealFields(1, 1, "a", "");
-                            DrawCube(center1, -90, cubeSide1);
-                        }
+                            DrawCube(figure.Center, -90, figure.Radius);
                         else if (figureNumber == 2)
-                        {
-                            Form.RevealFields(1, 2, "a", "");
-                            DrawCube(center2, 0, cubeSide2);
-                        }
+                            DrawCube(figure.Center, 0, figure.Radius);
                         break;
                     }
                 case 3: // конус
                     {
                         if (figureNumber == 1)
-                        {
-                            Form.RevealFields(2, 1, "r", "h");
-                            DrawCone(center1, -90, coneHeight1, coneBaseRadius1);
-                        }
+                            DrawCone(figure.Center, -90, figure.Height, figure.Radius);
                         else if (figureNumber == 2)
-                        {
-                            Form.RevealFields(2, 2, "r", "h");
-                            DrawCone(center2, 0, coneHeight2, coneBaseRadius2);
-                        }
+                            DrawCone(figure.Center, 0, figure.Height, figure.Radius);
                         break;
                     }
                 default:
                     {
-                        if (figureNumber == 1)
-                            Form.RevealFields(0, 1, "", "");
-                        else if (figureNumber == 2)
-                            Form.RevealFields(0, 2, "", "");
                         break;
                     }
             }

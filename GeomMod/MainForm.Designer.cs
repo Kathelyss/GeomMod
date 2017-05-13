@@ -60,10 +60,6 @@
             this.numericUpDownCX1 = new System.Windows.Forms.NumericUpDown();
             this.labelY1 = new System.Windows.Forms.Label();
             this.labelX1 = new System.Windows.Forms.Label();
-            this.numericUpDownFig1Param3 = new System.Windows.Forms.NumericUpDown();
-            this.labelFig1Param3 = new System.Windows.Forms.Label();
-            this.numericUpDownFig2Param3 = new System.Windows.Forms.NumericUpDown();
-            this.labelFig2Param3 = new System.Windows.Forms.Label();
             this.numericUpDownFig2Param2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig2Param1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFig1Param2 = new System.Windows.Forms.NumericUpDown();
@@ -85,8 +81,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCZ1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCY1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCX1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).BeginInit();
@@ -298,10 +292,6 @@
             this.groupBoxParametrs.Controls.Add(this.numericUpDownCX1);
             this.groupBoxParametrs.Controls.Add(this.labelY1);
             this.groupBoxParametrs.Controls.Add(this.labelX1);
-            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param3);
-            this.groupBoxParametrs.Controls.Add(this.labelFig1Param3);
-            this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param3);
-            this.groupBoxParametrs.Controls.Add(this.labelFig2Param3);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param2);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig2Param1);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownFig1Param2);
@@ -454,64 +444,6 @@
             this.labelX1.Size = new System.Drawing.Size(16, 20);
             this.labelX1.TabIndex = 23;
             this.labelX1.Text = "x";
-            // 
-            // numericUpDownFig1Param3
-            // 
-            this.numericUpDownFig1Param3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownFig1Param3.Location = new System.Drawing.Point(62, 334);
-            this.numericUpDownFig1Param3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownFig1Param3.Name = "numericUpDownFig1Param3";
-            this.numericUpDownFig1Param3.Size = new System.Drawing.Size(68, 26);
-            this.numericUpDownFig1Param3.TabIndex = 22;
-            this.numericUpDownFig1Param3.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownFig1Param3.Visible = false;
-            // 
-            // labelFig1Param3
-            // 
-            this.labelFig1Param3.AutoSize = true;
-            this.labelFig1Param3.Location = new System.Drawing.Point(20, 340);
-            this.labelFig1Param3.Name = "labelFig1Param3";
-            this.labelFig1Param3.Size = new System.Drawing.Size(36, 20);
-            this.labelFig1Param3.TabIndex = 21;
-            this.labelFig1Param3.Text = "p13";
-            this.labelFig1Param3.Visible = false;
-            // 
-            // numericUpDownFig2Param3
-            // 
-            this.numericUpDownFig2Param3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownFig2Param3.Location = new System.Drawing.Point(62, 713);
-            this.numericUpDownFig2Param3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownFig2Param3.Name = "numericUpDownFig2Param3";
-            this.numericUpDownFig2Param3.Size = new System.Drawing.Size(68, 26);
-            this.numericUpDownFig2Param3.TabIndex = 20;
-            this.numericUpDownFig2Param3.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownFig2Param3.Visible = false;
-            // 
-            // labelFig2Param3
-            // 
-            this.labelFig2Param3.AutoSize = true;
-            this.labelFig2Param3.Location = new System.Drawing.Point(20, 719);
-            this.labelFig2Param3.Name = "labelFig2Param3";
-            this.labelFig2Param3.Size = new System.Drawing.Size(36, 20);
-            this.labelFig2Param3.TabIndex = 19;
-            this.labelFig2Param3.Text = "p23";
-            this.labelFig2Param3.Visible = false;
             // 
             // numericUpDownFig2Param2
             // 
@@ -687,8 +619,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCZ1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCY1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCX1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig2Param1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).EndInit();
@@ -701,10 +631,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelAxis;
-        private Tao.Platform.Windows.SimpleOpenGlControl simpleOpenGlControl;
         private System.Windows.Forms.Label labelFigure1;
-        private System.Windows.Forms.ComboBox comboBoxAxis;
-        private System.Windows.Forms.ComboBox comboBoxFigure1;
         private System.Windows.Forms.Label labelX;
         private System.Windows.Forms.Label labelY;
         private System.Windows.Forms.Label labelZ;
@@ -719,32 +646,31 @@
         private System.Windows.Forms.Label labelInfoZ;
         private System.Windows.Forms.Label labelInfoAngle;
         private System.Windows.Forms.GroupBox groupBoxParametrs;
-        private System.Windows.Forms.ComboBox comboBoxFigure2;
         private System.Windows.Forms.Label labelFigure2;
         private System.Windows.Forms.Label labelFig2Param2;
         private System.Windows.Forms.Label labelFig2Param1;
         private System.Windows.Forms.Label labelFig1Param2;
         private System.Windows.Forms.Label labelFig1Param1;
-        private System.Windows.Forms.NumericUpDown numericUpDownFig2Param2;
-        private System.Windows.Forms.NumericUpDown numericUpDownFig2Param1;
-        private System.Windows.Forms.NumericUpDown numericUpDownFig1Param2;
-        private System.Windows.Forms.NumericUpDown numericUpDownFig1Param1;
-        private System.Windows.Forms.NumericUpDown numericUpDownFig1Param3;
-        private System.Windows.Forms.Label labelFig1Param3;
-        private System.Windows.Forms.NumericUpDown numericUpDownFig2Param3;
-        private System.Windows.Forms.Label labelFig2Param3;
-        private System.Windows.Forms.NumericUpDown numericUpDownCZ2;
         private System.Windows.Forms.Label labelZ2;
-        private System.Windows.Forms.NumericUpDown numericUpDownCY2;
-        private System.Windows.Forms.NumericUpDown numericUpDownCX2;
         private System.Windows.Forms.Label labelY2;
         private System.Windows.Forms.Label labelX2;
-        private System.Windows.Forms.NumericUpDown numericUpDownCZ1;
         private System.Windows.Forms.Label labelZ1;
-        private System.Windows.Forms.NumericUpDown numericUpDownCY1;
-        private System.Windows.Forms.NumericUpDown numericUpDownCX1;
         private System.Windows.Forms.Label labelY1;
         private System.Windows.Forms.Label labelX1;
+        public System.Windows.Forms.ComboBox comboBoxAxis;
+        public System.Windows.Forms.ComboBox comboBoxFigure1;
+        public System.Windows.Forms.ComboBox comboBoxFigure2;
+        public System.Windows.Forms.NumericUpDown numericUpDownFig2Param2;
+        public System.Windows.Forms.NumericUpDown numericUpDownFig2Param1;
+        public System.Windows.Forms.NumericUpDown numericUpDownFig1Param2;
+        public System.Windows.Forms.NumericUpDown numericUpDownFig1Param1;
+        public System.Windows.Forms.NumericUpDown numericUpDownCZ2;
+        public System.Windows.Forms.NumericUpDown numericUpDownCY2;
+        public System.Windows.Forms.NumericUpDown numericUpDownCX2;
+        public System.Windows.Forms.NumericUpDown numericUpDownCZ1;
+        public System.Windows.Forms.NumericUpDown numericUpDownCY1;
+        public System.Windows.Forms.NumericUpDown numericUpDownCX1;
+        public Tao.Platform.Windows.SimpleOpenGlControl simpleOpenGlControl;
     }
 }
 
