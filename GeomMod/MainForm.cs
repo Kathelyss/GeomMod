@@ -11,15 +11,9 @@ namespace GeomMod
         // полученные при перетаскивании ползунков пользователем 
         public static double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
         public static int os_x = 1, os_y = 0, os_z = 0;
-        Drawings drawings = new Drawings();
+        Drawings drawings = new Drawings();        
 
-        /*
-        //for mouse
-        static int old_x, old_y, mousePressed;
-        static float X = 0.0f;        // Translate screen to x direction (left or right)
-        static float Y = 0.0f;        // Translate screen to y direction (up or down)
-        static float Z = 0.0f;        // Translate screen to z direction (zoom in or out)
-        */
+        MouseEventArgs mouseClick;
 
         public MainForm()
         {
@@ -123,6 +117,7 @@ namespace GeomMod
             }
         }
 
+
         // обработка отклика таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
@@ -135,13 +130,26 @@ namespace GeomMod
         ////////////////////////////////////////////////////////////////////////////
 
         // неработающий кусок
+        private void SimpleOpenGlControl_MouseClick(object sender, MouseEventArgs e)
+        {
+            mouseClick = new MouseEventArgs(e.Button, 1, e.X, e.Y, e.Delta);
+        }
+
         private void SimpleOpenGlControl_MouseWheel(object sender, MouseEventArgs e)
         {
-            simpleOpenGlControl.MouseWheel += new MouseEventHandler(this.SimpleOpenGlControl_MouseWheel);
+           // simpleOpenGlControl.MouseWheel += new MouseEventHandler(this.SimpleOpenGlControl_MouseWheel);
         }
-        private void SimpleOpenGlControl_MouseDown(object sender, MouseEventArgs e) { }
-        private void SimpleOpenGlControl_MouseUp(object sender, MouseEventArgs e) { }
-        private void SimpleOpenGlControl_MouseMove(object sender, MouseEventArgs e) { }
+        private void SimpleOpenGlControl_MouseMove(object sender, MouseEventArgs e)
+        {/*
+            if(mouseClick != null) {
+                double[] sign = new double[2];
+                sign[0] = (e.X - mouseClick.X);
+                sign[1] = -(e.Y - mouseClick.Y);
+                drawings.MoveRotate(this, sign);
+            }
+            */
+        }
+
 
         ////////////////////////////////////////////////////////////////////////////        
 
@@ -154,7 +162,7 @@ namespace GeomMod
             int prms = 0;
             string text1 = "", text2 = "";
             switch (box.SelectedIndex) // "открываем" поля и лейблы для параметризации
-            {                
+            {
                 case 0: // сфера
                     {
                         prms = 1;

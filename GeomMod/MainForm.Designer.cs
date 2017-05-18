@@ -70,6 +70,7 @@
             this.labelFig1Param1 = new System.Windows.Forms.Label();
             this.comboBoxFigure2 = new System.Windows.Forms.ComboBox();
             this.labelFigure2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
@@ -112,9 +113,8 @@
             this.simpleOpenGlControl.Size = new System.Drawing.Size(1000, 1000);
             this.simpleOpenGlControl.StencilBits = ((byte)(0));
             this.simpleOpenGlControl.TabIndex = 1;
-            this.simpleOpenGlControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseDown);
+            this.simpleOpenGlControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseClick);
             this.simpleOpenGlControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseMove);
-            this.simpleOpenGlControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseUp);
             // 
             // labelFigure1
             // 
@@ -142,10 +142,9 @@
             // 
             this.comboBoxFigure1.FormattingEnabled = true;
             this.comboBoxFigure1.Items.AddRange(new object[] {
-            "Сфера",
-            "Цилиндр",
             "Куб",
-            "Конус"});
+            "Конус",
+            "Цилиндр"});
             this.comboBoxFigure1.Location = new System.Drawing.Point(15, 200);
             this.comboBoxFigure1.Name = "comboBoxFigure1";
             this.comboBoxFigure1.Size = new System.Drawing.Size(115, 28);
@@ -565,10 +564,9 @@
             // 
             this.comboBoxFigure2.FormattingEnabled = true;
             this.comboBoxFigure2.Items.AddRange(new object[] {
-            "Сфера",
-            "Цилиндр",
             "Куб",
-            "Конус"});
+            "Конус",
+            "Цилиндр"});
             this.comboBoxFigure2.Location = new System.Drawing.Point(15, 579);
             this.comboBoxFigure2.Name = "comboBoxFigure2";
             this.comboBoxFigure2.Size = new System.Drawing.Size(115, 28);
@@ -583,12 +581,20 @@
             this.labelFigure2.TabIndex = 5;
             this.labelFigure2.Text = "Фигура 2";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(37, 997);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 26);
+            this.textBox1.TabIndex = 20;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1508, 1144);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBoxParametrs);
             this.Controls.Add(this.labelInfoAngle);
             this.Controls.Add(this.labelY);
@@ -671,6 +677,7 @@
         public System.Windows.Forms.NumericUpDown numericUpDownCY1;
         public System.Windows.Forms.NumericUpDown numericUpDownCX1;
         public Tao.Platform.Windows.SimpleOpenGlControl simpleOpenGlControl;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
 
