@@ -43,7 +43,7 @@ namespace GeomMod
             Gl.glEnd();
         }
 
-        private void DrawCone(List<Point> points)
+        private void DrawFigure(List<Point> points)
         {
             Gl.glBegin(Gl.GL_LINE_LOOP);
             for (int i = 0; i < points.Count; i++)
@@ -245,7 +245,7 @@ namespace GeomMod
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
             //DrawFigure(figure2, form.comboBoxFigure2);
 
-            DrawCone(figure1.Cone(new Point(-10, 0, 0), 2, 3));
+            DrawFigure(figure1.Cylinder(new Point(0, 0, 0), 2, 3));
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
