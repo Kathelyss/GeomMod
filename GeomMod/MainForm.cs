@@ -163,24 +163,18 @@ namespace GeomMod
             string text1 = "", text2 = "";
             switch (box.SelectedIndex) // "открываем" поля и лейблы для параметризации
             {
-                case 0: // сфера
+                case 0: // куб
                     {
                         prms = 1;
-                        text1 = "r";
+                        text1 = "a";
                         break;
                     }
                 case 1:
-                case 3: // цилиндр, конус
+                case 2: // конус, цилиндр
                     {
                         prms = 2;
                         text1 = "r";
                         text2 = "h";
-                        break;
-                    }
-                case 2: // куб
-                    {
-                        prms = 1;
-                        text1 = "a";
                         break;
                     }
                 default:

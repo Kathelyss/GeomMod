@@ -43,6 +43,14 @@ namespace GeomMod
             Gl.glEnd();
         }
 
+        private void DrawCone(List<Point> points)
+        {
+            Gl.glBegin(Gl.GL_LINE_LOOP);
+            for (int i = 0; i < points.Count; i++)
+                Gl.glVertex3d(points[i].coord_x, points[i].coord_y, points[i].coord_z);
+            Gl.glEnd();
+        }
+
         private void DrawCone(Point point, float radius, int height)
         {
             float tmp_radius = radius;
@@ -60,6 +68,7 @@ namespace GeomMod
             double z = 0;
 
             Gl.glBegin(Gl.GL_LINE_LOOP);
+
             for (int i = 0; i < 20.0; i++)
             {
                 Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z); // центр в основании
@@ -232,11 +241,11 @@ namespace GeomMod
 
             DrawAxis();                         //отрисовка осей координат 
             Gl.glColor3f(0.5f, 0.0f, 0.5f);     // цвет фигуры - фиолетовый
-            DrawFigure(figure1, form.comboBoxFigure1);// отрисовка фигур
+            //DrawFigure(figure1, form.comboBoxFigure1);// отрисовка фигур
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
-            DrawFigure(figure2, form.comboBoxFigure2);
+            //DrawFigure(figure2, form.comboBoxFigure2);
 
-            //DrawCone(new Point(1, 0, 0), 6, 7);
+            DrawCone(figure1.Cone(new Point(-10, 0, 0), 2, 3));
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,21 +63,62 @@ namespace GeomMod
             return false;
         }
 
-        public List<Point> ConePoints()
+        public List<Point> Cone(Point center, int radius, int height)
+        {
+            List<Point> res = new List<Point>();
+
+            double theta0 = (2 * Math.PI) / (double)20;
+            double tangetial_factor0 = Math.Tan(theta0);
+            double radial_factor0 = Math.Cos(theta0);
+            double x0 = radius; //we start at angle = 0 
+            double z0 = 0;
+
+            for (int i = 0; i < 20; i++)
+            {
+                res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
+                double tx = -z0;
+                double ty = x0;
+
+                x0 += tx * tangetial_factor0;
+                z0 += ty * tangetial_factor0;
+
+                x0 *= radial_factor0;
+                z0 *= radial_factor0;
+            }
+            res.Add(new Point((float)(radius + center.coord_x), center.coord_y, center.coord_z));
+
+            double theta = (2 * Math.PI) / (double)20.0;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x = radius; //we start at angle = 0 
+            double z = 0;
+            
+            for (int i = 0; i < 20.0; i++)
+            {
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
+                res.Add(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z))); // точка на окружности в основании
+                res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z)); // вершина (центр на вершине конуса)
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
+
+                double tx = -z;
+                double ty = x;
+                x += tx * tangetial_factor;
+                z += ty * tangetial_factor;
+                x *= radial_factor;
+                z *= radial_factor;
+            }
+            
+            return res;
+        }
+
+        public List<Point> Cylinder(Point center, int radius, int height)
         {
             List<Point> res = new List<Point>();
 
             return res;
         }
 
-        public List<Point> CylinderPoints()
-        {
-            List<Point> res = new List<Point>();
-
-            return res;
-        }
-
-        public List<Point> CubePoints()
+        public List<Point> Cube(Point center, int side)
         {
             List<Point> res = new List<Point>();
 
