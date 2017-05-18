@@ -14,107 +14,10 @@ namespace GeomMod
         double[] camRotation = new double[3];
         double[] camPosition = new double[3];
         double camSpeed = 1;
-        Figure figure = new Figure();
 
         Figure figure1 = new Figure();
         Figure figure2 = new Figure();
 
-        private void DrawCircle(Point point, float radius, int slices)
-        {
-            double theta = (2 * Math.PI) / (double)slices;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x = radius; //we start at angle = 0 
-            double z = 0;
-
-            Gl.glBegin(Gl.GL_LINE_LOOP);
-            for (int i = 0; i < slices; i++)
-            {
-                Gl.glVertex3d(x + point.coord_x, point.coord_y, z + point.coord_z);
-                double tx = -z;
-                double ty = x;
-
-                x += tx * tangetial_factor;
-                z += ty * tangetial_factor;
-
-                x *= radial_factor;
-                z *= radial_factor;
-            }
-            Gl.glEnd();
-        }
-
-        private void DrawFigure(List<Point> points)
-        {
-            Gl.glBegin(Gl.GL_LINE_LOOP);
-            for (int i = 0; i < points.Count; i++)
-                Gl.glVertex3d(points[i].coord_x, points[i].coord_y, points[i].coord_z);
-            Gl.glEnd();
-        }
-
-        private void DrawCone(Point point, float radius, int height)
-        {
-            float tmp_radius = radius;
-            for (int i = 0; i <= height; i++)
-            {
-                DrawCircle(new Point(point.coord_x, point.coord_y + i, point.coord_z), radius, 20);
-                radius = (float)(radius - 0.7);
-            }
-            radius = tmp_radius;
-
-            double theta = (2 * Math.PI) / (double)20.0;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x = radius; //we start at angle = 0 
-            double z = 0;
-
-            Gl.glBegin(Gl.GL_LINE_LOOP);
-
-            for (int i = 0; i < 20.0; i++)
-            {
-                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z); // центр в основании
-                Gl.glVertex3d(x + point.coord_x, point.coord_y, z + point.coord_z); // точка на окружности в основании
-                Gl.glVertex3d(point.coord_x, point.coord_y + height, point.coord_z); // вершина (центр на вершине конуса)
-                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z); // центр в основании
-
-                double tx = -z;
-                double ty = x;
-                x += tx * tangetial_factor;
-                z += ty * tangetial_factor;
-                x *= radial_factor;
-                z *= radial_factor;
-            }
-            Gl.glEnd();
-        }
-
-        private void DrawCylinder(Point point, float radius, int height)
-        {
-            for (float i = 0; i <= height; i++)
-                DrawCircle(new Point(point.coord_x, point.coord_y + i, point.coord_z), radius, 20);
-
-            double theta = (2 * Math.PI) / (double)20.0;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x = radius; //we start at angle = 0 
-            double z = 0;
-
-            Gl.glBegin(Gl.GL_LINE_LOOP);
-            for (int i = 0; i < 20; i++)
-            {
-                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z); // центр в основании
-                Gl.glVertex3d(x + point.coord_x, point.coord_y, z + point.coord_z); // точка на окружности в основании
-                Gl.glVertex3d(x + point.coord_x, point.coord_y + height, z + point.coord_z); // точка на окружности на вершине
-                Gl.glVertex3d(point.coord_x, point.coord_y + height, point.coord_z); // центр на вершине
-                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z); // центр в основании
-
-                double tx = -z;
-                double ty = x;
-                x += tx * tangetial_factor;
-                z += ty * tangetial_factor;
-                x *= radial_factor;
-                z *= radial_factor;
-            }
-            Gl.glEnd();
-        }
 
         private void DrawCube(Point point, float side)
         {
@@ -194,23 +97,32 @@ namespace GeomMod
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
         }
 
+        private void Draw(List<Point> points)
+        {
+            Gl.glBegin(Gl.GL_LINE_LOOP);
+            for (int i = 0; i < points.Count; i++)
+                Gl.glVertex3d(points[i].coord_x, points[i].coord_y, points[i].coord_z);
+            Gl.glEnd();
+        }
+
         private void DrawFigure(Figure figure, ComboBox box)
         {
             switch (box.SelectedIndex)
             {
                 case 0: // куб
                     {
+                        //DrawFigure(figure)
                         DrawCube(figure.Center, figure.Radius);
                         break;
                     }
                 case 1: // конус
                     {
-                        DrawCone(figure.Center, figure.Radius, figure.Height);
+                        Draw(figure.Cone(figure.Center, figure.Radius, figure.Height));
                         break;
                     }
                 case 2: // цилиндр
                     {
-                        DrawCylinder(figure.Center, figure.Radius, figure.Height);
+                        Draw(figure.Cylinder(figure.Center, figure.Radius, figure.Height));
                         break;
                     }
                 default:
@@ -241,11 +153,11 @@ namespace GeomMod
 
             DrawAxis();                         //отрисовка осей координат 
             Gl.glColor3f(0.5f, 0.0f, 0.5f);     // цвет фигуры - фиолетовый
-            //DrawFigure(figure1, form.comboBoxFigure1);// отрисовка фигур
+            DrawFigure(figure1, form.comboBoxFigure1);// отрисовка фигур
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
-            //DrawFigure(figure2, form.comboBoxFigure2);
+            DrawFigure(figure2, form.comboBoxFigure2);
 
-            DrawFigure(figure1.Cylinder(new Point(0, 0, 0), 2, 3));
+            //DrawFigure(figure1.Cylinder(new Point(0, 0, 0), 2, 3));
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
