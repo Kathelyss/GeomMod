@@ -10,12 +10,7 @@ using Tao.OpenGl;
 namespace GeomMod
 {
     public class Drawings
-    {
-        public double[] camRotation = new double[3];
-        public double[] camPosition = new double[3];
-        public double camSpeed = 0.05;
-        public double zoomSpeed = 0.001;
-
+    {       
         Figure figure1 = new Figure();
         Figure figure2 = new Figure();
 
@@ -144,11 +139,11 @@ namespace GeomMod
             Gl.glPushMatrix();
             // перемещение в зависимости от значений, полученных при перемещении ползунков 
 
-            Gl.glTranslated(camPosition[0], camPosition[1], camPosition[2]);
-            Gl.glRotated(camRotation[0], 1, 0, 0);  // поворот по установленной оси    
-            Gl.glRotated(camRotation[1], 0, 1, 0);
+            Gl.glTranslated(form.camPosition[0], form.camPosition[1], form.camPosition[2]);
+            Gl.glRotated(form.camRotation[0], 1, 0, 0);  
+            Gl.glRotated(form.camRotation[1], 0, 1, 0);
 
-            Gl.glScaled(MainForm.zoom, MainForm.zoom, MainForm.zoom);      // и масштабирование объекта 
+            //Gl.glScaled(MainForm.zoom, MainForm.zoom, MainForm.zoom);// масштабирование объекта 
 
             figure1.SetParams(form, form.comboBoxFigure1, 1);
             figure2.SetParams(form, form.comboBoxFigure2, 2);
@@ -159,7 +154,7 @@ namespace GeomMod
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
             Draw(figure2, form.comboBoxFigure2);
 
-            Draw(figure1.Cube(new Point(0, 0, 0), 2));
+           // Draw(figure1.Cube(new Point(0, 0, 0), 2));
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
@@ -173,11 +168,11 @@ namespace GeomMod
 
         public void MoveRotate(MainForm form, double[] sign)
         {
-            camRotation[0] -= sign[1] * camSpeed;
-            camRotation[1] += sign[0] * camSpeed;
-            Gl.glTranslated(camPosition[0], camPosition[1], camPosition[2]);
-            Gl.glRotated(camRotation[0], 1, 0, 0);
-            Gl.glRotated(camRotation[1], 0, 1, 0);
+            form.camRotation[0] -= sign[1] * form.camSpeed;
+            form.camRotation[1] += sign[0] * form.camSpeed;
+            Gl.glTranslated(form.camPosition[0], form.camPosition[1], form.camPosition[2]);
+            Gl.glRotated(form.camRotation[0], 1, 0, 0);
+            Gl.glRotated(form.camRotation[1], 0, 1, 0);
 
             DrawScene(form);
         }

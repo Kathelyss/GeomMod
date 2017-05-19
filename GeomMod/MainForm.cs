@@ -9,12 +9,16 @@ namespace GeomMod
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        public static double a = 0, b = 0, c = -20, d = 0, zoom = 1; // выбранные оси 
-        public static int os_x = 1, os_y = 0, os_z = 0;
+        public static double zoom = 1; // выбранные оси
+        public double[] camRotation = new double[3];
+        public double[] camPosition = new double[3];
+        public double camSpeed = 0.001;
+        public double zoomSpeed = 0.001;
+        Point mouseClick = new Point(0, 0, 0);
+        bool clicked = false;
+
         Drawings drawings = new Drawings();        
 
-        Point mouseClick = new Point(0,0,0);
-        bool clicked = false;
 
         public MainForm()
         {
@@ -24,7 +28,6 @@ namespace GeomMod
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // инициализация библиотеки glut 
             Glut.glutInit();
             // инициализация режима экрана 
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE);
@@ -37,87 +40,27 @@ namespace GeomMod
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             // очистка матрицы 
             Gl.glLoadIdentity();
-            // установка перспективы 
             Glu.gluPerspective(45, (float)simpleOpenGlControl.Width / (float)simpleOpenGlControl.Height, 0.1, 200);
 
-            drawings.camPosition[0] = a;
-            drawings.camPosition[1] = b;
-            drawings.camPosition[2] = c;
-            drawings.camRotation[0] = d;
-            drawings.camRotation[1] = 0;
-            drawings.camRotation[2] = 0;
+            InitScene();
 
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
-            // установка оси вращения сцены (ось х)
-            comboBoxAxis.SelectedIndex = 0;
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
         }
 
-        /* События изменения значений элементов scrollBar
-         *  Общий алгоритм:
-         *      переводим значение, установившееся в элементе trackBar в необходимый нам формат,
-         *      затем подписываем это значение в label элементе под данным ползунком
-        */
-
-        private void TrackBarX_Scroll(object sender, EventArgs e)
+        private void InitScene()
         {
-            a = (double)trackBarX.Value / 1000.0;
-            labelInfoX.Text = a.ToString();
+            camPosition[0] = 0;
+            camPosition[1] = 0;
+            camPosition[2] = -20;
+
+            camRotation[0] = 20;
+            camRotation[1] = -20;
+            camRotation[2] = 0;
         }
-
-        private void TrackBarY_Scroll(object sender, EventArgs e)
-        {
-            b = (double)trackBarY.Value / 1000.0;
-            labelInfoY.Text = b.ToString();
-        }
-
-        private void TrackBarZ_Scroll(object sender, EventArgs e)
-        {
-            c = (double)trackBarZ.Value / 1000.0;
-            labelInfoZ.Text = c.ToString();
-        }
-
-        private void TrackBarAngle_Scroll(object sender, EventArgs e)
-        {
-            d = (double)trackBarAngle.Value;
-            labelInfoAngle.Text = d.ToString();
-        }
-
-
-        private void ComboBoxAxis_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // в зависимости от выбранного режима 
-            switch (comboBoxAxis.SelectedIndex)
-            {
-                // устанавливаем необходимую ось (будет использована в функции glRotate**) 
-                case 0:
-                    {
-                        os_x = 1;
-                        os_y = 0;
-                        os_z = 0;
-                        break;
-                    }
-                case 1:
-                    {
-                        os_x = 0;
-                        os_y = 1;
-                        os_z = 0;
-                        break;
-                    }
-                case 2:
-                    {
-                        os_x = 0;
-                        os_y = 0;
-                        os_z = 1;
-                        break;
-                    }
-            }
-        }
-
-
 
         // обработка отклика таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
@@ -126,7 +69,6 @@ namespace GeomMod
             RevealFields(comboBoxFigure2);
             drawings.DrawScene(this); // вызов функции отрисовки сцены
         }
-
 
         private void SimpleOpenGlControl_MouseDown(object sender, MouseEventArgs e)
         {
@@ -142,22 +84,18 @@ namespace GeomMod
 
         private void SimpleOpenGlControl_MouseWheel(object sender, MouseEventArgs e)
         {
-           drawings.camPosition[2] += e.Delta * drawings.zoomSpeed;
+           camPosition[2] += e.Delta * zoomSpeed;
         }
+
         private void SimpleOpenGlControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            
+        {            
             if(clicked) {
                 double[] sign = new double[2];
                 sign[0] = (e.X - mouseClick.coord_x);
                 sign[1] = -(e.Y - mouseClick.coord_y);
                 drawings.MoveRotate(this, sign);
-            }
-            
-        }
-
-
-        ////////////////////////////////////////////////////////////////////////////        
+            }            
+        }      
 
         /* Cделать поля параметров фигур видимыми и вставить в label их названия
          * Если параметр 1, то делаем видимым только 1 label и 1 numericUpDown
