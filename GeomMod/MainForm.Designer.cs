@@ -113,8 +113,10 @@
             this.simpleOpenGlControl.Size = new System.Drawing.Size(1000, 1000);
             this.simpleOpenGlControl.StencilBits = ((byte)(0));
             this.simpleOpenGlControl.TabIndex = 1;
-            this.simpleOpenGlControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseClick);
+            this.simpleOpenGlControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseDown);
             this.simpleOpenGlControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseMove);
+            this.simpleOpenGlControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseUp);
+            this.simpleOpenGlControl.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.SimpleOpenGlControl_MouseWheel);
             // 
             // labelFigure1
             // 

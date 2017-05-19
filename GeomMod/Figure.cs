@@ -163,6 +163,41 @@ namespace GeomMod
         {
             List<Point> res = new List<Point>();
 
+            // квадраты вдоль левой стенки (вертикальные)
+            for (float i = 0; i <= side; i++)
+            {
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
+            }
+            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z));
+
+            //квадраты вдоль передней стенки (вертикальные)
+            for (float i = 0; i <= side; i++)
+            {
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
+            }
+            res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2));
+
+            // квадраты горизонтальные
+            for (float i = 0; i <= side; i++)
+            {
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
+            }
+            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
+
             return res;
         }
 

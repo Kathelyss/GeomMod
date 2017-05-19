@@ -9,11 +9,12 @@ namespace GeomMod
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        public static double a = 0, b = 0, c = -10, d = 0, zoom = 1; // выбранные оси 
+        public static double a = 0, b = 0, c = -20, d = 0, zoom = 1; // выбранные оси 
         public static int os_x = 1, os_y = 0, os_z = 0;
         Drawings drawings = new Drawings();        
 
-        MouseEventArgs mouseClick;
+        Point mouseClick = new Point(0,0,0);
+        bool clicked = false;
 
         public MainForm()
         {
@@ -28,16 +29,6 @@ namespace GeomMod
             // инициализация режима экрана 
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE);
 
-            /////
-            // Set window's to Mouse callback
-            //Glut.glutMouseFunc(new Glut.MouseCallback(ProcessMouseActiveMotion));
-            // Set window's to motion callback
-            //Glut.glutMotionFunc(new Glut.MotionCallback(ProcessMouse));
-            // Set window's to mouse motion callback
-            //Glut.glutMouseWheelFunc(new Glut.MouseWheelCallback(ZoomViaMouseWheel));
-            /////
-
-
             // установка цвета очистки экрана (RGBA) 
             Gl.glClearColor(255, 255, 255, 1);
             // установка порта вывода 
@@ -48,6 +39,14 @@ namespace GeomMod
             Gl.glLoadIdentity();
             // установка перспективы 
             Glu.gluPerspective(45, (float)simpleOpenGlControl.Width / (float)simpleOpenGlControl.Height, 0.1, 200);
+
+            drawings.camPosition[0] = a;
+            drawings.camPosition[1] = b;
+            drawings.camPosition[2] = c;
+            drawings.camRotation[0] = d;
+            drawings.camRotation[1] = 0;
+            drawings.camRotation[2] = 0;
+
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
@@ -87,6 +86,7 @@ namespace GeomMod
             labelInfoAngle.Text = d.ToString();
         }
 
+
         private void ComboBoxAxis_SelectedIndexChanged(object sender, EventArgs e)
         {
             // в зависимости от выбранного режима 
@@ -118,6 +118,7 @@ namespace GeomMod
         }
 
 
+
         // обработка отклика таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
@@ -127,27 +128,32 @@ namespace GeomMod
         }
 
 
-        ////////////////////////////////////////////////////////////////////////////
-
-        // неработающий кусок
-        private void SimpleOpenGlControl_MouseClick(object sender, MouseEventArgs e)
+        private void SimpleOpenGlControl_MouseDown(object sender, MouseEventArgs e)
         {
-            mouseClick = new MouseEventArgs(e.Button, 1, e.X, e.Y, e.Delta);
+            mouseClick.coord_x = e.X;
+            mouseClick.coord_y = e.Y;
+            clicked = true;
+        }
+
+        private void SimpleOpenGlControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            clicked = false;
         }
 
         private void SimpleOpenGlControl_MouseWheel(object sender, MouseEventArgs e)
         {
-           // simpleOpenGlControl.MouseWheel += new MouseEventHandler(this.SimpleOpenGlControl_MouseWheel);
+           drawings.camPosition[2] += e.Delta * drawings.zoomSpeed;
         }
         private void SimpleOpenGlControl_MouseMove(object sender, MouseEventArgs e)
-        {/*
-            if(mouseClick != null) {
+        {
+            
+            if(clicked) {
                 double[] sign = new double[2];
-                sign[0] = (e.X - mouseClick.X);
-                sign[1] = -(e.Y - mouseClick.Y);
+                sign[0] = (e.X - mouseClick.coord_x);
+                sign[1] = -(e.Y - mouseClick.coord_y);
                 drawings.MoveRotate(this, sign);
             }
-            */
+            
         }
 
 

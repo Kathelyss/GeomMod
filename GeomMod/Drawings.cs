@@ -11,9 +11,10 @@ namespace GeomMod
 {
     public class Drawings
     {
-        double[] camRotation = new double[3];
-        double[] camPosition = new double[3];
-        double camSpeed = 1;
+        public double[] camRotation = new double[3];
+        public double[] camPosition = new double[3];
+        public double camSpeed = 0.05;
+        public double zoomSpeed = 0.001;
 
         Figure figure1 = new Figure();
         Figure figure2 = new Figure();
@@ -105,13 +106,13 @@ namespace GeomMod
             Gl.glEnd();
         }
 
-        private void DrawFigure(Figure figure, ComboBox box)
+        private void Draw(Figure figure, ComboBox box)
         {
             switch (box.SelectedIndex)
             {
                 case 0: // куб
                     {
-                        //DrawFigure(figure)
+                        //Draw(figure.Cube(figure.Center, figure.Radius));
                         DrawCube(figure.Center, figure.Radius);
                         break;
                     }
@@ -143,21 +144,22 @@ namespace GeomMod
             Gl.glPushMatrix();
             // перемещение в зависимости от значений, полученных при перемещении ползунков 
 
-            Gl.glTranslated(MainForm.a, MainForm.b, MainForm.c);
-            Gl.glRotated(MainForm.d, MainForm.os_x, MainForm.os_y, MainForm.os_z);  // поворот по установленной оси    
+            Gl.glTranslated(camPosition[0], camPosition[1], camPosition[2]);
+            Gl.glRotated(camRotation[0], 1, 0, 0);  // поворот по установленной оси    
+            Gl.glRotated(camRotation[1], 0, 1, 0);
 
             Gl.glScaled(MainForm.zoom, MainForm.zoom, MainForm.zoom);      // и масштабирование объекта 
 
             figure1.SetParams(form, form.comboBoxFigure1, 1);
             figure2.SetParams(form, form.comboBoxFigure2, 2);
 
-            DrawAxis();                         //отрисовка осей координат 
+            DrawAxis();
             Gl.glColor3f(0.5f, 0.0f, 0.5f);     // цвет фигуры - фиолетовый
-            DrawFigure(figure1, form.comboBoxFigure1);// отрисовка фигур
+            Draw(figure1, form.comboBoxFigure1);
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
-            DrawFigure(figure2, form.comboBoxFigure2);
+            Draw(figure2, form.comboBoxFigure2);
 
-            //DrawFigure(figure1.Cylinder(new Point(0, 0, 0), 2, 3));
+            Draw(figure1.Cube(new Point(0, 0, 0), 2));
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
@@ -171,8 +173,6 @@ namespace GeomMod
 
         public void MoveRotate(MainForm form, double[] sign)
         {
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-
             camRotation[0] -= sign[1] * camSpeed;
             camRotation[1] += sign[0] * camSpeed;
             Gl.glTranslated(camPosition[0], camPosition[1], camPosition[2]);
