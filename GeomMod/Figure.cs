@@ -56,17 +56,6 @@ namespace GeomMod
         }
 
 
-        public bool IntersectionIsPossible(Figure fig2)
-        {
-            //возможность пересечения фигур по оси Х
-            bool OneDimIntersect(float c1, float c2, int side1, int side2)
-            {
-                return (Math.Abs(c2 - c1) <= (side1 + side2));
-            }
-            return (OneDimIntersect(this.center.coord_x, fig2.center.coord_x, this.side / 2, fig2.side / 2) &&
-                    OneDimIntersect(this.center.coord_y + this.height / 2, fig2.center.coord_y + fig2.height / 2, this.height / 2, fig2.height / 2) &&
-                    OneDimIntersect(this.center.coord_z, fig2.center.coord_z, this.side / 2, fig2.side / 2));
-        }
 
         public List<Point> Circle(Point center, double radius)
         {
@@ -199,15 +188,30 @@ namespace GeomMod
             return res;
         }
 
-
-        public List<Point> Intersection(List<Point> pointsOfFigure1, List<Point> pointsOfFigure2)
+        public bool IntersectionIsPossible(Figure fig2)
         {
-            List<Point> res = new List<Point>();
-            for (int i = 0; i < pointsOfFigure1.Count; i++)
-                for (int j = 0; j < pointsOfFigure2.Count; j++)
-                    if (pointsOfFigure1[i].IsEqualTo(pointsOfFigure2[j]))
-                        res.Add(pointsOfFigure1[i]);
-            return res;
+            //возможность пересечения фигур по оси Х
+            bool OneDimIntersect(float c1, float c2, int side1, int side2)
+            {
+                return (Math.Abs(c2 - c1) <= (side1 + side2));
+            }
+            return (OneDimIntersect(this.center.coord_x, fig2.center.coord_x, this.side / 2, fig2.side / 2) &&
+                    OneDimIntersect(this.center.coord_y + this.height / 2, fig2.center.coord_y + fig2.height / 2, this.height / 2, fig2.height / 2) &&
+                    OneDimIntersect(this.center.coord_z, fig2.center.coord_z, this.side / 2, fig2.side / 2));
+        }
+
+        public List<Point> IntersectionWith(Figure fig2)
+        {
+            if (IntersectionIsPossible(fig2))
+            {
+                List<Point> res = new List<Point>();
+                for (int i = 0; i < this.points.Count; i++)
+                    for (int j = 0; j < fig2.points.Count; j++)
+                        if (this.points[i].IsEqualTo(fig2.points[j]))
+                            res.Add(this.points[i]);
+                return res;
+            }
+            return null;
         }
 
         public string ListToString(List<Point> list)

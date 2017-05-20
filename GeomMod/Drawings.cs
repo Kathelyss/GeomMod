@@ -114,7 +114,7 @@ namespace GeomMod
 
             if (figure1.points != null && figure2.points != null)
             {
-                intersection = figure1.Intersection(figure1.points, figure2.points);
+                intersection = figure1.IntersectionWith(figure2);
                 Gl.glColor3f(1.0f, 1.0f, 1.0f);
                 Gl.glLineWidth(2f);
                 Draw(intersection);
