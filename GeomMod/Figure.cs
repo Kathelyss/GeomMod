@@ -16,12 +16,21 @@ namespace GeomMod
             coord_y = y;
             coord_z = z;
         }
+        public override string ToString()
+        {
+            return "{" + coord_x.ToString() + "; " + coord_y.ToString() + "; " + coord_z.ToString() + "}\n";
+        }
+        public bool IsEqualTo(Point p)
+        {
+            return this.coord_x == p.coord_x && this.coord_y == p.coord_y && this.coord_z == p.coord_z;
+        }
     }
 
     public class Figure
     {
         private Point center;
         private int radius, height; // radius for cube = side
+        public List<Point> points;
 
         public Point Center { get => center; set => center = value; }
         public int Radius { get => radius; set => radius = value; }
@@ -91,7 +100,7 @@ namespace GeomMod
         {
             List<Point> res = new List<Point>();
 
-            double tg = height / (float)radius;
+            double tg = height / (float)radius; // поиск прилежащего (к углу) катета прямоуг. треуг-ка через tg угла
             for (int c = 0; c <= height; c++)
                 res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), (radius - c / tg)));
             res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
@@ -99,7 +108,7 @@ namespace GeomMod
             double theta = (2 * Math.PI) / (double)20.0;
             double tangetial_factor = Math.Tan(theta);
             double radial_factor = Math.Cos(theta);
-            double x = radius; //we start at angle = 0 
+            double x = radius;
             double z = 0;
 
             for (int i = 0; i < 20.0; i++)
@@ -122,7 +131,7 @@ namespace GeomMod
 
         public List<Point> Cylinder(Point center, int radius, int height)
         {
-            List<Point> res = new List<Point>();            
+            List<Point> res = new List<Point>();
 
             for (int c = 0; c <= height; c++)
                 res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), radius));
@@ -131,7 +140,7 @@ namespace GeomMod
             double theta = (2 * Math.PI) / (double)20.0;
             double tangetial_factor = Math.Tan(theta);
             double radial_factor = Math.Cos(theta);
-            double x = radius; //we start at angle = 0 
+            double x = radius;
             double z = 0;
 
             for (int i = 0; i < 20.0; i++)
@@ -192,6 +201,27 @@ namespace GeomMod
             }
             res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
 
+            return res;
+        }
+
+
+        public List<Point> Intersection(List<Point> pointsOfFigure1, List<Point> pointsOfFigure2)
+        {
+            List<Point> res = new List<Point>();
+            for (int i = 0; i < pointsOfFigure1.Count; i++)
+                for (int j = 0; j < pointsOfFigure2.Count; j++)
+                    if (pointsOfFigure1[i].IsEqualTo(pointsOfFigure2[j]))
+                        res.Add(pointsOfFigure1[i]);
+            return res;
+        }
+
+        public string ListToString(List<Point> list)
+        {
+            string res = "";
+            for (int i = 0; i < list.Count; i++)
+            {
+                res += list[i].ToString();
+            }
             return res;
         }
 

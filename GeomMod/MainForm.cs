@@ -9,7 +9,6 @@ namespace GeomMod
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        public static double zoom = 1; // выбранные оси
         public double[] camRotation = new double[3];
         public double[] camPosition = new double[3];
         public double camSpeed = 0.005;

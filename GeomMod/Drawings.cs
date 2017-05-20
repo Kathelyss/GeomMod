@@ -10,10 +10,11 @@ using Tao.OpenGl;
 namespace GeomMod
 {
     public class Drawings
-    {       
+    {
         Figure figure1 = new Figure();
         Figure figure2 = new Figure();
-       
+        List<Point> intersection = new List<Point>();
+
         private void DrawAxis()
         {
             // отрисовка положительных частей осей координат
@@ -65,17 +66,17 @@ namespace GeomMod
             {
                 case 0: // куб
                     {
-                        Draw(figure.Cube(figure.Center, figure.Radius));                        
+                        figure.points = figure.Cube(figure.Center, figure.Radius);
                         break;
                     }
                 case 1: // конус
                     {
-                        Draw(figure.Cone(figure.Center, figure.Radius, figure.Height));
+                        figure.points = figure.Cone(figure.Center, figure.Radius, figure.Height);
                         break;
                     }
                 case 2: // цилиндр
                     {
-                        Draw(figure.Cylinder(figure.Center, figure.Radius, figure.Height));
+                        figure.points = figure.Cylinder(figure.Center, figure.Radius, figure.Height);
                         break;
                     }
                 default:
@@ -83,6 +84,8 @@ namespace GeomMod
                         break;
                     }
             }
+            if (figure.points != null)
+                Draw(figure.points);
         }
 
         public void DrawScene(MainForm form)
@@ -96,10 +99,8 @@ namespace GeomMod
             // перемещение в зависимости от значений, полученных при перемещении ползунков 
 
             Gl.glTranslated(form.camPosition[0], form.camPosition[1], form.camPosition[2]);
-            Gl.glRotated(form.camRotation[0], 1, 0, 0);  
+            Gl.glRotated(form.camRotation[0], 1, 0, 0);
             Gl.glRotated(form.camRotation[1], 0, 1, 0);
-
-            //Gl.glScaled(MainForm.zoom, MainForm.zoom, MainForm.zoom);// масштабирование объекта 
 
             figure1.SetParams(form, form.comboBoxFigure1, 1);
             figure2.SetParams(form, form.comboBoxFigure2, 2);
@@ -110,7 +111,15 @@ namespace GeomMod
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
             Draw(figure2, form.comboBoxFigure2);
 
-            
+
+            if (figure1.points != null && figure2.points != null)
+            {
+                intersection = figure1.Intersection(figure1.points, figure2.points);
+                Gl.glColor3f(1.0f, 1.0f, 1.0f);
+                Gl.glLineWidth(2f);
+                Draw(intersection);
+                Gl.glLineWidth(0.5f);
+            }
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
