@@ -92,7 +92,7 @@ namespace GeomMod
         {
             // очистка буфера цвета и буфера глубины 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-            Gl.glClearColor(255, 255, 255, 1);
+            Gl.glClearColor(0, 0, 0, 1);
             Gl.glLoadIdentity();                // очистка текущей матрицы 
             // помещаем состояние матрицы в стек матриц, дальнейшие трансформации затронут только визуализацию объекта 
             Gl.glPushMatrix();
@@ -106,9 +106,9 @@ namespace GeomMod
             figure2.SetParams(form, form.comboBoxFigure2, 2);
 
             DrawAxis();
-            Gl.glColor3f(0.5f, 0.0f, 0.5f);     // цвет фигуры - фиолетовый
+            Gl.glColor3f(0.9f, 0.0f, 0.9f);     // цвет фигуры - фиолетовый
             Draw(figure1, form.comboBoxFigure1);
-            Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
+            Gl.glColor3f(0.0f, 0.9f, 0.9f);     // цвет фигуры - оранжевый
             Draw(figure2, form.comboBoxFigure2);
 
 
@@ -126,7 +126,7 @@ namespace GeomMod
             form.simpleOpenGlControl.Invalidate();          // обновляем элемент 
 
             if (figure1.IntersectionIsPossible(figure2))
-                form.textBox1.Text = "intersection is possible";
+                form.textBox1.Text = "YES";
             else
                 form.textBox1.Text = "NO";
         }

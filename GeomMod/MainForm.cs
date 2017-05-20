@@ -32,7 +32,7 @@ namespace GeomMod
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE);
 
             // установка цвета очистки экрана (RGBA) 
-            Gl.glClearColor(255, 255, 255, 1);
+            Gl.glClearColor(0, 0, 0, 1);
             // установка порта вывода 
             Gl.glViewport(0, 0, simpleOpenGlControl.Width, simpleOpenGlControl.Height);
             // активация проекционной матрицы 

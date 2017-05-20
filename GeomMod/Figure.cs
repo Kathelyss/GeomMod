@@ -29,11 +29,11 @@ namespace GeomMod
     public class Figure
     {
         private Point center;
-        private int radius, height; // radius for cube = side
+        private int side, height; // side for cyl = diameter
         public List<Point> points;
 
         public Point Center { get => center; set => center = value; }
-        public int Radius { get => radius; set => radius = value; }
+        public int Radius { get => side; set => side = value; }
         public int Height { get => height; set => height = value; }
 
         public Figure()
@@ -55,21 +55,17 @@ namespace GeomMod
             Height = height;
         }
 
+
         public bool IntersectionIsPossible(Figure fig2)
         {
-            float deltaX = this.center.coord_x + this.Radius + fig2.Radius;
-            float deltaZ = this.center.coord_z + this.Radius + fig2.Radius;
-            float deltaY = this.center.coord_y + this.Height + fig2.Height;
-            if (this.center.coord_x == fig2.center.coord_x || this.center.coord_y == fig2.center.coord_y || this.center.coord_z == fig2.center.coord_z)
-                return true;
-            else
+            //возможность пересечения фигур по оси Х
+            bool OneDimIntersect(float c1, float c2, int side1, int side2)
             {
-                if (fig2.center.coord_x - deltaX == this.center.coord_x || fig2.center.coord_x - deltaX == -this.center.coord_x)
-                    if (fig2.center.coord_z - deltaZ == this.center.coord_z || fig2.center.coord_z - deltaZ == -this.center.coord_z)
-                        if (fig2.center.coord_y - deltaY == this.center.coord_y || fig2.center.coord_y - deltaY == -this.center.coord_y)
-                            return true;
+                return (Math.Abs(c2 - c1) <= (side1 + side2));
             }
-            return false;
+            return (OneDimIntersect(this.center.coord_x, fig2.center.coord_x, this.side / 2, fig2.side / 2) &&
+                    OneDimIntersect(this.center.coord_y + this.height / 2, fig2.center.coord_y + fig2.height / 2, this.height / 2, fig2.height / 2) &&
+                    OneDimIntersect(this.center.coord_z, fig2.center.coord_z, this.side / 2, fig2.side / 2));
         }
 
         public List<Point> Circle(Point center, double radius)
@@ -129,18 +125,17 @@ namespace GeomMod
             return res;
         }
 
-        public List<Point> Cylinder(Point center, int radius, int height)
+        public List<Point> Cylinder(Point center, float diameter, int height)
         {
             List<Point> res = new List<Point>();
-
             for (int c = 0; c <= height; c++)
-                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), radius));
+                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2));
             res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
 
             double theta = (2 * Math.PI) / (double)20.0;
             double tangetial_factor = Math.Tan(theta);
             double radial_factor = Math.Cos(theta);
-            double x = radius;
+            double x = diameter / 2;
             double z = 0;
 
             for (int i = 0; i < 20.0; i++)
@@ -162,7 +157,7 @@ namespace GeomMod
             return res;
         }
 
-        public List<Point> Cube(Point center, int side)
+        public List<Point> Cube(Point center, float side)
         {
             List<Point> res = new List<Point>();
 
