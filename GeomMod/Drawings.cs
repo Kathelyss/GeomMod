@@ -85,7 +85,6 @@ namespace GeomMod
             }
         }
 
-
         public void DrawScene(MainForm form)
         {
             // очистка буфера цвета и буфера глубины 
@@ -110,6 +109,8 @@ namespace GeomMod
             Draw(figure1, form.comboBoxFigure1);
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
             Draw(figure2, form.comboBoxFigure2);
+
+            
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             

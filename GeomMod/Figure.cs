@@ -63,27 +63,38 @@ namespace GeomMod
             return false;
         }
 
-        public List<Point> Cone(Point center, int radius, int height)
+        public List<Point> Circle(Point center, double radius)
         {
             List<Point> res = new List<Point>();
 
-            double theta0 = (2 * Math.PI) / (double)20;
-            double tangetial_factor0 = Math.Tan(theta0);
-            double radial_factor0 = Math.Cos(theta0);
-            double x0 = radius; //we start at angle = 0 
-            double z0 = 0;
+            double theta = (2 * Math.PI) / (double)20;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x0 = radius, z0 = 0;
 
             for (int i = 0; i < 20; i++)
             {
                 res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
                 double tx = -z0;
                 double ty = x0;
-                x0 += tx * tangetial_factor0;
-                z0 += ty * tangetial_factor0;
-                x0 *= radial_factor0;
-                z0 *= radial_factor0;
+                x0 += tx * tangetial_factor;
+                z0 += ty * tangetial_factor;
+                x0 *= radial_factor;
+                z0 *= radial_factor;
             }
-            res.Add(new Point((float)(radius + center.coord_x), center.coord_y, center.coord_z));
+            res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, center.coord_z));
+
+            return res;
+        }
+
+        public List<Point> Cone(Point center, int radius, int height)
+        {
+            List<Point> res = new List<Point>();
+
+            double tg = height / (float)radius;
+            for (int c = 0; c <= height; c++)
+                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), (radius - c / tg)));
+            res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
 
             double theta = (2 * Math.PI) / (double)20.0;
             double tangetial_factor = Math.Tan(theta);
@@ -111,27 +122,10 @@ namespace GeomMod
 
         public List<Point> Cylinder(Point center, int radius, int height)
         {
-            List<Point> res = new List<Point>();
-            double theta0 = (2 * Math.PI) / (double)20;
-            double tangetial_factor0 = Math.Tan(theta0);
-            double radial_factor0 = Math.Cos(theta0);
-            double x0 = radius; //we start at angle = 0 
-            double z0 = 0;
+            List<Point> res = new List<Point>();            
 
             for (int c = 0; c <= height; c++)
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    res.Add(new Point((float)(x0 + center.coord_x), center.coord_y + c, (float)(z0 + center.coord_z)));
-                    double tx = -z0;
-                    double ty = x0;
-                    x0 += tx * tangetial_factor0;
-                    z0 += ty * tangetial_factor0;
-                    x0 *= radial_factor0;
-                    z0 *= radial_factor0;
-                }
-                res.Add(new Point((float)(radius + center.coord_x), center.coord_y + c, center.coord_z));
-            }
+                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), radius));
             res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
 
             double theta = (2 * Math.PI) / (double)20.0;
