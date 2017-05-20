@@ -174,7 +174,7 @@ namespace GeomMod
                 res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
             }
             res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z));
-
+            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
             //квадраты вдоль передней стенки (вертикальные)
             for (float i = 0; i <= side; i++)
             {

@@ -12,8 +12,8 @@ namespace GeomMod
         public static double zoom = 1; // выбранные оси
         public double[] camRotation = new double[3];
         public double[] camPosition = new double[3];
-        public double camSpeed = 0.001;
-        public double zoomSpeed = 0.001;
+        public double camSpeed = 0.005;
+        public double zoomSpeed = 0.01;
         Point mouseClick = new Point(0, 0, 0);
         bool clicked = false;
 
@@ -40,13 +40,12 @@ namespace GeomMod
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             // очистка матрицы 
             Gl.glLoadIdentity();
-            Glu.gluPerspective(45, (float)simpleOpenGlControl.Width / (float)simpleOpenGlControl.Height, 0.1, 200);
+            Glu.gluPerspective(45, simpleOpenGlControl.Width / simpleOpenGlControl.Height, 0.1, 200);
 
             InitScene();
 
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
-
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
         }
@@ -105,7 +104,7 @@ namespace GeomMod
         {
             int prms = 0;
             string text1 = "", text2 = "";
-            switch (box.SelectedIndex) // "открываем" поля и лейблы для параметризации
+            switch (box.SelectedIndex)
             {
                 case 0: // куб
                     {

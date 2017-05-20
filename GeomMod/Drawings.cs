@@ -13,49 +13,7 @@ namespace GeomMod
     {       
         Figure figure1 = new Figure();
         Figure figure2 = new Figure();
-
-
-        private void DrawCube(Point point, float side)
-        {
-            // квадраты вдоль левой стенки (вертикальные)
-            Gl.glBegin(Gl.GL_LINE_LOOP);
-            for (float i = 0; i <= side; i++)
-            {
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z - side / 2);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y + side, point.coord_z - side / 2);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y + side, point.coord_z + side / 2);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z + side / 2);
-                Gl.glVertex3d(point.coord_x - side / 2 + i, point.coord_y, point.coord_z);
-            }
-            Gl.glEnd();
-
-            //квадраты вдоль передней стенки (вертикальные)
-            Gl.glBegin(Gl.GL_LINE_LOOP);
-            for (float i = 0; i <= side; i++)
-            {
-                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z + side / 2 - i);
-                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y, point.coord_z + side / 2 - i);
-                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + side, point.coord_z + side / 2 - i);
-                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + side, point.coord_z + side / 2 - i);
-                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y, point.coord_z + side / 2 - i);
-                Gl.glVertex3d(point.coord_x, point.coord_y, point.coord_z + side / 2 - i);
-            }
-            Gl.glEnd();
-
-            // квадраты горизонтальные
-            Gl.glBegin(Gl.GL_LINE_LOOP);
-            for (float i = 0; i <= side; i++)
-            {
-                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + i, point.coord_z + side / 2);
-                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + i, point.coord_z + side / 2);
-                Gl.glVertex3d(point.coord_x + side / 2, point.coord_y + i, point.coord_z - side / 2);
-                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + i, point.coord_z - side / 2);
-                Gl.glVertex3d(point.coord_x - side / 2, point.coord_y + i, point.coord_z + side / 2);
-            }
-            Gl.glEnd();
-        }
-
+       
         private void DrawAxis()
         {
             // отрисовка положительных частей осей координат
@@ -107,8 +65,7 @@ namespace GeomMod
             {
                 case 0: // куб
                     {
-                        //Draw(figure.Cube(figure.Center, figure.Radius));
-                        DrawCube(figure.Center, figure.Radius);
+                        Draw(figure.Cube(figure.Center, figure.Radius));                        
                         break;
                     }
                 case 1: // конус
@@ -153,8 +110,6 @@ namespace GeomMod
             Draw(figure1, form.comboBoxFigure1);
             Gl.glColor3f(0.9f, 0.5f, 0.2f);     // цвет фигуры - оранжевый
             Draw(figure2, form.comboBoxFigure2);
-
-           // Draw(figure1.Cube(new Point(0, 0, 0), 2));
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             
             Gl.glFlush();                       // завершаем рисование             
