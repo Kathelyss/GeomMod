@@ -108,7 +108,7 @@ namespace GeomMod
             DrawAxis();
             Gl.glColor3f(0.9f, 0.0f, 0.9f);     // цвет фигуры - фиолетовый
             Draw(figure1, form.comboBoxFigure1);
-            Gl.glColor3f(0.0f, 0.9f, 0.9f);     // цвет фигуры - оранжевый
+            Gl.glColor3f(0.0f, 0.9f, 0.9f);     // цвет фигуры - голубой
             Draw(figure2, form.comboBoxFigure2);
 
 
