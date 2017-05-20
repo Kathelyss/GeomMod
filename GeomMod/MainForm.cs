@@ -42,6 +42,8 @@ namespace GeomMod
             Glu.gluPerspective(45, simpleOpenGlControl.Width / simpleOpenGlControl.Height, 0.1, 200);
 
             InitScene();
+            comboBoxFigure1.SelectedIndex = 0;
+            comboBoxFigure2.SelectedIndex = 1;
 
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
@@ -111,11 +113,10 @@ namespace GeomMod
                         text1 = "a";
                         break;
                     }
-                case 1:
-                case 2: // конус, цилиндр
+                case 1: // цилиндр
                     {
                         prms = 2;
-                        text1 = "r";
+                        text1 = "d";
                         text2 = "h";
                         break;
                     }

@@ -254,8 +254,7 @@ namespace GeomMod
                         }
                         break;
                     }
-                case 1:
-                case 2: // конус, цилиндр
+                case 1: // цилиндр
                     {
                         if (box == form.comboBoxFigure1)
                         {

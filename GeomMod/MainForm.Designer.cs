@@ -57,6 +57,8 @@
             this.comboBoxFigure2 = new System.Windows.Forms.ComboBox();
             this.labelFigure2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBoxParametrs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCZ2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCY2)).BeginInit();
@@ -105,7 +107,6 @@
             this.comboBoxFigure1.FormattingEnabled = true;
             this.comboBoxFigure1.Items.AddRange(new object[] {
             "Куб",
-            "Конус",
             "Цилиндр"});
             this.comboBoxFigure1.Location = new System.Drawing.Point(14, 56);
             this.comboBoxFigure1.Name = "comboBoxFigure1";
@@ -120,6 +121,9 @@
             // 
             // groupBoxParametrs
             // 
+            this.groupBoxParametrs.Controls.Add(this.textBox1);
+            this.groupBoxParametrs.Controls.Add(this.label2);
+            this.groupBoxParametrs.Controls.Add(this.label1);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownCZ2);
             this.groupBoxParametrs.Controls.Add(this.labelZ2);
             this.groupBoxParametrs.Controls.Add(this.numericUpDownCY2);
@@ -146,7 +150,7 @@
             this.groupBoxParametrs.Controls.Add(this.labelFigure1);
             this.groupBoxParametrs.Location = new System.Drawing.Point(23, 22);
             this.groupBoxParametrs.Name = "groupBoxParametrs";
-            this.groupBoxParametrs.Size = new System.Drawing.Size(178, 934);
+            this.groupBoxParametrs.Size = new System.Drawing.Size(178, 821);
             this.groupBoxParametrs.TabIndex = 19;
             this.groupBoxParametrs.TabStop = false;
             this.groupBoxParametrs.Text = "Параметры фигур";
@@ -154,7 +158,7 @@
             // numericUpDownCZ2
             // 
             this.numericUpDownCZ2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownCZ2.Location = new System.Drawing.Point(61, 731);
+            this.numericUpDownCZ2.Location = new System.Drawing.Point(61, 699);
             this.numericUpDownCZ2.Minimum = new decimal(new int[] {
             100,
             0,
@@ -167,7 +171,7 @@
             // labelZ2
             // 
             this.labelZ2.AutoSize = true;
-            this.labelZ2.Location = new System.Drawing.Point(19, 737);
+            this.labelZ2.Location = new System.Drawing.Point(19, 705);
             this.labelZ2.Name = "labelZ2";
             this.labelZ2.Size = new System.Drawing.Size(17, 20);
             this.labelZ2.TabIndex = 33;
@@ -176,7 +180,7 @@
             // numericUpDownCY2
             // 
             this.numericUpDownCY2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownCY2.Location = new System.Drawing.Point(61, 690);
+            this.numericUpDownCY2.Location = new System.Drawing.Point(61, 658);
             this.numericUpDownCY2.Minimum = new decimal(new int[] {
             100,
             0,
@@ -189,7 +193,7 @@
             // numericUpDownCX2
             // 
             this.numericUpDownCX2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownCX2.Location = new System.Drawing.Point(61, 646);
+            this.numericUpDownCX2.Location = new System.Drawing.Point(61, 614);
             this.numericUpDownCX2.Minimum = new decimal(new int[] {
             100,
             0,
@@ -202,7 +206,7 @@
             // labelY2
             // 
             this.labelY2.AutoSize = true;
-            this.labelY2.Location = new System.Drawing.Point(19, 696);
+            this.labelY2.Location = new System.Drawing.Point(19, 664);
             this.labelY2.Name = "labelY2";
             this.labelY2.Size = new System.Drawing.Size(16, 20);
             this.labelY2.TabIndex = 30;
@@ -211,7 +215,7 @@
             // labelX2
             // 
             this.labelX2.AutoSize = true;
-            this.labelX2.Location = new System.Drawing.Point(19, 652);
+            this.labelX2.Location = new System.Drawing.Point(19, 620);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(16, 20);
             this.labelX2.TabIndex = 29;
@@ -220,7 +224,7 @@
             // numericUpDownCZ1
             // 
             this.numericUpDownCZ1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownCZ1.Location = new System.Drawing.Point(61, 338);
+            this.numericUpDownCZ1.Location = new System.Drawing.Point(61, 314);
             this.numericUpDownCZ1.Minimum = new decimal(new int[] {
             100,
             0,
@@ -233,7 +237,7 @@
             // labelZ1
             // 
             this.labelZ1.AutoSize = true;
-            this.labelZ1.Location = new System.Drawing.Point(19, 344);
+            this.labelZ1.Location = new System.Drawing.Point(19, 320);
             this.labelZ1.Name = "labelZ1";
             this.labelZ1.Size = new System.Drawing.Size(17, 20);
             this.labelZ1.TabIndex = 27;
@@ -242,7 +246,7 @@
             // numericUpDownCY1
             // 
             this.numericUpDownCY1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownCY1.Location = new System.Drawing.Point(61, 297);
+            this.numericUpDownCY1.Location = new System.Drawing.Point(61, 273);
             this.numericUpDownCY1.Minimum = new decimal(new int[] {
             100,
             0,
@@ -255,7 +259,7 @@
             // numericUpDownCX1
             // 
             this.numericUpDownCX1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownCX1.Location = new System.Drawing.Point(61, 253);
+            this.numericUpDownCX1.Location = new System.Drawing.Point(61, 229);
             this.numericUpDownCX1.Minimum = new decimal(new int[] {
             100,
             0,
@@ -268,7 +272,7 @@
             // labelY1
             // 
             this.labelY1.AutoSize = true;
-            this.labelY1.Location = new System.Drawing.Point(19, 303);
+            this.labelY1.Location = new System.Drawing.Point(19, 279);
             this.labelY1.Name = "labelY1";
             this.labelY1.Size = new System.Drawing.Size(16, 20);
             this.labelY1.TabIndex = 24;
@@ -277,7 +281,7 @@
             // labelX1
             // 
             this.labelX1.AutoSize = true;
-            this.labelX1.Location = new System.Drawing.Point(19, 259);
+            this.labelX1.Location = new System.Drawing.Point(19, 235);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(16, 20);
             this.labelX1.TabIndex = 23;
@@ -296,7 +300,7 @@
             this.numericUpDownFig2Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig2Param2.TabIndex = 18;
             this.numericUpDownFig2Param2.Value = new decimal(new int[] {
-            2,
+            3,
             0,
             0,
             0});
@@ -334,7 +338,7 @@
             this.numericUpDownFig1Param2.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownFig1Param2.TabIndex = 16;
             this.numericUpDownFig1Param2.Value = new decimal(new int[] {
-            2,
+            3,
             0,
             0,
             0});
@@ -404,7 +408,6 @@
             this.comboBoxFigure2.FormattingEnabled = true;
             this.comboBoxFigure2.Items.AddRange(new object[] {
             "Куб",
-            "Конус",
             "Цилиндр"});
             this.comboBoxFigure2.Location = new System.Drawing.Point(14, 435);
             this.comboBoxFigure2.Name = "comboBoxFigure2";
@@ -422,10 +425,28 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(37, 997);
+            this.textBox1.Location = new System.Drawing.Point(14, 756);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 26);
+            this.textBox1.Size = new System.Drawing.Size(115, 26);
             this.textBox1.TabIndex = 20;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 195);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 20);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Центр";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(19, 578);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 20);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Центр";
             // 
             // MainForm
             // 
@@ -433,7 +454,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1333, 1144);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBoxParametrs);
             this.Controls.Add(this.simpleOpenGlControl);
             this.MinimumSize = new System.Drawing.Size(1355, 1200);
@@ -454,7 +474,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFig1Param1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -487,6 +506,8 @@
         public System.Windows.Forms.NumericUpDown numericUpDownCX1;
         public Tao.Platform.Windows.SimpleOpenGlControl simpleOpenGlControl;
         public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 
