@@ -207,7 +207,7 @@ namespace GeomMod
             if (intersection != null)
             {
                 Gl.glColor3f(1.0f, 1.0f, 1.0f);
-                Gl.glLineWidth(2f);
+                Gl.glLineWidth(3f);
                 Gl.glEnable(Gl.GL_LINE_STIPPLE);
                 Draw(intersection);
                 Gl.glLineWidth(0.5f);
