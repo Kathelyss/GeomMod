@@ -45,60 +45,54 @@ namespace GeomMod
         }
         public bool IsEqualTo(Line l)
         {
-            return (this.begin.coord_x == l.begin.coord_x && 
-                    this.begin.coord_y == l.begin.coord_y && 
-                    this.begin.coord_z == l.begin.coord_z) 
-                    ||
-                   (this.begin.coord_x == l.end.coord_x && 
-                    this.begin.coord_y == l.end.coord_y && 
-                    this.begin.coord_z == l.end.coord_z);
+            return ((this.begin.IsEqualTo(l.begin) && this.end.IsEqualTo(l.end)) || (this.begin.IsEqualTo(l.end) && this.end.IsEqualTo(l.begin)));
         }
     }
 
     public class Figure
     {
         private Point center;
-        private int side, height; // side for cyl = diameter
+        private int side, height; // side for cyl = side
         public List<Point> points;
-        public List<Line> lines;
+        public List<Line> lines = new List<Line>();
 
         public Point Center { get => center; set => center = value; }
-        public int Radius { get => side; set => side = value; }
+        public int Side { get => side; set => side = value; }
         public int Height { get => height; set => height = value; }
 
         public Figure()
         {
             Center = new Point(0, 0, 0);
-            Radius = 0;
+            Side = 0;
             Height = 0;
         }
         public Figure(Point center, int param) // куб, сфера
         {
             Center = center;
-            Radius = param;
+            Side = param;
         }
 
-        public Figure(Point center, int radius, int height) // конус, цилиндр
+        public Figure(Point center, int side, int height) // конус, цилиндр
         {
             Center = center;
-            Radius = radius;
+            Side = side;
             Height = height;
         }
 
-//
-        public List<Point> Cone(Point center, int radius, int height)
+/*
+        public List<Point> Cone(Point center, int side, int height)
         {
             List<Point> res = new List<Point>();
 
-            double tg = height / (float)radius; // поиск прилежащего (к углу) катета прямоуг. треуг-ка через tg угла
+            double tg = height / (float)side; // поиск прилежащего (к углу) катета прямоуг. треуг-ка через tg угла
             for (int c = 0; c <= height; c++)
-                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), (radius - c / tg)));
+                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), (side - c / tg)));
             res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
 
             double theta = (2 * Math.PI) / (double)20.0;
             double tangetial_factor = Math.Tan(theta);
             double radial_factor = Math.Cos(theta);
-            double x = radius;
+            double x = side;
             double z = 0;
 
             for (int i = 0; i < 20.0; i++)
@@ -118,21 +112,21 @@ namespace GeomMod
 
             return res;
         }
-        //
+*/
 
 
 
 
-        public List<Point> Circle(Point center, double radius)
+        public List<Point> Circle(Point center, double radius, double slices)
         {
             List<Point> res = new List<Point>();
 
-            double theta = (2 * Math.PI) / 360.0;
+            double theta = (2 * Math.PI) / slices;
             double tangetial_factor = Math.Tan(theta);
             double radial_factor = Math.Cos(theta);
             double x0 = radius, z0 = 0;
 
-            for (int i = 0; i < 360; i++)
+            for (int i = 0; i < slices; i++)
             {
                 res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
                 double tx = -z0;
@@ -149,24 +143,27 @@ namespace GeomMod
 
         public List<Point> Cylinder(Point center, float diameter, int height)
         {
+            double slices = 360.0;
             List<Point> res = new List<Point>();
             for (int c = 0; c <= height; c++)
-                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2));
+                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2, slices));
             res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
 
-            double theta = (2 * Math.PI) / (double)360.0;
+            double theta = (2 * Math.PI) / slices;
             double tangetial_factor = Math.Tan(theta);
             double radial_factor = Math.Cos(theta);
             double x = diameter / 2;
             double z = 0;
 
-            for (int i = 0; i < 360.0; i++)
+            for (int i = 0; i < slices; i++)
             {
                 res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
                 res.Add(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z))); // точка на окружности в основании
                 res.Add(new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z)));// точка на окружности на вершине
                 res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z)); // центр на вершине
                 res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
+                this.lines.Add(new Line(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z)), 
+                                        new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z))));
 
                 double tx = -z;
                 double ty = x;
@@ -277,12 +274,12 @@ namespace GeomMod
                     {
                         if (box == form.comboBoxFigure1)
                         {
-                            Radius = (int)form.numericUpDownFig1Param1.Value;
+                            Side = (int)form.numericUpDownFig1Param1.Value;
                             Height = (int)form.numericUpDownFig1Param1.Value;
                         }
                         else if (box == form.comboBoxFigure2)
                         {
-                            Radius = (int)form.numericUpDownFig2Param1.Value;
+                            Side = (int)form.numericUpDownFig2Param1.Value;
                             Height = (int)form.numericUpDownFig2Param1.Value;
                         }
                         break;
@@ -291,12 +288,12 @@ namespace GeomMod
                     {
                         if (box == form.comboBoxFigure1)
                         {
-                            Radius = (int)form.numericUpDownFig1Param1.Value;
+                            Side = (int)form.numericUpDownFig1Param1.Value;
                             Height = (int)form.numericUpDownFig1Param2.Value;
                         }
                         else if (box == form.comboBoxFigure2)
                         {
-                            Radius = (int)form.numericUpDownFig2Param1.Value;
+                            Side = (int)form.numericUpDownFig2Param1.Value;
                             Height = (int)form.numericUpDownFig2Param2.Value;
                         }
                         break;

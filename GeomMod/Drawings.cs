@@ -66,17 +66,17 @@ namespace GeomMod
             {
                 case 0: // куб
                     {
-                        figure.points = figure.Cube(figure.Center, figure.Radius);
+                        figure.points = figure.Cube(figure.Center, figure.Side);
                         break;
                     }
                 case 1: // цилиндр
                     {
-                        figure.points = figure.Cylinder(figure.Center, figure.Radius, figure.Height);
+                        figure.points = figure.Cylinder(figure.Center, figure.Side, figure.Height);
                         break;
                     }
                /* case 1: // конус
                     {
-                        figure.points = figure.Cone(figure.Center, figure.Radius, figure.Height);
+                        figure.points = figure.Cone(figure.Center, figure.Side, figure.Height);
                         break;
                     }*/
                 default:
@@ -112,7 +112,7 @@ namespace GeomMod
             Draw(figure2, form.comboBoxFigure2);
 
 
-            if (figure1.points != null && figure2.points != null && intersection.Count != 0)
+            if (intersection.Count != 0)
             {
                 intersection = figure1.IntersectionWith(figure2);
                 Gl.glColor3f(1.0f, 1.0f, 1.0f);
