@@ -60,6 +60,17 @@ namespace GeomMod
             Gl.glEnd();
         }
 
+        private void Draw(List<Line> lines)
+        {
+            Gl.glBegin(Gl.GL_LINES);
+            for (int i = 0; i < lines.Count; i+= 10)
+            {
+                Gl.glVertex3d(lines[i].begin.coord_x, lines[i].begin.coord_y, lines[i].begin.coord_z);
+                Gl.glVertex3d(lines[i].end.coord_x, lines[i].end.coord_y, lines[i].end.coord_z);
+            }
+            Gl.glEnd();
+        }
+
         private void Draw(Figure figure, ComboBox box)
         {
             switch (box.SelectedIndex)
@@ -74,18 +85,23 @@ namespace GeomMod
                         figure.points = figure.Cylinder(figure.Center, figure.Side, figure.Height);
                         break;
                     }
-               /* case 1: // конус
-                    {
-                        figure.points = figure.Cone(figure.Center, figure.Side, figure.Height);
-                        break;
-                    }*/
+                /* case 1: // конус
+                     {
+                         figure.points = figure.Cone(figure.Center, figure.Side, figure.Height);
+                         break;
+                     }*/
                 default:
                     {
                         break;
                     }
             }
             if (figure.points != null)
+            {
+                figure.points.Distinct();
                 Draw(figure.points);
+            }
+            //if (figure.lines != null)
+            //  Draw(figure.lines);
         }
 
         public void DrawScene(MainForm form)

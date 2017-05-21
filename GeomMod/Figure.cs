@@ -52,13 +52,13 @@ namespace GeomMod
     public class Figure
     {
         private Point center;
-        private int side, height; // side for cyl = side
+        private float side, height; // side for cyl = side
         public List<Point> points;
         public List<Line> lines = new List<Line>();
 
         public Point Center { get => center; set => center = value; }
-        public int Side { get => side; set => side = value; }
-        public int Height { get => height; set => height = value; }
+        public float Side { get => side; set => side = value; }
+        public float Height { get => height; set => height = value; }
 
         public Figure()
         {
@@ -141,9 +141,9 @@ namespace GeomMod
             return res;
         }
 
-        public List<Point> Cylinder(Point center, float diameter, int height)
+        public List<Point> Cylinder(Point center, float diameter, float height)
         {
-            double slices = 360.0;
+            double slices = 50.0;
             List<Point> res = new List<Point>();
             for (int c = 0; c <= height; c++)
                 res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2, slices));
@@ -220,8 +220,8 @@ namespace GeomMod
 
         public bool IntersectionIsPossible(Figure fig2)
         {
-            //возможность пересечения фигур по оси Х
-            bool OneDimIntersect(float c1, float c2, int side1, int side2)
+            //возможность пересечения фигур по оси
+            bool OneDimIntersect(float c1, float c2, float side1, float side2)
             {
                 return (Math.Abs(c2 - c1) <= (side1 + side2));
             }
