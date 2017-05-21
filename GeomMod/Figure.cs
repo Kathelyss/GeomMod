@@ -52,7 +52,7 @@ namespace GeomMod
     public class Figure
     {
         private Point center;
-        private float side, height; // side for cyl = side
+        private float side, height; // side for cyl = diameter
         public List<Point> points;
         public List<Line> lines = new List<Line>();
 
@@ -66,13 +66,8 @@ namespace GeomMod
             Side = 0;
             Height = 0;
         }
-        public Figure(Point center, int param) // куб, сфера
-        {
-            Center = center;
-            Side = param;
-        }
 
-        public Figure(Point center, int side, int height) // конус, цилиндр
+        public Figure(Point center, int side, int height)
         {
             Center = center;
             Side = side;
@@ -114,8 +109,75 @@ namespace GeomMod
         }
 */
 
+        public List<Line> Cyl(Point center, float diameter, float height)
+        {
+            double slices = 50.0;
 
+            List<Line> res = new List<Line>();
 
+            double theta = (2 * Math.PI) / slices;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x = diameter / 2;
+            double z = 0;
+
+            for (int i = 0; i < slices; i++)
+            {
+                res.Add(new Line(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z)),// точка на окружности в основании
+                                        new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z))));// точка на окружности на вершине
+                double tx = -z;
+                double ty = x;
+                x += tx * tangetial_factor;
+                z += ty * tangetial_factor;
+                x *= radial_factor;
+                z *= radial_factor;
+            }
+
+            return res;
+        }
+/*
+        public List<Line> Cube(Point center, float side)
+        {
+            List<Line> res = new List<Line>();
+
+            // квадраты вдоль левой стенки (вертикальные)
+            for (float i = 0; i <= side; i++)
+            {
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
+            }
+            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z));
+            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
+            //квадраты вдоль передней стенки (вертикальные)
+            for (float i = 0; i <= side; i++)
+            {
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
+            }
+            res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2));
+
+            // квадраты горизонтальные
+            for (float i = 0; i <= side; i++)
+            {
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z + side / 2));
+                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z - side / 2));
+                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
+            }
+            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
+
+            return res;
+        }
+*/
 
         public List<Point> Circle(Point center, double radius, double slices)
         {
@@ -144,6 +206,7 @@ namespace GeomMod
         public List<Point> Cylinder(Point center, float diameter, float height)
         {
             double slices = 50.0;
+
             List<Point> res = new List<Point>();
             for (int c = 0; c <= height; c++)
                 res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2, slices));
@@ -162,8 +225,6 @@ namespace GeomMod
                 res.Add(new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z)));// точка на окружности на вершине
                 res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z)); // центр на вершине
                 res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
-                this.lines.Add(new Line(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z)), 
-                                        new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z))));
 
                 double tx = -z;
                 double ty = x;

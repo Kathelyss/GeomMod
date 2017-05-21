@@ -63,7 +63,7 @@ namespace GeomMod
         private void Draw(List<Line> lines)
         {
             Gl.glBegin(Gl.GL_LINES);
-            for (int i = 0; i < lines.Count; i+= 10)
+            for (int i = 0; i < lines.Count; i++)
             {
                 Gl.glVertex3d(lines[i].begin.coord_x, lines[i].begin.coord_y, lines[i].begin.coord_z);
                 Gl.glVertex3d(lines[i].end.coord_x, lines[i].end.coord_y, lines[i].end.coord_z);
@@ -83,6 +83,7 @@ namespace GeomMod
                 case 1: // цилиндр
                     {
                         figure.points = figure.Cylinder(figure.Center, figure.Side, figure.Height);
+                       // figure.lines = figure.Cyl(figure.Center, figure.Side, figure.Height);
                         break;
                     }
                 /* case 1: // конус
@@ -96,11 +97,8 @@ namespace GeomMod
                     }
             }
             if (figure.points != null)
-            {
-                figure.points.Distinct();
-                Draw(figure.points);
-            }
-            //if (figure.lines != null)
+                Draw(figure.points);            
+           // if (figure.lines != null)
             //  Draw(figure.lines);
         }
 
