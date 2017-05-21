@@ -160,7 +160,10 @@ namespace GeomMod
                         if (drawViaLines)
                             figure.lines = figure.CylinderViaLines(figure.center, figure.side, figure.height);
                         else if (drawViaPoints)
+                        {
+                            figure.lines = figure.CylinderViaLines(figure.center, figure.side, figure.height);
                             figure.points = figure.CylinderViaPoints(figure.center, figure.side, figure.height);
+                        }
                         break;
                     }
                 default:
@@ -205,8 +208,10 @@ namespace GeomMod
             {
                 Gl.glColor3f(1.0f, 1.0f, 1.0f);
                 Gl.glLineWidth(2f);
+                Gl.glEnable(Gl.GL_LINE_STIPPLE);
                 Draw(intersection);
                 Gl.glLineWidth(0.5f);
+                Gl.glDisable(Gl.GL_LINE_STIPPLE);
             }
 
             Gl.glPopMatrix();                   // возвращаем состояние матрицы             

@@ -254,7 +254,7 @@ namespace GeomMod
         // создание цилиндра (набором линий - образующих)
         public List<Line> CylinderViaLines(Point center, float diameter, float height)
         {
-            double slices = 50.0;
+            double slices = 20.0;
 
             List<Line> res = new List<Line>();
 
@@ -304,12 +304,17 @@ namespace GeomMod
                             res.Add(this.points[i]);*/
                 float M = Math.Abs(this.center.coord_y + this.side - fig2.center.coord_y);
                 //for (int f = 0; f < fig2.points.Count; f++)
-                    for (int i = 0; i < this.points.Count; i++)
-                        res.Add(new Point(fig2.points[i].coord_x, fig2.points[i].coord_y + M, fig2.points[i].coord_z));
+                for (int i = 0; i < fig2.lines.Count; i++)
+                {
+                    if (this.center.coord_y <= fig2.center.coord_y)
+                        res.Add(new Point(fig2.lines[i].begin.coord_x, fig2.lines[i].begin.coord_y + M, fig2.lines[i].begin.coord_z));
+                    else
+                        res.Add(new Point(fig2.lines[i].begin.coord_x, fig2.lines[i].begin.coord_y - M, fig2.lines[i].begin.coord_z));
+                }
 
                 if (this.center.coord_y == fig2.center.coord_y)
-                    for (int j = 0; j < this.points.Count; j++)
-                        res.Add(new Point(fig2.points[j].coord_x, fig2.points[j].coord_y, fig2.points[j].coord_z));
+                    for (int j = 0; j < fig2.lines.Count; j++)
+                        res.Add(new Point(fig2.lines[j].begin.coord_x, fig2.lines[j].begin.coord_y, fig2.lines[j].begin.coord_z));
                 return res;
             }
             return null;
