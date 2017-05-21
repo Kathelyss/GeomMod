@@ -26,11 +26,41 @@ namespace GeomMod
         }
     }
 
+    public class Line
+    {
+        public Point begin, end;
+        public Line(Point begin, Point end)
+        {
+            this.begin = begin;
+            this.end = end;
+        }
+        public override string ToString()
+        {
+            return "Line: {" + begin.coord_x.ToString() + "; " + 
+                               begin.coord_y.ToString() + "; " + 
+                               begin.coord_z.ToString() + "}; " +
+                         "{" + end.coord_x.ToString() + "; " + 
+                               end.coord_y.ToString() + "; " + 
+                               end.coord_z.ToString() + "}\n";
+        }
+        public bool IsEqualTo(Line l)
+        {
+            return (this.begin.coord_x == l.begin.coord_x && 
+                    this.begin.coord_y == l.begin.coord_y && 
+                    this.begin.coord_z == l.begin.coord_z) 
+                    ||
+                   (this.begin.coord_x == l.end.coord_x && 
+                    this.begin.coord_y == l.end.coord_y && 
+                    this.begin.coord_z == l.end.coord_z);
+        }
+    }
+
     public class Figure
     {
         private Point center;
         private int side, height; // side for cyl = diameter
         public List<Point> points;
+        public List<Line> lines;
 
         public Point Center { get => center; set => center = value; }
         public int Radius { get => side; set => side = value; }
@@ -55,32 +85,7 @@ namespace GeomMod
             Height = height;
         }
 
-
-
-        public List<Point> Circle(Point center, double radius)
-        {
-            List<Point> res = new List<Point>();
-
-            double theta = (2 * Math.PI) / (double)20;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x0 = radius, z0 = 0;
-
-            for (int i = 0; i < 20; i++)
-            {
-                res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
-                double tx = -z0;
-                double ty = x0;
-                x0 += tx * tangetial_factor;
-                z0 += ty * tangetial_factor;
-                x0 *= radial_factor;
-                z0 *= radial_factor;
-            }
-            res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, center.coord_z));
-
-            return res;
-        }
-
+//
         public List<Point> Cone(Point center, int radius, int height)
         {
             List<Point> res = new List<Point>();
@@ -113,6 +118,34 @@ namespace GeomMod
 
             return res;
         }
+        //
+
+
+
+
+        public List<Point> Circle(Point center, double radius)
+        {
+            List<Point> res = new List<Point>();
+
+            double theta = (2 * Math.PI) / 360.0;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x0 = radius, z0 = 0;
+
+            for (int i = 0; i < 360; i++)
+            {
+                res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
+                double tx = -z0;
+                double ty = x0;
+                x0 += tx * tangetial_factor;
+                z0 += ty * tangetial_factor;
+                x0 *= radial_factor;
+                z0 *= radial_factor;
+            }
+            res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, center.coord_z));
+
+            return res;
+        }
 
         public List<Point> Cylinder(Point center, float diameter, int height)
         {
@@ -121,13 +154,13 @@ namespace GeomMod
                 res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2));
             res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
 
-            double theta = (2 * Math.PI) / (double)20.0;
+            double theta = (2 * Math.PI) / (double)360.0;
             double tangetial_factor = Math.Tan(theta);
             double radial_factor = Math.Cos(theta);
             double x = diameter / 2;
             double z = 0;
 
-            for (int i = 0; i < 20.0; i++)
+            for (int i = 0; i < 360.0; i++)
             {
                 res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
                 res.Add(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z))); // точка на окружности в основании
