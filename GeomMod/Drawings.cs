@@ -17,6 +17,7 @@ namespace GeomMod
 
         bool drawViaPoints = true;
         bool drawViaLines = false;
+        bool drawViaPolygons = false;
 
         private void DrawAxis()
         {
@@ -76,6 +77,66 @@ namespace GeomMod
             Gl.glEnd();
         }
 
+        private void Draw(List<Polygon> polygons)
+        {
+            Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
+            /*
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
+            Gl.glEnd();
+            */
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glVertex3d(polygons[1].line1.begin.coord_x, polygons[1].line1.begin.coord_y, polygons[1].line1.begin.coord_z);
+            Gl.glVertex3d(polygons[1].line2.begin.coord_x, polygons[1].line2.begin.coord_y, polygons[1].line2.begin.coord_z);
+            Gl.glVertex3d(polygons[1].line3.begin.coord_x, polygons[1].line3.begin.coord_y, polygons[1].line3.begin.coord_z);
+            Gl.glVertex3d(polygons[1].line4.begin.coord_x, polygons[1].line4.begin.coord_y, polygons[1].line4.begin.coord_z);
+            Gl.glEnd();
+            /*
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glVertex3d(polygons[2].line1.begin.coord_x, polygons[2].line1.begin.coord_y, polygons[2].line1.begin.coord_z);
+            Gl.glVertex3d(polygons[2].line2.begin.coord_x, polygons[2].line2.begin.coord_y, polygons[2].line2.begin.coord_z);
+            Gl.glVertex3d(polygons[2].line3.begin.coord_x, polygons[2].line3.begin.coord_y, polygons[2].line3.begin.coord_z);
+            Gl.glVertex3d(polygons[2].line4.begin.coord_x, polygons[2].line4.begin.coord_y, polygons[2].line4.begin.coord_z);
+            Gl.glEnd();
+            /*
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
+            Gl.glEnd();
+
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
+            Gl.glEnd();
+
+            Gl.glBegin(Gl.GL_POLYGON);
+            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
+            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
+            Gl.glEnd();
+            */
+            /*
+                         res.Add(new Polygon(lines[0], lines[1], lines[2], lines[3]));
+            // правая
+            res.Add(new Polygon(lines[2], lines[8], lines[9], lines[10]));
+            // нижняя
+            res.Add(new Polygon(lines[9], lines[7], lines[5], lines[11]));
+            // левая
+            res.Add(new Polygon(lines[5], lines[6], lines[0], lines[4]));
+            // задняя
+            res.Add(new Polygon(lines[3], lines[10], lines[11], lines[4]));
+            // передняя
+            res.Add(new Polygon(lines[1], lines[8], lines[7], lines[6]));
+             */
+        }
 
         private void Draw(Figure figure, ComboBox box)
         {
@@ -84,17 +145,22 @@ namespace GeomMod
                 case 0: // куб
                     {
                         if (drawViaLines)
-                            figure.lines = figure.CreateCube(figure.center, figure.side);
+                            figure.lines = figure.CubeViaLines(figure.center, figure.side);
                         else if (drawViaPoints)
-                            figure.points = figure.Cube(figure.center, figure.side);
+                            figure.points = figure.CubeViaPoints(figure.center, figure.side);
+                        else if (drawViaPolygons)
+                        {
+                            figure.lines = figure.CubeViaLines(figure.center, figure.side);
+                            figure.polygons = figure.CubeViaPolygons(figure.lines);
+                        }
                         break;
                     }
                 case 1: // цилиндр
                     {
                         if (drawViaLines)
-                            figure.lines = figure.Cyl(figure.center, figure.side, figure.height);
+                            figure.lines = figure.CylinderViaLines(figure.center, figure.side, figure.height);
                         else if (drawViaPoints)
-                            figure.points = figure.Cylinder(figure.center, figure.side, figure.height);
+                            figure.points = figure.CylinderViaPoints(figure.center, figure.side, figure.height);
                         break;
                     }
                 default:
@@ -106,6 +172,8 @@ namespace GeomMod
                 Draw(figure.lines);
             else if (figure.points != null && drawViaPoints)
                 Draw(figure.points);
+            else if (figure.polygons != null && drawViaPolygons)
+                Draw(figure.polygons);
         }
 
         public void DrawScene(MainForm form)
@@ -128,13 +196,13 @@ namespace GeomMod
             DrawAxis();
             Gl.glColor3f(0.9f, 0.0f, 0.9f);     // цвет фигуры - фиолетовый
             Draw(figure1, form.comboBoxFigure1);
-            Gl.glColor3f(0.0f, 0.9f, 0.9f);     // цвет фигуры - голубой
+            Gl.glColor3f(0.0f, 0.5f, 0.9f);     // цвет фигуры - голубой
             Draw(figure2, form.comboBoxFigure2);
 
 
-            if (intersection.Count != 0)
+            intersection = figure1.IntersectionWith(figure2);
+            if (intersection != null)
             {
-                intersection = figure1.IntersectionWith(figure2);
                 Gl.glColor3f(1.0f, 1.0f, 1.0f);
                 Gl.glLineWidth(2f);
                 Draw(intersection);

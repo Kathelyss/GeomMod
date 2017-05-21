@@ -36,11 +36,11 @@ namespace GeomMod
         }
         public override string ToString()
         {
-            return "Line: {" + begin.coord_x.ToString() + "; " + 
-                               begin.coord_y.ToString() + "; " + 
+            return "Line: {" + begin.coord_x.ToString() + "; " +
+                               begin.coord_y.ToString() + "; " +
                                begin.coord_z.ToString() + "}; " +
-                         "{" + end.coord_x.ToString() + "; " + 
-                               end.coord_y.ToString() + "; " + 
+                         "{" + end.coord_x.ToString() + "; " +
+                               end.coord_y.ToString() + "; " +
                                end.coord_z.ToString() + "}\n";
         }
         public bool IsEqualTo(Line l)
@@ -62,7 +62,7 @@ namespace GeomMod
     }
 
     public class Figure
-    {      
+    {
         public Point center;
         public float side, height; // side for cyl = diameter
         public List<Point> points;
@@ -84,7 +84,7 @@ namespace GeomMod
         }
 
         // создание куба (набором точек)
-        public List<Point> Cube(Point center, float side)
+        public List<Point> CubeViaPoints(Point center, float side)
         {
             List<Point> res = new List<Point>();
 
@@ -127,13 +127,13 @@ namespace GeomMod
         }
 
         // создание куба (набором линий - рёбер)
-        public List<Line> CreateCube(Point center, float side)
+        public List<Line> CubeViaLines(Point center, float side)
         {
             List<Line> res = new List<Line>();
-            // левое верхнее ребро
-            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2), 
+            // левое верхнее ребро 0
+            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2),
                              new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2)));
-            // заднее верхнее ребро
+            // заднее верхнее ребро 1
             res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2),
                              new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2)));
             // правое верхнее ребро
@@ -170,30 +170,22 @@ namespace GeomMod
         }
 
         // создание куба (набором полигонов)
-        public List<Polygon> CreateCube()
+        public List<Polygon> CubeViaPolygons(List<Line> lines)
         {
             List<Polygon> res = new List<Polygon>();
             //6 граней
             // верхняя
-            res.Add(new Polygon(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2),
-                                         new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2)),
-                                new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2),
-                                         new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2)),
-                                new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2),
-                                         new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2)),
-                                new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2),
-                                         new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2))));
+            res.Add(new Polygon(lines[0], lines[1], lines[2], lines[3]));
             // правая
-
+            res.Add(new Polygon(lines[2], lines[8], lines[9], lines[10]));
             // нижняя
-
+            res.Add(new Polygon(lines[9], lines[7], lines[5], lines[11]));
             // левая
-
+            res.Add(new Polygon(lines[5], lines[6], lines[0], lines[4]));
             // задняя
-
+            res.Add(new Polygon(lines[3], lines[10], lines[11], lines[4]));
             // передняя
-
-
+            res.Add(new Polygon(lines[1], lines[8], lines[7], lines[6]));
             return res;
         }
 
@@ -225,7 +217,7 @@ namespace GeomMod
         }
 
         // создание цилиндра (набором точек)
-        public List<Point> Cylinder(Point center, float diameter, float height)
+        public List<Point> CylinderViaPoints(Point center, float diameter, float height)
         {
             double slices = 50.0;
 
@@ -260,7 +252,7 @@ namespace GeomMod
         }
 
         // создание цилиндра (набором линий - образующих)
-        public List<Line> Cyl(Point center, float diameter, float height)
+        public List<Line> CylinderViaLines(Point center, float diameter, float height)
         {
             double slices = 50.0;
 
@@ -306,10 +298,18 @@ namespace GeomMod
             if (IntersectionIsPossible(fig2))
             {
                 List<Point> res = new List<Point>();
-                for (int i = 0; i < this.points.Count; i++)
+                /*for (int i = 0; i < this.points.Count; i++)
                     for (int j = 0; j < fig2.points.Count; j++)
                         if (this.points[i].IsEqualTo(fig2.points[j]))
-                            res.Add(this.points[i]);
+                            res.Add(this.points[i]);*/
+                float M = Math.Abs(this.center.coord_y + this.side - fig2.center.coord_y);
+                //for (int f = 0; f < fig2.points.Count; f++)
+                    for (int i = 0; i < this.points.Count; i++)
+                        res.Add(new Point(fig2.points[i].coord_x, fig2.points[i].coord_y + M, fig2.points[i].coord_z));
+
+                if (this.center.coord_y == fig2.center.coord_y)
+                    for (int j = 0; j < this.points.Count; j++)
+                        res.Add(new Point(fig2.points[j].coord_x, fig2.points[j].coord_y, fig2.points[j].coord_z));
                 return res;
             }
             return null;
