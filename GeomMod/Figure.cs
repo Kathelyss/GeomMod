@@ -49,194 +49,41 @@ namespace GeomMod
         }
     }
 
-    public class Figure
+    public class Polygon
     {
-        private Point center;
-        private float side, height; // side for cyl = diameter
+        public Line line1, line2, line3, line4;
+        public Polygon(Line l1, Line l2, Line l3, Line l4)
+        {
+            line1 = l1;
+            line2 = l2;
+            line3 = l3;
+            line4 = l4;
+        }
+    }
+
+    public class Figure
+    {      
+        public Point center;
+        public float side, height; // side for cyl = diameter
         public List<Point> points;
         public List<Line> lines = new List<Line>();
-
-        public Point Center { get => center; set => center = value; }
-        public float Side { get => side; set => side = value; }
-        public float Height { get => height; set => height = value; }
+        public List<Polygon> polygons;
 
         public Figure()
         {
-            Center = new Point(0, 0, 0);
-            Side = 0;
-            Height = 0;
+            center = new Point(0, 0, 0);
+            side = 0;
+            height = 0;
         }
 
         public Figure(Point center, int side, int height)
         {
-            Center = center;
-            Side = side;
-            Height = height;
+            this.center = center;
+            this.side = side;
+            this.height = height;
         }
 
-/*
-        public List<Point> Cone(Point center, int side, int height)
-        {
-            List<Point> res = new List<Point>();
-
-            double tg = height / (float)side; // поиск прилежащего (к углу) катета прямоуг. треуг-ка через tg угла
-            for (int c = 0; c <= height; c++)
-                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), (side - c / tg)));
-            res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
-
-            double theta = (2 * Math.PI) / (double)20.0;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x = side;
-            double z = 0;
-
-            for (int i = 0; i < 20.0; i++)
-            {
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
-                res.Add(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z))); // точка на окружности в основании
-                res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z)); // вершина (центр на вершине конуса)
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
-
-                double tx = -z;
-                double ty = x;
-                x += tx * tangetial_factor;
-                z += ty * tangetial_factor;
-                x *= radial_factor;
-                z *= radial_factor;
-            }
-
-            return res;
-        }
-*/
-
-        public List<Line> Cyl(Point center, float diameter, float height)
-        {
-            double slices = 50.0;
-
-            List<Line> res = new List<Line>();
-
-            double theta = (2 * Math.PI) / slices;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x = diameter / 2;
-            double z = 0;
-
-            for (int i = 0; i < slices; i++)
-            {
-                res.Add(new Line(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z)),// точка на окружности в основании
-                                        new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z))));// точка на окружности на вершине
-                double tx = -z;
-                double ty = x;
-                x += tx * tangetial_factor;
-                z += ty * tangetial_factor;
-                x *= radial_factor;
-                z *= radial_factor;
-            }
-
-            return res;
-        }
-/*
-        public List<Line> Cube(Point center, float side)
-        {
-            List<Line> res = new List<Line>();
-
-            // квадраты вдоль левой стенки (вертикальные)
-            for (float i = 0; i <= side; i++)
-            {
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
-            }
-            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z));
-            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
-            //квадраты вдоль передней стенки (вертикальные)
-            for (float i = 0; i <= side; i++)
-            {
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
-            }
-            res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2));
-
-            // квадраты горизонтальные
-            for (float i = 0; i <= side; i++)
-            {
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
-            }
-            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
-
-            return res;
-        }
-*/
-
-        public List<Point> Circle(Point center, double radius, double slices)
-        {
-            List<Point> res = new List<Point>();
-
-            double theta = (2 * Math.PI) / slices;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x0 = radius, z0 = 0;
-
-            for (int i = 0; i < slices; i++)
-            {
-                res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
-                double tx = -z0;
-                double ty = x0;
-                x0 += tx * tangetial_factor;
-                z0 += ty * tangetial_factor;
-                x0 *= radial_factor;
-                z0 *= radial_factor;
-            }
-            res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, center.coord_z));
-
-            return res;
-        }
-
-        public List<Point> Cylinder(Point center, float diameter, float height)
-        {
-            double slices = 50.0;
-
-            List<Point> res = new List<Point>();
-            for (int c = 0; c <= height; c++)
-                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2, slices));
-            res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
-
-            double theta = (2 * Math.PI) / slices;
-            double tangetial_factor = Math.Tan(theta);
-            double radial_factor = Math.Cos(theta);
-            double x = diameter / 2;
-            double z = 0;
-
-            for (int i = 0; i < slices; i++)
-            {
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
-                res.Add(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z))); // точка на окружности в основании
-                res.Add(new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z)));// точка на окружности на вершине
-                res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z)); // центр на вершине
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
-
-                double tx = -z;
-                double ty = x;
-                x += tx * tangetial_factor;
-                z += ty * tangetial_factor;
-                x *= radial_factor;
-                z *= radial_factor;
-            }
-
-            return res;
-        }
-
+        // создание куба (набором точек)
         public List<Point> Cube(Point center, float side)
         {
             List<Point> res = new List<Point>();
@@ -279,6 +126,169 @@ namespace GeomMod
             return res;
         }
 
+        // создание куба (набором линий - рёбер)
+        public List<Line> CreateCube(Point center, float side)
+        {
+            List<Line> res = new List<Line>();
+            // левое верхнее ребро
+            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2), 
+                             new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            // заднее верхнее ребро
+            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2),
+                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            // правое верхнее ребро
+            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2),
+                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2)));
+            // переднее верхнее ребро
+            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2),
+                             new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2)));
+            // левое переднее ребро
+            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2),
+                             new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2)));
+            // левое нижнее ребро
+            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2),
+                             new Point(center.coord_x - side / 2, center.coord_y, center.coord_z - side / 2)));
+            // левое заднее ребро
+            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z - side / 2),
+                             new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            // нижнее заднее ребро
+            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z - side / 2),
+                             new Point(center.coord_x + side / 2, center.coord_y, center.coord_z - side / 2)));
+            // правое заднее ребро
+            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z - side / 2),
+                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            // правое нижнее ребро
+            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z - side / 2),
+                             new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2)));
+            // переднее правое ребро
+            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2),
+                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2)));
+            // переднее ближнее ребро
+            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2),
+                             new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2)));
+            return res;
+        }
+
+        // создание куба (набором полигонов)
+        public List<Polygon> CreateCube()
+        {
+            List<Polygon> res = new List<Polygon>();
+            //6 граней
+            // верхняя
+            res.Add(new Polygon(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2),
+                                         new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2)),
+                                new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2),
+                                         new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2)),
+                                new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2),
+                                         new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2)),
+                                new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2),
+                                         new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2))));
+            // правая
+
+            // нижняя
+
+            // левая
+
+            // задняя
+
+            // передняя
+
+
+            return res;
+        }
+
+        //------------------------------------------------------------------------
+
+        // создание круга (набором точек)
+        public List<Point> Circle(Point center, double radius, double slices)
+        {
+            List<Point> res = new List<Point>();
+
+            double theta = (2 * Math.PI) / slices;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x0 = radius, z0 = 0;
+
+            for (int i = 0; i < slices; i++)
+            {
+                res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
+                double tx = -z0;
+                double ty = x0;
+                x0 += tx * tangetial_factor;
+                z0 += ty * tangetial_factor;
+                x0 *= radial_factor;
+                z0 *= radial_factor;
+            }
+            res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, center.coord_z));
+
+            return res;
+        }
+
+        // создание цилиндра (набором точек)
+        public List<Point> Cylinder(Point center, float diameter, float height)
+        {
+            double slices = 50.0;
+
+            List<Point> res = new List<Point>();
+            for (int c = 0; c <= height; c++)
+                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2, slices));
+            res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
+
+            double theta = (2 * Math.PI) / slices;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x = diameter / 2;
+            double z = 0;
+
+            for (int i = 0; i < slices; i++)
+            {
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
+                res.Add(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z))); // точка на окружности в основании
+                res.Add(new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z)));// точка на окружности на вершине
+                res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z)); // центр на вершине
+                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
+
+                double tx = -z;
+                double ty = x;
+                x += tx * tangetial_factor;
+                z += ty * tangetial_factor;
+                x *= radial_factor;
+                z *= radial_factor;
+            }
+
+            return res;
+        }
+
+        // создание цилиндра (набором линий - образующих)
+        public List<Line> Cyl(Point center, float diameter, float height)
+        {
+            double slices = 50.0;
+
+            List<Line> res = new List<Line>();
+
+            double theta = (2 * Math.PI) / slices;
+            double tangetial_factor = Math.Tan(theta);
+            double radial_factor = Math.Cos(theta);
+            double x = diameter / 2;
+            double z = 0;
+
+            for (int i = 0; i < slices; i++)
+            {
+                res.Add(new Line(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z)),// точка на окружности в основании
+                                        new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z))));// точка на окружности на вершине
+                double tx = -z;
+                double ty = x;
+                x += tx * tangetial_factor;
+                z += ty * tangetial_factor;
+                x *= radial_factor;
+                z *= radial_factor;
+            }
+
+            return res;
+        }
+
+
+
         public bool IntersectionIsPossible(Figure fig2)
         {
             //возможность пересечения фигур по оси
@@ -319,12 +329,12 @@ namespace GeomMod
         public void SetParams(MainForm form, ComboBox box, int figureNumber)
         {
             if (figureNumber == 1)
-                Center = new Point(
+                center = new Point(
                     (int)form.numericUpDownCX1.Value,
                     (int)form.numericUpDownCY1.Value,
                     (int)form.numericUpDownCZ1.Value);
             else
-                Center = new Point(
+                center = new Point(
                     (int)form.numericUpDownCX2.Value,
                     (int)form.numericUpDownCY2.Value,
                     (int)form.numericUpDownCZ2.Value);
@@ -335,13 +345,13 @@ namespace GeomMod
                     {
                         if (box == form.comboBoxFigure1)
                         {
-                            Side = (int)form.numericUpDownFig1Param1.Value;
-                            Height = (int)form.numericUpDownFig1Param1.Value;
+                            side = (int)form.numericUpDownFig1Param1.Value;
+                            height = (int)form.numericUpDownFig1Param1.Value;
                         }
                         else if (box == form.comboBoxFigure2)
                         {
-                            Side = (int)form.numericUpDownFig2Param1.Value;
-                            Height = (int)form.numericUpDownFig2Param1.Value;
+                            side = (int)form.numericUpDownFig2Param1.Value;
+                            height = (int)form.numericUpDownFig2Param1.Value;
                         }
                         break;
                     }
@@ -349,13 +359,13 @@ namespace GeomMod
                     {
                         if (box == form.comboBoxFigure1)
                         {
-                            Side = (int)form.numericUpDownFig1Param1.Value;
-                            Height = (int)form.numericUpDownFig1Param2.Value;
+                            side = (int)form.numericUpDownFig1Param1.Value;
+                            height = (int)form.numericUpDownFig1Param2.Value;
                         }
                         else if (box == form.comboBoxFigure2)
                         {
-                            Side = (int)form.numericUpDownFig2Param1.Value;
-                            Height = (int)form.numericUpDownFig2Param2.Value;
+                            side = (int)form.numericUpDownFig2Param1.Value;
+                            height = (int)form.numericUpDownFig2Param2.Value;
                         }
                         break;
                     }

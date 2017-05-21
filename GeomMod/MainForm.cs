@@ -7,8 +7,6 @@ namespace GeomMod
 {
     public partial class MainForm : Form
     {
-        // вспомогательные переменные - в них будут храниться обработанные значения, 
-        // полученные при перетаскивании ползунков пользователем 
         public double[] camRotation = new double[3];
         public double[] camPosition = new double[3];
         public double camSpeed = 0.005;
@@ -133,7 +131,7 @@ namespace GeomMod
                 labelFig1Param1.Visible = (prms > 0);
                 numericUpDownFig1Param1.Visible = (prms > 0);
                 labelFig1Param1.Text = text1;
-                // конус, цилиндр
+                // цилиндр
                 labelFig1Param2.Visible = (prms > 1);
                 numericUpDownFig1Param2.Visible = (prms > 1);
                 labelFig1Param2.Text = text2;
@@ -144,7 +142,7 @@ namespace GeomMod
                 labelFig2Param1.Visible = (prms > 0);
                 numericUpDownFig2Param1.Visible = (prms > 0);
                 labelFig2Param1.Text = text1;
-                // конус, цилиндр
+                // цилиндр
                 labelFig2Param2.Visible = (prms > 1);
                 numericUpDownFig2Param2.Visible = (prms > 1);
                 labelFig2Param2.Text = text2;

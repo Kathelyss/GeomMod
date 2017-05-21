@@ -15,6 +15,9 @@ namespace GeomMod
         Figure figure2 = new Figure();
         List<Point> intersection = new List<Point>();
 
+        bool drawViaPoints = true;
+        bool drawViaLines = false;
+
         private void DrawAxis()
         {
             // отрисовка положительных частей осей координат
@@ -52,6 +55,7 @@ namespace GeomMod
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
         }
 
+        // отрисовка фигуры по набору точек
         private void Draw(List<Point> points)
         {
             Gl.glBegin(Gl.GL_LINE_LOOP);
@@ -60,6 +64,7 @@ namespace GeomMod
             Gl.glEnd();
         }
 
+        // отрисовка фигуры по набору линий
         private void Draw(List<Line> lines)
         {
             Gl.glBegin(Gl.GL_LINES);
@@ -71,35 +76,36 @@ namespace GeomMod
             Gl.glEnd();
         }
 
+
         private void Draw(Figure figure, ComboBox box)
         {
             switch (box.SelectedIndex)
             {
                 case 0: // куб
                     {
-                        figure.points = figure.Cube(figure.Center, figure.Side);
+                        if (drawViaLines)
+                            figure.lines = figure.CreateCube(figure.center, figure.side);
+                        else if (drawViaPoints)
+                            figure.points = figure.Cube(figure.center, figure.side);
                         break;
                     }
                 case 1: // цилиндр
                     {
-                        figure.points = figure.Cylinder(figure.Center, figure.Side, figure.Height);
-                       // figure.lines = figure.Cyl(figure.Center, figure.Side, figure.Height);
+                        if (drawViaLines)
+                            figure.lines = figure.Cyl(figure.center, figure.side, figure.height);
+                        else if (drawViaPoints)
+                            figure.points = figure.Cylinder(figure.center, figure.side, figure.height);
                         break;
                     }
-                /* case 1: // конус
-                     {
-                         figure.points = figure.Cone(figure.Center, figure.Side, figure.Height);
-                         break;
-                     }*/
                 default:
                     {
                         break;
                     }
             }
-            if (figure.points != null)
-                Draw(figure.points);            
-           // if (figure.lines != null)
-            //  Draw(figure.lines);
+            if (figure.lines != null && drawViaLines)
+                Draw(figure.lines);
+            else if (figure.points != null && drawViaPoints)
+                Draw(figure.points);
         }
 
         public void DrawScene(MainForm form)
