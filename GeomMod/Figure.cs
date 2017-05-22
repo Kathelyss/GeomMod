@@ -315,6 +315,8 @@ namespace GeomMod
                             res.Add(new Point(fig2.lines[i].begin.coord_x, fig2.lines[i].begin.coord_y + M, fig2.lines[i].begin.coord_z));
                         else if(this.center.coord_y <= fig2.center.coord_y && this.height > fig2.height && fig2.center.coord_y + fig2.height == fig2.lines[i].begin.coord_y + M)
                             res.Add(new Point(fig2.lines[i].begin.coord_x, fig2.lines[i].begin.coord_y + M, fig2.lines[i].begin.coord_z));
+                        else if(this.center.coord_y > fig2.center.coord_y && fig2.center.coord_y + fig2.height == fig2.lines[i].begin.coord_y + M)
+                            res.Add(new Point(fig2.lines[i].begin.coord_x, fig2.lines[i].begin.coord_y + M, fig2.lines[i].begin.coord_z));
                 }
                 // res.Add(new Point(fig2.lines[i - 1].begin.coord_x, fig2.lines[i - 1].begin.coord_y + this.height, fig2.lines[i - 1].begin.coord_z));
                 // res.Add(new Point(fig2.lines[i - 1].begin.coord_x, fig2.lines[i - 1].begin.coord_y, fig2.lines[i - 1].begin.coord_z));
