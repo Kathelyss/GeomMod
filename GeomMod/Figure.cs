@@ -16,6 +16,10 @@ namespace GeomMod
             coord_y = y;
             coord_z = z;
         }
+        public Point()
+        {
+
+        }
         public override string ToString()
         {
             return "{" + coord_x.ToString() + "; " + coord_y.ToString() + "; " + coord_z.ToString() + "}\n";
@@ -310,6 +314,7 @@ namespace GeomMod
                 float M = this.center.coord_y + this.height - fig2.center.coord_y; // расстояние от центра цилиндра до пересечения с гранью куба (при усл.: центр.Y цилиндра выше или равен центру.Y куба)
                 // float K = (fig2.height - fig2.center.coord_y) - M;
 
+                Point lastPointUp = new Point(), lastPointDown = new Point();
                 // отрисовка дуги в верхней грани куба
                 for (int i = 0; i < fig2.lines.Count; i++)
                     if (PointIsInsideTheCubeFace(this.center, fig2.lines[i].begin, this.side))
@@ -318,27 +323,50 @@ namespace GeomMod
                         {
                             if (this.height <= fig2.height) // высоты проверяются на случай совпадения центров, но большей высоты куба (чтобы не рисовалась верхняя грань)
                             {
-                                upperFace.Add(new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y + M, fig2.lines[i].begin.coord_z));
-                                if(this.center.coord_y == fig2.center.coord_y)
-                                    lowerFace.Add(new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y, fig2.lines[i].begin.coord_z));
+                                lastPointUp = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y + M, fig2.lines[i].begin.coord_z);
+                                upperFace.Add(lastPointUp);
+                                if (this.center.coord_y == fig2.center.coord_y)
+                                {
+                                    lastPointDown = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y, fig2.lines[i].begin.coord_z);
+                                    lowerFace.Add(lastPointDown);
+                                }
                             }
                             else if (this.height > fig2.height) // а это - чтобы рисовалосо колечко, когда цилиндр входит в куб, но его центр выше
                             {
-                                if(fig2.center.coord_y + M <= fig2.center.coord_y + fig2.height)
-                                    upperFace.Add(new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y + M, fig2.lines[i].begin.coord_z));
-                                if(this.center.coord_y >= fig2.center.coord_y)
-                                    lowerFace.Add(new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y, fig2.lines[i].begin.coord_z));
+                                if (fig2.center.coord_y + M <= fig2.center.coord_y + fig2.height)
+                                {
+                                    lastPointUp = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y + M, fig2.lines[i].begin.coord_z);
+                                    upperFace.Add(lastPointUp);
+                                }
+                                if (this.center.coord_y >= fig2.center.coord_y)
+                                {
+                                    lastPointDown = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y, fig2.lines[i].begin.coord_z);
+                                    lowerFace.Add(lastPointDown);
+                                }
                             }
                         }
                         else // центр.Y цилиндра ниже центра.Y куба
                         {
                             if (fig2.center.coord_y + fig2.height >= this.center.coord_y + this.height) // верхние грани совпадают (цилиндр вставлен в куб снизу) или цилиндр протыкает куб
                             {
-                                upperFace.Add(new Point(fig2.lines[i].begin.coord_x, this.center.coord_y + this.height, fig2.lines[i].begin.coord_z));
-                                lowerFace.Add(new Point(fig2.lines[i].begin.coord_x, this.center.coord_y, fig2.lines[i].begin.coord_z));
+                                lastPointUp = new Point(fig2.lines[i].begin.coord_x, this.center.coord_y + this.height, fig2.lines[i].begin.coord_z);
+                                upperFace.Add(lastPointUp);
                             }
+                                if (fig2.lines[i].end.coord_y >= this.center.coord_y)
+                                {
+                                    lastPointDown = new Point(fig2.lines[i].begin.coord_x, this.center.coord_y, fig2.lines[i].begin.coord_z);
+                                    lowerFace.Add(lastPointDown);
+                                }
                         }
                     }
+                // upperFace.Add(lastPointUp);
+                // upperFace.Add(upperFace[0]);
+
+                // lowerFace.Add(lowerFace[0]);
+                // lowerFace.Add(lastPointDown);
+                // lowerFace.Add(upperFace[upperFace.Count - 2]);
+                lowerFace.Reverse();
+
                 upperFace.AddRange(lowerFace);
                 return upperFace;
             }
