@@ -9,12 +9,12 @@ namespace GeomMod
 {
     public class Point
     {
-        public float coord_x, coord_y, coord_z;
+        public float c_x, c_y, c_z;
         public Point(float x, float y, float z)
         {
-            coord_x = x;
-            coord_y = y;
-            coord_z = z;
+            c_x = x;
+            c_y = y;
+            c_z = z;
         }
         public Point()
         {
@@ -22,11 +22,11 @@ namespace GeomMod
         }
         public override string ToString()
         {
-            return "{" + coord_x.ToString() + "; " + coord_y.ToString() + "; " + coord_z.ToString() + "}\n";
+            return "{" + c_x.ToString() + "; " + c_y.ToString() + "; " + c_z.ToString() + "}\n";
         }
         public bool IsEqualTo(Point p)
         {
-            return this.coord_x == p.coord_x && this.coord_y == p.coord_y && this.coord_z == p.coord_z;
+            return this.c_x == p.c_x && this.c_y == p.c_y && this.c_z == p.c_z;
         }
     }
 
@@ -40,12 +40,12 @@ namespace GeomMod
         }
         public override string ToString()
         {
-            return "Line: {" + begin.coord_x.ToString() + "; " +
-                               begin.coord_y.ToString() + "; " +
-                               begin.coord_z.ToString() + "}; " +
-                         "{" + end.coord_x.ToString() + "; " +
-                               end.coord_y.ToString() + "; " +
-                               end.coord_z.ToString() + "}\n";
+            return "Line: {" + begin.c_x.ToString() + "; " +
+                               begin.c_y.ToString() + "; " +
+                               begin.c_z.ToString() + "}; " +
+                         "{" + end.c_x.ToString() + "; " +
+                               end.c_y.ToString() + "; " +
+                               end.c_z.ToString() + "}\n";
         }
         public bool IsEqualTo(Line l)
         {
@@ -95,37 +95,37 @@ namespace GeomMod
             // квадраты вдоль левой стенки (вертикальные)
             for (float i = 0; i <= side; i++)
             {
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y + side, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x - side / 2 + i, center.coord_y, center.coord_z));
+                res.Add(new Point(center.c_x - side / 2 + i, center.c_y, center.c_z));
+                res.Add(new Point(center.c_x - side / 2 + i, center.c_y, center.c_z - side / 2));
+                res.Add(new Point(center.c_x - side / 2 + i, center.c_y + side, center.c_z - side / 2));
+                res.Add(new Point(center.c_x - side / 2 + i, center.c_y + side, center.c_z + side / 2));
+                res.Add(new Point(center.c_x - side / 2 + i, center.c_y, center.c_z + side / 2));
+                res.Add(new Point(center.c_x - side / 2 + i, center.c_y, center.c_z));
             }
-            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z));
-            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
+            res.Add(new Point(center.c_x - side / 2, center.c_y, center.c_z));
+            res.Add(new Point(center.c_x - side / 2, center.c_y, center.c_z + side / 2));
             //квадраты вдоль передней стенки (вертикальные)
             for (float i = 0; i <= side; i++)
             {
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2 - i));
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2 - i));
+                res.Add(new Point(center.c_x, center.c_y, center.c_z + side / 2 - i));
+                res.Add(new Point(center.c_x + side / 2, center.c_y, center.c_z + side / 2 - i));
+                res.Add(new Point(center.c_x + side / 2, center.c_y + side, center.c_z + side / 2 - i));
+                res.Add(new Point(center.c_x - side / 2, center.c_y + side, center.c_z + side / 2 - i));
+                res.Add(new Point(center.c_x - side / 2, center.c_y, center.c_z + side / 2 - i));
+                res.Add(new Point(center.c_x, center.c_y, center.c_z + side / 2 - i));
             }
-            res.Add(new Point(center.coord_x, center.coord_y, center.coord_z + side / 2));
+            res.Add(new Point(center.c_x, center.c_y, center.c_z + side / 2));
 
             // квадраты горизонтальные
             for (float i = 0; i <= side; i++)
             {
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z + side / 2));
-                res.Add(new Point(center.coord_x + side / 2, center.coord_y + i, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z - side / 2));
-                res.Add(new Point(center.coord_x - side / 2, center.coord_y + i, center.coord_z + side / 2));
+                res.Add(new Point(center.c_x - side / 2, center.c_y + i, center.c_z + side / 2));
+                res.Add(new Point(center.c_x + side / 2, center.c_y + i, center.c_z + side / 2));
+                res.Add(new Point(center.c_x + side / 2, center.c_y + i, center.c_z - side / 2));
+                res.Add(new Point(center.c_x - side / 2, center.c_y + i, center.c_z - side / 2));
+                res.Add(new Point(center.c_x - side / 2, center.c_y + i, center.c_z + side / 2));
             }
-            res.Add(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2));
+            res.Add(new Point(center.c_x - side / 2, center.c_y, center.c_z + side / 2));
 
             return res;
         }
@@ -135,41 +135,41 @@ namespace GeomMod
         {
             List<Line> res = new List<Line>();
             // левое верхнее ребро 0
-            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2),
-                             new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            res.Add(new Line(new Point(center.c_x - side / 2, center.c_y + side, center.c_z + side / 2),
+                             new Point(center.c_x - side / 2, center.c_y + side, center.c_z - side / 2)));
             // заднее верхнее ребро 1
-            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2),
-                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            res.Add(new Line(new Point(center.c_x - side / 2, center.c_y + side, center.c_z - side / 2),
+                             new Point(center.c_x + side / 2, center.c_y + side, center.c_z - side / 2)));
             // правое верхнее ребро
-            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2),
-                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2)));
+            res.Add(new Line(new Point(center.c_x + side / 2, center.c_y + side, center.c_z - side / 2),
+                             new Point(center.c_x + side / 2, center.c_y + side, center.c_z + side / 2)));
             // переднее верхнее ребро
-            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2),
-                             new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2)));
+            res.Add(new Line(new Point(center.c_x + side / 2, center.c_y + side, center.c_z + side / 2),
+                             new Point(center.c_x - side / 2, center.c_y + side, center.c_z + side / 2)));
             // левое переднее ребро
-            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z + side / 2),
-                             new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2)));
+            res.Add(new Line(new Point(center.c_x - side / 2, center.c_y + side, center.c_z + side / 2),
+                             new Point(center.c_x - side / 2, center.c_y, center.c_z + side / 2)));
             // левое нижнее ребро
-            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2),
-                             new Point(center.coord_x - side / 2, center.coord_y, center.coord_z - side / 2)));
+            res.Add(new Line(new Point(center.c_x - side / 2, center.c_y, center.c_z + side / 2),
+                             new Point(center.c_x - side / 2, center.c_y, center.c_z - side / 2)));
             // левое заднее ребро
-            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z - side / 2),
-                             new Point(center.coord_x - side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            res.Add(new Line(new Point(center.c_x - side / 2, center.c_y, center.c_z - side / 2),
+                             new Point(center.c_x - side / 2, center.c_y + side, center.c_z - side / 2)));
             // нижнее заднее ребро
-            res.Add(new Line(new Point(center.coord_x - side / 2, center.coord_y, center.coord_z - side / 2),
-                             new Point(center.coord_x + side / 2, center.coord_y, center.coord_z - side / 2)));
+            res.Add(new Line(new Point(center.c_x - side / 2, center.c_y, center.c_z - side / 2),
+                             new Point(center.c_x + side / 2, center.c_y, center.c_z - side / 2)));
             // правое заднее ребро
-            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z - side / 2),
-                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z - side / 2)));
+            res.Add(new Line(new Point(center.c_x + side / 2, center.c_y, center.c_z - side / 2),
+                             new Point(center.c_x + side / 2, center.c_y + side, center.c_z - side / 2)));
             // правое нижнее ребро
-            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z - side / 2),
-                             new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2)));
+            res.Add(new Line(new Point(center.c_x + side / 2, center.c_y, center.c_z - side / 2),
+                             new Point(center.c_x + side / 2, center.c_y, center.c_z + side / 2)));
             // переднее правое ребро
-            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2),
-                             new Point(center.coord_x + side / 2, center.coord_y + side, center.coord_z + side / 2)));
+            res.Add(new Line(new Point(center.c_x + side / 2, center.c_y, center.c_z + side / 2),
+                             new Point(center.c_x + side / 2, center.c_y + side, center.c_z + side / 2)));
             // переднее ближнее ребро
-            res.Add(new Line(new Point(center.coord_x + side / 2, center.coord_y, center.coord_z + side / 2),
-                             new Point(center.coord_x - side / 2, center.coord_y, center.coord_z + side / 2)));
+            res.Add(new Line(new Point(center.c_x + side / 2, center.c_y, center.c_z + side / 2),
+                             new Point(center.c_x - side / 2, center.c_y, center.c_z + side / 2)));
             return res;
         }
 
@@ -207,7 +207,7 @@ namespace GeomMod
 
             for (int i = 0; i < slices; i++)
             {
-                res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, (float)(z0 + center.coord_z)));
+                res.Add(new Point((float)(x0 + center.c_x), center.c_y, (float)(z0 + center.c_z)));
                 double tx = -z0;
                 double ty = x0;
                 x0 += tx * tangetial_factor;
@@ -215,7 +215,7 @@ namespace GeomMod
                 x0 *= radial_factor;
                 z0 *= radial_factor;
             }
-            res.Add(new Point((float)(x0 + center.coord_x), center.coord_y, center.coord_z));
+            res.Add(new Point((float)(x0 + center.c_x), center.c_y, center.c_z));
 
             return res;
         }
@@ -227,8 +227,8 @@ namespace GeomMod
 
             List<Point> res = new List<Point>();
             for (int c = 0; c <= height; c++)
-                res.AddRange(Circle(new Point(center.coord_x, center.coord_y + c, center.coord_z), diameter / 2, slices));
-            res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z));
+                res.AddRange(Circle(new Point(center.c_x, center.c_y + c, center.c_z), diameter / 2, slices));
+            res.Add(new Point(center.c_x, center.c_y + height, center.c_z));
 
             double theta = (2 * Math.PI) / slices;
             double tangetial_factor = Math.Tan(theta);
@@ -238,11 +238,11 @@ namespace GeomMod
 
             for (int i = 0; i < slices; i++)
             {
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
-                res.Add(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z))); // точка на окружности в основании
-                res.Add(new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z)));// точка на окружности на вершине
-                res.Add(new Point(center.coord_x, center.coord_y + height, center.coord_z)); // центр на вершине
-                res.Add(new Point(center.coord_x, center.coord_y, center.coord_z)); // центр в основании
+                res.Add(new Point(center.c_x, center.c_y, center.c_z)); // центр в основании
+                res.Add(new Point((float)(x + center.c_x), center.c_y, (float)(z + center.c_z))); // точка на окружности в основании
+                res.Add(new Point((float)(x + center.c_x), center.c_y + height, (float)(z + center.c_z)));// точка на окружности на вершине
+                res.Add(new Point(center.c_x, center.c_y + height, center.c_z)); // центр на вершине
+                res.Add(new Point(center.c_x, center.c_y, center.c_z)); // центр в основании
 
                 double tx = -z;
                 double ty = x;
@@ -270,8 +270,8 @@ namespace GeomMod
 
             for (int i = 0; i < slices; i++)
             {
-                res.Add(new Line(new Point((float)(x + center.coord_x), center.coord_y, (float)(z + center.coord_z)),// точка на окружности в основании
-                                        new Point((float)(x + center.coord_x), center.coord_y + height, (float)(z + center.coord_z))));// точка на окружности на вершине
+                res.Add(new Line(new Point((float)(x + center.c_x), center.c_y, (float)(z + center.c_z)),// точка на окружности в основании
+                                        new Point((float)(x + center.c_x), center.c_y + height, (float)(z + center.c_z))));// точка на окружности на вершине
                 double tx = -z;
                 double ty = x;
                 x += tx * tangetial_factor;
@@ -284,12 +284,12 @@ namespace GeomMod
         }
 
         // проверка: находится ли текущая точка дуги внутри грани куба
-        private bool PointIsInsideTheCubeFace(Point cubeCenter, Point currentPoint, float cubeSide)
+        private bool PointIsInsideTheHorizontalCubeFace(Point cubeCenter, Point currentPoint, float cubeSide)
         {
-            return ((currentPoint.coord_x <= cubeCenter.coord_x + cubeSide / 2) && 
-                    (currentPoint.coord_x >= center.coord_x - cubeSide / 2) && 
-                    (currentPoint.coord_z <= cubeCenter.coord_z + cubeSide / 2) && 
-                    (currentPoint.coord_z >= cubeCenter.coord_z - cubeSide / 2));
+            return ((currentPoint.c_x <= cubeCenter.c_x + cubeSide / 2) &&
+                    (currentPoint.c_x >= center.c_x - cubeSide / 2) &&
+                    (currentPoint.c_z <= cubeCenter.c_z + cubeSide / 2) &&
+                    (currentPoint.c_z >= cubeCenter.c_z - cubeSide / 2));
         }
 
         public bool IntersectionIsPossible(Figure fig2)
@@ -299,74 +299,226 @@ namespace GeomMod
             {
                 return (Math.Abs(c2 - c1) <= (side1 + side2));
             }
-            return (OneDimIntersect(this.center.coord_x, fig2.center.coord_x, this.side / 2, fig2.side / 2) &&
-                    OneDimIntersect(this.center.coord_y + this.height / 2, fig2.center.coord_y + fig2.height / 2, this.height / 2, fig2.height / 2) &&
-                    OneDimIntersect(this.center.coord_z, fig2.center.coord_z, this.side / 2, fig2.side / 2));
+            return (OneDimIntersect(this.center.c_x, fig2.center.c_x, this.side / 2, fig2.side / 2) &&
+                    OneDimIntersect(this.center.c_y + this.height / 2, fig2.center.c_y + fig2.height / 2, this.height / 2, fig2.height / 2) &&
+                    OneDimIntersect(this.center.c_z, fig2.center.c_z, this.side / 2, fig2.side / 2));
         }
 
-        public List<Point> IntersectionWith(Figure fig2)
+        private bool PointBelongsToVerticalCubeFace(Point p, float x, float y, float z, int mainCoord)
         {
-            if (IntersectionIsPossible(fig2))
+            if (mainCoord == 1 && p.c_x == x)
+                return true;
+            if (mainCoord == 2 && p.c_y == y)
+                return true;
+            if (mainCoord == 3 && p.c_z == z)
+                return true;
+
+            return false;
+        }
+        private bool HorizontalCubeFaceIsInsideTheCyl(Point cylCenter, float r)
+        {
+            if (this.side < r * 2)
+            {
+                Point leftDown = new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2);
+                Point leftUp = new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2);
+                Point rightUp = new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2);
+                Point rightDown = new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2);
+                if (leftDown.c_x >= cylCenter.c_x - r && leftDown.c_z <= cylCenter.c_z + r && leftUp.c_z >= cylCenter.c_z - r &&
+                    rightDown.c_x <= cylCenter.c_x + r && rightDown.c_z <= cylCenter.c_z + r && rightUp.c_z >= cylCenter.c_z - r)
+                    return true;
+            }
+            return false;
+        }
+
+        public List<Point> CreateIntersection(Figure cylinder)
+        {
+            if (IntersectionIsPossible(cylinder))
             {
                 List<Point> upperFace = new List<Point>();
                 List<Point> lowerFace = new List<Point>();
+                List<Point> sideFace = new List<Point>();
 
-                float M = this.center.coord_y + this.height - fig2.center.coord_y; // расстояние от центра цилиндра до пересечения с гранью куба (при усл.: центр.Y цилиндра выше или равен центру.Y куба)
-                // float K = (fig2.height - fig2.center.coord_y) - M;
+                float M = this.center.c_y + this.height - cylinder.center.c_y; // расстояние от центра цилиндра до пересечения с гранью куба (при усл.: центр.Y цилиндра выше или равен центру.Y куба)
 
-                Point lastPointUp = new Point(), lastPointDown = new Point();
                 // отрисовка дуги в верхней грани куба
-                for (int i = 0; i < fig2.lines.Count; i++)
-                    if (PointIsInsideTheCubeFace(this.center, fig2.lines[i].begin, this.side))
+                for (int i = 0; i < cylinder.lines.Count; i++)
+                {
+                    // проверка на меньший куб 
+                    if (this.HorizontalCubeFaceIsInsideTheCyl(cylinder.center, cylinder.side / 2))
                     {
-                        if (this.center.coord_y <= fig2.center.coord_y) // центр.Y цилиндра выше или равен центру.Y куба
+                        // куб стоит на цилиндре
+                        if (this.center.c_y == cylinder.center.c_y + cylinder.height) 
                         {
-                            if (this.height <= fig2.height) // высоты проверяются на случай совпадения центров, но большей высоты куба (чтобы не рисовалась верхняя грань)
+                            upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                        }
+                        // цилиндр стоит на кубе
+                        if (this.center.c_y + this.height == cylinder.center.c_y) 
+                        {
+                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                        }
+                        // куб входит в цилиндр сверху
+                        if (this.center.c_y > cylinder.center.c_y && this.center.c_y + this.height > cylinder.center.c_y + cylinder.height)
+                        {
+                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
+                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
+                        }
+                        // фигуры касаются верхними гранями
+                        if (this.center.c_y + this.height == cylinder.center.c_y + cylinder.height) 
+                        {
+                            // куб касается только верхней грани цилиндра изнутри
+                            if (this.center.c_y > cylinder.center.c_y) 
                             {
-                                lastPointUp = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y + M, fig2.lines[i].begin.coord_z);
-                                upperFace.Add(lastPointUp);
-                                if (this.center.coord_y == fig2.center.coord_y)
-                                {
-                                    lastPointDown = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y, fig2.lines[i].begin.coord_z);
-                                    lowerFace.Add(lastPointDown);
-                                }
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
                             }
-                            else if (this.height > fig2.height) // а это - чтобы рисовалосо колечко, когда цилиндр входит в куб, но его центр выше
+                            // куб касается нижней грани цилиндра изнутри
+                            if (this.center.c_y == cylinder.center.c_y) 
                             {
-                                if (fig2.center.coord_y + M <= fig2.center.coord_y + fig2.height)
+                                // куб касается верхней и нижней цилиндра
+                                if (this.height == cylinder.height) 
                                 {
-                                    lastPointUp = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y + M, fig2.lines[i].begin.coord_z);
-                                    upperFace.Add(lastPointUp);
-                                }
-                                if (this.center.coord_y >= fig2.center.coord_y)
-                                {
-                                    lastPointDown = new Point(fig2.lines[i].begin.coord_x, fig2.center.coord_y, fig2.lines[i].begin.coord_z);
-                                    lowerFace.Add(lastPointDown);
-                                }
+                                    upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
+                                    upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
+                                    upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
+                                    upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
+                                    lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                                    lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                                    lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                                    lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                                }                                
+                            }
+                            // куб проходит сквозь нижнюю и касается верхней грани цилиндра
+                            if (this.center.c_y < cylinder.center.c_y) 
+                            {
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                            }
+                        }
+                        // фигуры касаются нижними гранями
+                        if (this.center.c_y == cylinder.center.c_y) 
+                        {
+                            // куб касается только нижней грани изнутри
+                            if (this.center.c_y + this.height < cylinder.center.c_y + cylinder.height) 
+                            {
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                            }
+                            // куб стоит на основании цилиндра и выходит из него через верхнюю грань
+                            if (this.height > cylinder.height) 
+                            {
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
+                            }
+                        }                        
+                        // куб входит в цилиндр снизу
+                        if(this.center.c_y < cylinder.center.c_y)
+                        {
+                            // куб входит в цилиндр снизу
+                            if (this.center.c_y + this.height < cylinder.center.c_y + cylinder.height)
+                            {
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                            }
+                            // куб "протыкает" цилиндр
+                            if (this.center.c_y + this.height > cylinder.center.c_y + cylinder.height)
+                            {
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
+                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
+                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
+                            }                        
+                        }
+                    }
+                    else if (PointIsInsideTheHorizontalCubeFace(this.center, cylinder.lines[i].begin, this.side))
+                    {
+                        if (this.center.c_y <= cylinder.center.c_y) // центр.Y цилиндра выше или равен центру.Y куба
+                        {
+                            if (this.height <= cylinder.height) // высоты проверяются на случай совпадения центров, но большей высоты куба (чтобы не рисовалась верхняя грань)
+                            {
+                                upperFace.Add(new Point(cylinder.lines[i].begin.c_x, cylinder.center.c_y + M, cylinder.lines[i].begin.c_z));
+                                if (this.center.c_y == cylinder.center.c_y)
+                                    lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, cylinder.center.c_y, cylinder.lines[i].begin.c_z));
+                            }
+                            else if (this.height > cylinder.height) // а это - чтобы рисовалосо колечко, когда цилиндр входит в куб, но его центр выше
+                            {
+                                if (cylinder.center.c_y + M <= cylinder.center.c_y + cylinder.height)
+                                    upperFace.Add(new Point(cylinder.lines[i].begin.c_x, cylinder.center.c_y + M, cylinder.lines[i].begin.c_z));
+                                if (this.center.c_y >= cylinder.center.c_y)
+                                    lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, cylinder.center.c_y, cylinder.lines[i].begin.c_z));
                             }
                         }
                         else // центр.Y цилиндра ниже центра.Y куба
                         {
-                            if (fig2.center.coord_y + fig2.height >= this.center.coord_y + this.height) // верхние грани совпадают (цилиндр вставлен в куб снизу) или цилиндр протыкает куб
-                            {
-                                lastPointUp = new Point(fig2.lines[i].begin.coord_x, this.center.coord_y + this.height, fig2.lines[i].begin.coord_z);
-                                upperFace.Add(lastPointUp);
-                            }
-                                if (fig2.lines[i].end.coord_y >= this.center.coord_y)
-                                {
-                                    lastPointDown = new Point(fig2.lines[i].begin.coord_x, this.center.coord_y, fig2.lines[i].begin.coord_z);
-                                    lowerFace.Add(lastPointDown);
-                                }
+                            if (cylinder.center.c_y + cylinder.height >= this.center.c_y + this.height) // верхние грани совпадают (цилиндр вставлен в куб снизу) или цилиндр протыкает куб
+                                upperFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z));
+                            if (cylinder.lines[i].end.c_y >= this.center.c_y)
+                                lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y, cylinder.lines[i].begin.c_z));
                         }
+
+                        /*
+                        // проверка на касание цилиндром грани куба
+                        if (this.height < cylinder.height)
+                        {
+                            // координата z - this.side / 2
+                            if (this.center.c_y == cylinder.center.c_y)
+                            {
+
+                            }
+                            // координата z + this.side / 2
+                            // координата x + this.side / 2
+                            // координата x - this.side / 2
+                        }
+                        else if (this.height > cylinder.height)
+                        {
+                            if (this.center.c_y == cylinder.center.c_y)
+                            {
+
+                            }
+                        }
+                        else // this.height > cylinder.height
+                        {
+                            if (this.center.c_y == cylinder.center.c_y)
+                            {
+                                sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z));
+                                sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y, cylinder.lines[i].begin.c_z));
+                                sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z)); // вернуться в верхнюю грань
+                            }
+                        }*/
                     }
-                // upperFace.Add(lastPointUp);
-                // upperFace.Add(upperFace[0]);
+                }
 
-                // lowerFace.Add(lowerFace[0]);
-                // lowerFace.Add(lastPointDown);
-                // lowerFace.Add(upperFace[upperFace.Count - 2]);
                 lowerFace.Reverse();
-
+                upperFace.AddRange(sideFace);
                 upperFace.AddRange(lowerFace);
                 return upperFace;
             }

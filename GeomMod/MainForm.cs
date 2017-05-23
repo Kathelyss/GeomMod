@@ -70,8 +70,8 @@ namespace GeomMod
 
         private void SimpleOpenGlControl_MouseDown(object sender, MouseEventArgs e)
         {
-            mouseClick.coord_x = e.X;
-            mouseClick.coord_y = e.Y;
+            mouseClick.c_x = e.X;
+            mouseClick.c_y = e.Y;
             clicked = true;
         }
 
@@ -89,8 +89,8 @@ namespace GeomMod
         {            
             if(clicked) {
                 double[] sign = new double[2];
-                sign[0] = (e.X - mouseClick.coord_x);
-                sign[1] = -(e.Y - mouseClick.coord_y);
+                sign[0] = (e.X - mouseClick.c_x);
+                sign[1] = -(e.Y - mouseClick.c_y);
                 drawings.MoveRotate(this, sign);
             }            
         }      

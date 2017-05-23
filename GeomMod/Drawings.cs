@@ -61,7 +61,7 @@ namespace GeomMod
         {
             Gl.glBegin(Gl.GL_LINE_LOOP);
             for (int i = 0; i < points.Count; i++)
-                Gl.glVertex3d(points[i].coord_x, points[i].coord_y, points[i].coord_z);
+                Gl.glVertex3d(points[i].c_x, points[i].c_y, points[i].c_z);
             Gl.glEnd();
         }
 
@@ -71,71 +71,10 @@ namespace GeomMod
             Gl.glBegin(Gl.GL_LINES);
             for (int i = 0; i < lines.Count; i++)
             {
-                Gl.glVertex3d(lines[i].begin.coord_x, lines[i].begin.coord_y, lines[i].begin.coord_z);
-                Gl.glVertex3d(lines[i].end.coord_x, lines[i].end.coord_y, lines[i].end.coord_z);
+                Gl.glVertex3d(lines[i].begin.c_x, lines[i].begin.c_y, lines[i].begin.c_z);
+                Gl.glVertex3d(lines[i].end.c_x, lines[i].end.c_y, lines[i].end.c_z);
             }
             Gl.glEnd();
-        }
-
-        private void Draw(List<Polygon> polygons)
-        {
-            Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
-            /*
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
-            Gl.glEnd();
-            */
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glVertex3d(polygons[1].line1.begin.coord_x, polygons[1].line1.begin.coord_y, polygons[1].line1.begin.coord_z);
-            Gl.glVertex3d(polygons[1].line2.begin.coord_x, polygons[1].line2.begin.coord_y, polygons[1].line2.begin.coord_z);
-            Gl.glVertex3d(polygons[1].line3.begin.coord_x, polygons[1].line3.begin.coord_y, polygons[1].line3.begin.coord_z);
-            Gl.glVertex3d(polygons[1].line4.begin.coord_x, polygons[1].line4.begin.coord_y, polygons[1].line4.begin.coord_z);
-            Gl.glEnd();
-            /*
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glVertex3d(polygons[2].line1.begin.coord_x, polygons[2].line1.begin.coord_y, polygons[2].line1.begin.coord_z);
-            Gl.glVertex3d(polygons[2].line2.begin.coord_x, polygons[2].line2.begin.coord_y, polygons[2].line2.begin.coord_z);
-            Gl.glVertex3d(polygons[2].line3.begin.coord_x, polygons[2].line3.begin.coord_y, polygons[2].line3.begin.coord_z);
-            Gl.glVertex3d(polygons[2].line4.begin.coord_x, polygons[2].line4.begin.coord_y, polygons[2].line4.begin.coord_z);
-            Gl.glEnd();
-            /*
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
-            Gl.glEnd();
-
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
-            Gl.glEnd();
-
-            Gl.glBegin(Gl.GL_POLYGON);
-            Gl.glVertex3d(polygons[0].line1.begin.coord_x, polygons[0].line1.begin.coord_y, polygons[0].line1.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line2.begin.coord_x, polygons[0].line2.begin.coord_y, polygons[0].line2.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line3.begin.coord_x, polygons[0].line3.begin.coord_y, polygons[0].line3.begin.coord_z);
-            Gl.glVertex3d(polygons[0].line4.begin.coord_x, polygons[0].line4.begin.coord_y, polygons[0].line4.begin.coord_z);
-            Gl.glEnd();
-            */
-            /*
-                         res.Add(new Polygon(lines[0], lines[1], lines[2], lines[3]));
-            // правая
-            res.Add(new Polygon(lines[2], lines[8], lines[9], lines[10]));
-            // нижняя
-            res.Add(new Polygon(lines[9], lines[7], lines[5], lines[11]));
-            // левая
-            res.Add(new Polygon(lines[5], lines[6], lines[0], lines[4]));
-            // задняя
-            res.Add(new Polygon(lines[3], lines[10], lines[11], lines[4]));
-            // передняя
-            res.Add(new Polygon(lines[1], lines[8], lines[7], lines[6]));
-             */
         }
 
         private void Draw(Figure figure, ComboBox box)
@@ -175,8 +114,6 @@ namespace GeomMod
                 Draw(figure.lines);
             else if (figure.points != null && drawViaPoints)
                 Draw(figure.points);
-            else if (figure.polygons != null && drawViaPolygons)
-                Draw(figure.polygons);
         }
 
         public void DrawScene(MainForm form)
@@ -203,7 +140,7 @@ namespace GeomMod
             Draw(figure2, form.comboBoxFigure2);
 
 
-            intersection = figure1.IntersectionWith(figure2);
+            intersection = figure1.CreateIntersection(figure2);
             if (intersection != null)
             {
                 Gl.glColor3f(1.0f, 1.0f, 1.0f);
