@@ -53,16 +53,21 @@ namespace GeomMod
         }
     }
 
-    public class Polygon
+    public class Intersection
     {
-        public Line line1, line2, line3, line4;
-        public Polygon(Line l1, Line l2, Line l3, Line l4)
+        public Intersection()
         {
-            line1 = l1;
-            line2 = l2;
-            line3 = l3;
-            line4 = l4;
+
         }
+        public Intersection(List<Point> one, List<Point> two, List<Point> three)
+        {
+            upperFace = one;
+            lowerFace = two;
+            sideFace = three;
+        }
+        public List<Point> upperFace;
+        public List<Point> lowerFace;
+        public List<Point> sideFace;
     }
 
     public class Figure
@@ -71,7 +76,6 @@ namespace GeomMod
         public float side, height; // side for cyl = diameter
         public List<Point> points;
         public List<Line> lines = new List<Line>();
-        public List<Polygon> polygons;
 
         public Figure()
         {
@@ -288,18 +292,6 @@ namespace GeomMod
                     OneDimIntersect(this.center.c_z, fig2.center.c_z, this.side / 2, fig2.side / 2));
         }
 
-        bool PointBelongsToVerticalCubeFace(Point p, float x, float y, float z, int mainCoord)
-        {
-            if (mainCoord == 1 && p.c_x == x)
-                return true;
-            if (mainCoord == 2 && p.c_y == y)
-                return true;
-            if (mainCoord == 3 && p.c_z == z)
-                return true;
-
-            return false;
-        }
-
         // проверка (по x и z), лежит ли горизонтальная грань куба внутри горизонтальной грани цилиндра
         bool HorizontalCubeFaceIsInsideTheCyl(Point cylCenter, float r)
         {
@@ -318,10 +310,11 @@ namespace GeomMod
         }
 
         // обработка взаимодействия цилиндра с меньшим кубом
-        List<Point> CubeProcessing(Figure cylinder)
+        Intersection CubeProcessing(Figure cylinder)
         {
             List<Point> upperFace = new List<Point>();
             List<Point> lowerFace = new List<Point>();
+            Intersection res = new Intersection();
 
             int countOfFaces = 0;
             float height1 = 0.0f, height2 = 0.0f;
@@ -421,6 +414,7 @@ namespace GeomMod
                 upperFace.Add(new Point(this.center.c_x + this.side / 2, height1, this.center.c_z + this.side / 2));
                 //
                 upperFace.Add(new Point(this.center.c_x - this.side / 2, height1, this.center.c_z + this.side / 2));
+
                 lowerFace.Add(new Point(this.center.c_x - this.side / 2, height2, this.center.c_z + this.side / 2));
                 lowerFace.Add(new Point(this.center.c_x - this.side / 2, height2, this.center.c_z - this.side / 2));
                 lowerFace.Add(new Point(this.center.c_x + this.side / 2, height2, this.center.c_z - this.side / 2));
@@ -428,20 +422,33 @@ namespace GeomMod
                 //
                 lowerFace.Add(new Point(this.center.c_x - this.side / 2, height2, this.center.c_z + this.side / 2));
             }
+            res.upperFace = upperFace;
+            res.lowerFace = lowerFace;
+            //upperFace.AddRange(lowerFace);
 
-            upperFace.AddRange(lowerFace);
-
-            return upperFace;
+            return res;
         }
 
+        bool PointBelongsToCubeVerticalFace(Point p)
+        {
+            
+            if ((p.c_x == this.center.c_x + this.side / 2 && p.c_z <= this.center.c_z + this.side / 2 && p.c_z >= this.center.c_z - this.side / 2) ||
+                (p.c_x == this.center.c_x - this.side / 2 && p.c_z <= this.center.c_z + this.side / 2 && p.c_z >= this.center.c_z - this.side / 2) ||
+                (p.c_x <= this.center.c_x + this.side / 2 && p.c_x >= this.center.c_x - this.side / 2 && p.c_z == this.center.c_z + this.side / 2) ||
+                (p.c_x <= this.center.c_x + this.side / 2 && p.c_x >= this.center.c_x - this.side / 2 && p.c_z == this.center.c_z - this.side / 2))
+                return true;
+            return false;
+        }
 
-        public List<Point> CreateIntersection(Figure cylinder)
+        public Intersection CreateIntersection(Figure cylinder)
         {
             if (IntersectionIsPossible(cylinder))
             {
                 List<Point> upperFace = new List<Point>();
                 List<Point> lowerFace = new List<Point>();
                 List<Point> sideFace = new List<Point>();
+
+                Intersection res = new Intersection();
 
                 float M = this.center.c_y + this.height - cylinder.center.c_y; // расстояние от центра цилиндра до пересечения с гранью куба (при усл.: центр.Y цилиндра выше или равен центру.Y куба)
 
@@ -450,7 +457,13 @@ namespace GeomMod
                 {
                     // обработка взаимодействия цилиндра с меньшим кубом
                     if (this.HorizontalCubeFaceIsInsideTheCyl(cylinder.center, cylinder.side / 2))
-                        upperFace.AddRange(this.CubeProcessing(cylinder));
+                    {
+                        res = this.CubeProcessing(cylinder);
+                        upperFace = res.upperFace;
+                        lowerFace = res.lowerFace;
+                        sideFace = res.sideFace;
+                    }
+                    //upperFace.AddRange(this.CubeProcessing(cylinder));
                     // обработка взаимодействия цилиндра с большим кубом (создание дуг в горизонтальных гранях)
                     if (CurrentPointIsInsideTheHorizontalCubeFace(this.center, cylinder.lines[i].begin, this.side))
                     {
@@ -479,53 +492,108 @@ namespace GeomMod
                         }
 
                     }
+                }
 
+                for (int i = 0; i < cylinder.lines.Count; i++)
+                {
                     // проверка на касание цилиндром грани куба
-                    if (this.height < cylinder.height)
+                    if(PointBelongsToCubeVerticalFace(cylinder.lines[i].begin))
                     {
-                        // координата z - this.side / 2
+                        float h1 = 0.0f, h2 = 0.0f;
+                        // фигуры совпадают в основании
                         if (this.center.c_y == cylinder.center.c_y)
                         {
+                            if (this.height <= cylinder.height)
+                            {
+                                h1 = this.center.c_y + this.height;
+                                h2 = this.center.c_y;
+                            }
+                            if (this.height > cylinder.height)
+                            {
+                                h1 = cylinder.center.c_y + cylinder.height;
+                                h2 = this.center.c_y;
+                            }
+                        }
+                        // фигуры совпадают в верхней грани
+                        if (this.center.c_y + this.height == cylinder.center.c_y + cylinder.height)
+                        {
+                            if (this.height < cylinder.height)
+                            {
+                                h1 = this.center.c_y + this.height;
+                                h2 = this.center.c_y;
+                            }
+                            if (this.height > cylinder.height)
+                            {
+                                h1 = this.center.c_y + this.height;
+                                h2 = cylinder.center.c_y;
+                            }
+                        }
+                        // меньшая фигура касается только боковой грани (большая фигура протыкает меньшую насквозь)
+                        if (this.center.c_y > cylinder.center.c_y && this.center.c_y + this.height < cylinder.center.c_y + cylinder.height)
+                        {
+                            h1 = this.center.c_y + this.height;
+                            h2 = this.center.c_y;
+                        }
+                        else if (this.center.c_y < cylinder.center.c_y && this.center.c_y + this.height > cylinder.center.c_y + cylinder.height)
+                        {
+                            h1 = cylinder.center.c_y + cylinder.height;
+                            h2 = cylinder.center.c_y;
+                        }
+                        // часть фигуры касается части другой фигуры
+                        if (this.center.c_y < cylinder.center.c_y + cylinder.height && this.center.c_y > cylinder.center.c_y && this.center.c_y + this.height > cylinder.center.c_y + cylinder.height) // сит. 8
+                        {
+                            h1 = cylinder.center.c_y + cylinder.height;
+                            h2 = this.center.c_y;
+                        }
+                        if (cylinder.center.c_y < this.center.c_y + this.height && this.center.c_y < cylinder.center.c_y && this.center.c_y + this.height < cylinder.center.c_y + cylinder.height) // сит. 10
+                        {
+                            h1 = this.center.c_y + this.height;
+                            h2 = cylinder.center.c_y;
+                        }
 
-                        }
-                        // координата z + this.side / 2
-                        // координата x + this.side / 2
-                        // координата x - this.side / 2
-                    }
-                    else if (this.height > cylinder.height)
-                    {
-                        if (this.center.c_y == cylinder.center.c_y)
+                        if (cylinder.center.c_y < this.center.c_y + this.height && this.center.c_y < cylinder.center.c_y && this.center.c_y + this.height < cylinder.center.c_y + cylinder.height) // сит. 9
                         {
+                            h1 = this.center.c_y + this.height;
+                            h2 = cylinder.center.c_y;
+                        }
+                        if (this.center.c_y < cylinder.center.c_y + cylinder.height && this.center.c_y > cylinder.center.c_y && this.center.c_y + this.height > cylinder.center.c_y + cylinder.height) // сит. 11
+                        {
+                            h1 = cylinder.center.c_y + cylinder.height;
+                            h2 = this.center.c_y;
+                        }
+/*
+                        if(upperFace.Count != 0)
+                        {
+                            upperFace.Add(new Point(cylinder.lines[i].begin.c_x, h1, cylinder.lines[i].begin.c_z));
+                            upperFace.Add(new Point(cylinder.lines[i].begin.c_x, h2, cylinder.lines[i].begin.c_z));
+                            //вернуться в верхнюю грань
+                            //upperFace.Add(new Point(cylinder.lines[i].begin.c_x, h1, cylinder.lines[i].begin.c_z));
+                        }
+                        else if(lowerFace.Count != 0)
+                        {
+                            lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, h2, cylinder.lines[i].begin.c_z));
+                            lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, h1, cylinder.lines[i].begin.c_z));
+                            //вернуться в верхнюю грань
+                           // lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, h2, cylinder.lines[i].begin.c_z));
+                        }
+                        else
+                        {*/
+                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, h1, cylinder.lines[i].begin.c_z));
+                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, h2, cylinder.lines[i].begin.c_z));
+                            //вернуться в верхнюю грань
+                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, h1, cylinder.lines[i].begin.c_z));
+                        //}
 
-                        }
-                    }
-                    else // this.height > cylinder.height
-                    {
-                        if (this.center.c_y == cylinder.center.c_y)
-                        {
-                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z));
-                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y, cylinder.lines[i].begin.c_z));
-                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z)); // вернуться в верхнюю грань
-                        }
                     }
                 }
 
-                lowerFace.Reverse();
-              //  upperFace.AddRange(sideFace);
-                upperFace.AddRange(lowerFace);
-                return upperFace;
+                res.upperFace = upperFace;
+                res.lowerFace = lowerFace;
+                res.sideFace = sideFace;
+
+                return res;
             }
             return null;
-        }
-
-        public string ListToString(List<Point> list)
-        {
-            string res = "";
-            for (int i = 0; i < list.Count; i++)
-            {
-                res += list[i].ToString();
-            }
-            return res;
         }
 
         // установка параметров фигуры из полей формы

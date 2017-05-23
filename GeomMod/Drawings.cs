@@ -13,7 +13,9 @@ namespace GeomMod
     {
         Figure figure1 = new Figure();
         Figure figure2 = new Figure();
-        List<Point> intersection = new List<Point>();
+        List<Point> intersectionUp = new List<Point>();
+        List<Point> intersectionDown = new List<Point>();
+        List<Point> intersectionSide = new List<Point>();
 
         bool drawViaPoints = true;
         bool drawViaLines = false;
@@ -133,14 +135,30 @@ namespace GeomMod
             Gl.glColor3f(0.0f, 0.5f, 0.9f);     // цвет фигуры - голубой
             Draw(figure2, form.comboBoxFigure2);
 
-
-            intersection = figure1.CreateIntersection(figure2);
-            if (intersection != null)
+            if (figure1.IntersectionIsPossible(figure2))
             {
+                Intersection res = new Intersection();
+                res = figure1.CreateIntersection(figure2);
                 Gl.glColor3f(1.0f, 1.0f, 1.0f);
                 Gl.glLineWidth(3f);
                 Gl.glEnable(Gl.GL_LINE_STIPPLE);
-                Draw(intersection);
+                if (res.upperFace != null && res.upperFace.Count > 0)
+                {
+                    intersectionUp = res.upperFace;
+                    intersectionUp.Add(intersectionUp[0]);
+                    Draw(intersectionUp);
+                }
+                if (res.lowerFace != null && res.lowerFace.Count > 0)
+                {
+                    intersectionDown = res.lowerFace;
+                    intersectionDown.Add(intersectionDown[0]);
+                    Draw(intersectionDown);
+                }
+                if (res.sideFace != null && res.sideFace.Count > 0)
+                {
+                    intersectionSide = res.sideFace;
+                    Draw(intersectionSide);
+                }
                 Gl.glLineWidth(0.5f);
                 Gl.glDisable(Gl.GL_LINE_STIPPLE);
             }
