@@ -173,26 +173,6 @@ namespace GeomMod
             return res;
         }
 
-        // создание куба (набором полигонов)
-        public List<Polygon> CubeViaPolygons(List<Line> lines)
-        {
-            List<Polygon> res = new List<Polygon>();
-            //6 граней
-            // верхняя
-            res.Add(new Polygon(lines[0], lines[1], lines[2], lines[3]));
-            // правая
-            res.Add(new Polygon(lines[2], lines[8], lines[9], lines[10]));
-            // нижняя
-            res.Add(new Polygon(lines[9], lines[7], lines[5], lines[11]));
-            // левая
-            res.Add(new Polygon(lines[5], lines[6], lines[0], lines[4]));
-            // задняя
-            res.Add(new Polygon(lines[3], lines[10], lines[11], lines[4]));
-            // передняя
-            res.Add(new Polygon(lines[1], lines[8], lines[7], lines[6]));
-            return res;
-        }
-
         //------------------------------------------------------------------------
 
         // создание круга (набором точек)
@@ -283,8 +263,11 @@ namespace GeomMod
             return res;
         }
 
-        // проверка: находится ли текущая точка дуги внутри грани куба
-        bool PointIsInsideTheHorizontalCubeFace(Point cubeCenter, Point currentPoint, float cubeSide)
+
+        //---------------------------------------------------------------------------------------------
+
+        // проверка (по x и z), находится ли текущая точка дуги внутри горизонтальной грани куба
+        bool CurrentPointIsInsideTheHorizontalCubeFace(Point cubeCenter, Point currentPoint, float cubeSide)
         {
             return ((currentPoint.c_x <= cubeCenter.c_x + cubeSide / 2) &&
                     (currentPoint.c_x >= center.c_x - cubeSide / 2) &&
@@ -292,6 +275,7 @@ namespace GeomMod
                     (currentPoint.c_z >= cubeCenter.c_z - cubeSide / 2));
         }
 
+        // проверка возможности пересечения фигур
         public bool IntersectionIsPossible(Figure fig2)
         {
             //возможность пересечения фигур по оси
@@ -316,6 +300,7 @@ namespace GeomMod
             return false;
         }
 
+        // проверка (по x и z), лежит ли горизонтальная грань куба внутри горизонтальной грани цилиндра
         bool HorizontalCubeFaceIsInsideTheCyl(Point cylCenter, float r)
         {
             if (this.side < r * 2)
@@ -324,6 +309,7 @@ namespace GeomMod
                 Point leftUp = new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2);
                 Point rightUp = new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2);
                 Point rightDown = new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2);
+
                 if (leftDown.c_x >= cylCenter.c_x - r && leftDown.c_z <= cylCenter.c_z + r && leftUp.c_z >= cylCenter.c_z - r &&
                     rightDown.c_x <= cylCenter.c_x + r && rightDown.c_z <= cylCenter.c_z + r && rightUp.c_z >= cylCenter.c_z - r)
                     return true;
@@ -374,7 +360,7 @@ namespace GeomMod
                     countOfFaces = 1;
                     height1 = this.center.c_y + this.height;
                 }
-                
+
                 // куб проходит сквозь нижнюю грань и касается верхней грани цилиндра
                 if (this.center.c_y < cylinder.center.c_y)
                 {
@@ -443,7 +429,6 @@ namespace GeomMod
                 lowerFace.Add(new Point(this.center.c_x - this.side / 2, height2, this.center.c_z + this.side / 2));
             }
 
-           // lowerFace.Reverse();
             upperFace.AddRange(lowerFace);
 
             return upperFace;
@@ -465,8 +450,9 @@ namespace GeomMod
                 {
                     // обработка взаимодействия цилиндра с меньшим кубом
                     if (this.HorizontalCubeFaceIsInsideTheCyl(cylinder.center, cylinder.side / 2))
-                        upperFace = this.CubeProcessing(cylinder);
-                    else if (PointIsInsideTheHorizontalCubeFace(this.center, cylinder.lines[i].begin, this.side))
+                        upperFace.AddRange(this.CubeProcessing(cylinder));
+                    // обработка взаимодействия цилиндра с большим кубом (создание дуг в горизонтальных гранях)
+                    if (CurrentPointIsInsideTheHorizontalCubeFace(this.center, cylinder.lines[i].begin, this.side))
                     {
                         if (this.center.c_y <= cylinder.center.c_y) // центр.Y цилиндра выше или равен центру.Y куба
                         {
@@ -476,7 +462,7 @@ namespace GeomMod
                                 if (this.center.c_y == cylinder.center.c_y)
                                     lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, cylinder.center.c_y, cylinder.lines[i].begin.c_z));
                             }
-                            else if (this.height > cylinder.height) // а это - чтобы рисовалосо колечко, когда цилиндр входит в куб, но его центр выше
+                            else if (this.height > cylinder.height) // а это - чтобы рисовалось колечко, когда цилиндр входит в куб, но его центр выше
                             {
                                 if (cylinder.center.c_y + M <= cylinder.center.c_y + cylinder.height)
                                     upperFace.Add(new Point(cylinder.lines[i].begin.c_x, cylinder.center.c_y + M, cylinder.lines[i].begin.c_z));
@@ -492,40 +478,40 @@ namespace GeomMod
                                 lowerFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y, cylinder.lines[i].begin.c_z));
                         }
 
-                        /*
-                        // проверка на касание цилиндром грани куба
-                        if (this.height < cylinder.height)
-                        {
-                            // координата z - this.side / 2
-                            if (this.center.c_y == cylinder.center.c_y)
-                            {
+                    }
 
-                            }
-                            // координата z + this.side / 2
-                            // координата x + this.side / 2
-                            // координата x - this.side / 2
-                        }
-                        else if (this.height > cylinder.height)
+                    // проверка на касание цилиндром грани куба
+                    if (this.height < cylinder.height)
+                    {
+                        // координата z - this.side / 2
+                        if (this.center.c_y == cylinder.center.c_y)
                         {
-                            if (this.center.c_y == cylinder.center.c_y)
-                            {
 
-                            }
                         }
-                        else // this.height > cylinder.height
+                        // координата z + this.side / 2
+                        // координата x + this.side / 2
+                        // координата x - this.side / 2
+                    }
+                    else if (this.height > cylinder.height)
+                    {
+                        if (this.center.c_y == cylinder.center.c_y)
                         {
-                            if (this.center.c_y == cylinder.center.c_y)
-                            {
-                                sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z));
-                                sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y, cylinder.lines[i].begin.c_z));
-                                sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z)); // вернуться в верхнюю грань
-                            }
-                        }*/
+
+                        }
+                    }
+                    else // this.height > cylinder.height
+                    {
+                        if (this.center.c_y == cylinder.center.c_y)
+                        {
+                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z));
+                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y, cylinder.lines[i].begin.c_z));
+                            sideFace.Add(new Point(cylinder.lines[i].begin.c_x, this.center.c_y + this.height, cylinder.lines[i].begin.c_z)); // вернуться в верхнюю грань
+                        }
                     }
                 }
 
                 lowerFace.Reverse();
-                upperFace.AddRange(sideFace);
+              //  upperFace.AddRange(sideFace);
                 upperFace.AddRange(lowerFace);
                 return upperFace;
             }

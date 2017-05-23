@@ -17,7 +17,6 @@ namespace GeomMod
 
         bool drawViaPoints = true;
         bool drawViaLines = false;
-        bool drawViaPolygons = false;
 
         private void DrawAxis()
         {
@@ -87,11 +86,6 @@ namespace GeomMod
                             figure.lines = figure.CubeViaLines(figure.center, figure.side);
                         else if (drawViaPoints)
                             figure.points = figure.CubeViaPoints(figure.center, figure.side);
-                        else if (drawViaPolygons)
-                        {
-                            figure.lines = figure.CubeViaLines(figure.center, figure.side);
-                            figure.polygons = figure.CubeViaPolygons(figure.lines);
-                        }
                         break;
                     }
                 case 1: // цилиндр
