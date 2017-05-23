@@ -284,7 +284,7 @@ namespace GeomMod
         }
 
         // проверка: находится ли текущая точка дуги внутри грани куба
-        private bool PointIsInsideTheHorizontalCubeFace(Point cubeCenter, Point currentPoint, float cubeSide)
+        bool PointIsInsideTheHorizontalCubeFace(Point cubeCenter, Point currentPoint, float cubeSide)
         {
             return ((currentPoint.c_x <= cubeCenter.c_x + cubeSide / 2) &&
                     (currentPoint.c_x >= center.c_x - cubeSide / 2) &&
@@ -304,7 +304,7 @@ namespace GeomMod
                     OneDimIntersect(this.center.c_z, fig2.center.c_z, this.side / 2, fig2.side / 2));
         }
 
-        private bool PointBelongsToVerticalCubeFace(Point p, float x, float y, float z, int mainCoord)
+        bool PointBelongsToVerticalCubeFace(Point p, float x, float y, float z, int mainCoord)
         {
             if (mainCoord == 1 && p.c_x == x)
                 return true;
@@ -315,7 +315,8 @@ namespace GeomMod
 
             return false;
         }
-        private bool HorizontalCubeFaceIsInsideTheCyl(Point cylCenter, float r)
+
+        bool HorizontalCubeFaceIsInsideTheCyl(Point cylCenter, float r)
         {
             if (this.side < r * 2)
             {
@@ -330,6 +331,125 @@ namespace GeomMod
             return false;
         }
 
+        // обработка взаимодействия цилиндра с меньшим кубом
+        List<Point> CubeProcessing(Figure cylinder)
+        {
+            List<Point> upperFace = new List<Point>();
+            List<Point> lowerFace = new List<Point>();
+
+            int countOfFaces = 0;
+            float height1 = 0.0f, height2 = 0.0f;
+
+            // куб стоит на цилиндре
+            if (this.center.c_y == cylinder.center.c_y + cylinder.height)
+            {
+                countOfFaces = 1;
+                height1 = this.center.c_y;
+            }
+            // цилиндр стоит на кубе
+            if (this.center.c_y + this.height == cylinder.center.c_y)
+            {
+                countOfFaces = 1;
+                height1 = cylinder.center.c_y;
+            }
+            // куб входит в цилиндр сверху
+            if (this.center.c_y > cylinder.center.c_y && this.center.c_y + this.height > cylinder.center.c_y + cylinder.height)
+            {
+                countOfFaces = 1;
+                height1 = cylinder.center.c_y + cylinder.height;
+            }
+            // фигуры касаются верхними гранями
+            if (this.center.c_y + this.height == cylinder.center.c_y + cylinder.height)
+            {
+                // куб касается верхней и нижней граней цилиндра
+                if (this.center.c_y == cylinder.center.c_y)
+                {
+                    countOfFaces = 2;
+                    height1 = this.center.c_y + this.height;
+                    height2 = this.center.c_y;
+                }
+                // куб касается только верхней грани цилиндра изнутри
+                if (this.center.c_y > cylinder.center.c_y)
+                {
+                    countOfFaces = 1;
+                    height1 = this.center.c_y + this.height;
+                }
+                
+                // куб проходит сквозь нижнюю грань и касается верхней грани цилиндра
+                if (this.center.c_y < cylinder.center.c_y)
+                {
+                    countOfFaces = 2;
+                    height1 = this.center.c_y + this.height;
+                    height2 = cylinder.center.c_y;
+                }
+            }
+            // фигуры касаются нижними гранями
+            if (this.center.c_y == cylinder.center.c_y)
+            {
+                // куб касается только нижней грани изнутри
+                if (this.center.c_y + this.height < cylinder.center.c_y + cylinder.height)
+                {
+                    countOfFaces = 1;
+                    height1 = this.center.c_y;
+                }
+                // куб стоит на основании цилиндра и выходит из него через верхнюю грань
+                if (this.height > cylinder.height)
+                {
+                    countOfFaces = 2;
+                    height1 = cylinder.center.c_y + cylinder.height;
+                    height2 = this.center.c_y;
+                }
+            }
+            // куб входит в цилиндр снизу
+            if (this.center.c_y < cylinder.center.c_y)
+            {
+                // куб входит в цилиндр снизу
+                if (this.center.c_y + this.height < cylinder.center.c_y + cylinder.height)
+                {
+                    countOfFaces = 1;
+                    height1 = cylinder.center.c_y;
+                }
+                // куб "протыкает" цилиндр
+                if (this.center.c_y + this.height > cylinder.center.c_y + cylinder.height)
+                {
+                    countOfFaces = 2;
+                    height1 = cylinder.center.c_y + cylinder.height;
+                    height2 = cylinder.center.c_y;
+                }
+            }
+
+            // установка высот для точек
+            if (countOfFaces == 1)
+            {
+                upperFace.Add(new Point(this.center.c_x - this.side / 2, height1, this.center.c_z + this.side / 2));
+                upperFace.Add(new Point(this.center.c_x - this.side / 2, height1, this.center.c_z - this.side / 2));
+                upperFace.Add(new Point(this.center.c_x + this.side / 2, height1, this.center.c_z - this.side / 2));
+                upperFace.Add(new Point(this.center.c_x + this.side / 2, height1, this.center.c_z + this.side / 2));
+                upperFace.Add(new Point(this.center.c_x - this.side / 2, height1, this.center.c_z + this.side / 2));
+            }
+            else if (countOfFaces == 2)
+            {
+                upperFace.Add(new Point(this.center.c_x - this.side / 2, height1, this.center.c_z + this.side / 2));
+                upperFace.Add(new Point(this.center.c_x - this.side / 2, height1, this.center.c_z - this.side / 2));
+                upperFace.Add(new Point(this.center.c_x + this.side / 2, height1, this.center.c_z - this.side / 2));
+                upperFace.Add(new Point(this.center.c_x + this.side / 2, height1, this.center.c_z + this.side / 2));
+                //
+                upperFace.Add(new Point(this.center.c_x - this.side / 2, height1, this.center.c_z + this.side / 2));
+                lowerFace.Add(new Point(this.center.c_x - this.side / 2, height2, this.center.c_z + this.side / 2));
+                lowerFace.Add(new Point(this.center.c_x - this.side / 2, height2, this.center.c_z - this.side / 2));
+                lowerFace.Add(new Point(this.center.c_x + this.side / 2, height2, this.center.c_z - this.side / 2));
+                lowerFace.Add(new Point(this.center.c_x + this.side / 2, height2, this.center.c_z + this.side / 2));
+                //
+                lowerFace.Add(new Point(this.center.c_x - this.side / 2, height2, this.center.c_z + this.side / 2));
+            }
+
+           // lowerFace.Reverse();
+            upperFace.AddRange(lowerFace);
+
+            return upperFace;
+        }
+
+
         public List<Point> CreateIntersection(Figure cylinder)
         {
             if (IntersectionIsPossible(cylinder))
@@ -343,122 +463,9 @@ namespace GeomMod
                 // отрисовка дуги в верхней грани куба
                 for (int i = 0; i < cylinder.lines.Count; i++)
                 {
-                    // проверка на меньший куб 
+                    // обработка взаимодействия цилиндра с меньшим кубом
                     if (this.HorizontalCubeFaceIsInsideTheCyl(cylinder.center, cylinder.side / 2))
-                    {
-                        // куб стоит на цилиндре
-                        if (this.center.c_y == cylinder.center.c_y + cylinder.height) 
-                        {
-                            upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                        }
-                        // цилиндр стоит на кубе
-                        if (this.center.c_y + this.height == cylinder.center.c_y) 
-                        {
-                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                        }
-                        // куб входит в цилиндр сверху
-                        if (this.center.c_y > cylinder.center.c_y && this.center.c_y + this.height > cylinder.center.c_y + cylinder.height)
-                        {
-                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
-                            upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
-                        }
-                        // фигуры касаются верхними гранями
-                        if (this.center.c_y + this.height == cylinder.center.c_y + cylinder.height) 
-                        {
-                            // куб касается только верхней грани цилиндра изнутри
-                            if (this.center.c_y > cylinder.center.c_y) 
-                            {
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
-                            }
-                            // куб касается нижней грани цилиндра изнутри
-                            if (this.center.c_y == cylinder.center.c_y) 
-                            {
-                                // куб касается верхней и нижней цилиндра
-                                if (this.height == cylinder.height) 
-                                {
-                                    upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
-                                    upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
-                                    upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
-                                    upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
-                                    lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                                    lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                                    lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                                    lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                                }                                
-                            }
-                            // куб проходит сквозь нижнюю и касается верхней грани цилиндра
-                            if (this.center.c_y < cylinder.center.c_y) 
-                            {
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y + this.height, this.center.c_z + this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                            }
-                        }
-                        // фигуры касаются нижними гранями
-                        if (this.center.c_y == cylinder.center.c_y) 
-                        {
-                            // куб касается только нижней грани изнутри
-                            if (this.center.c_y + this.height < cylinder.center.c_y + cylinder.height) 
-                            {
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                            }
-                            // куб стоит на основании цилиндра и выходит из него через верхнюю грань
-                            if (this.height > cylinder.height) 
-                            {
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z - this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, this.center.c_y, this.center.c_z + this.side / 2));
-                            }
-                        }                        
-                        // куб входит в цилиндр снизу
-                        if(this.center.c_y < cylinder.center.c_y)
-                        {
-                            // куб входит в цилиндр снизу
-                            if (this.center.c_y + this.height < cylinder.center.c_y + cylinder.height)
-                            {
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                            }
-                            // куб "протыкает" цилиндр
-                            if (this.center.c_y + this.height > cylinder.center.c_y + cylinder.height)
-                            {
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z - this.side / 2));
-                                upperFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y + cylinder.height, this.center.c_z + this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x - this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z - this.side / 2));
-                                lowerFace.Add(new Point(this.center.c_x + this.side / 2, cylinder.center.c_y, this.center.c_z + this.side / 2));
-                            }                        
-                        }
-                    }
+                        upperFace = this.CubeProcessing(cylinder);
                     else if (PointIsInsideTheHorizontalCubeFace(this.center, cylinder.lines[i].begin, this.side))
                     {
                         if (this.center.c_y <= cylinder.center.c_y) // центр.Y цилиндра выше или равен центру.Y куба
